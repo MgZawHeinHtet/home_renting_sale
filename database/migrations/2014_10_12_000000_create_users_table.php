@@ -15,9 +15,19 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('company_logo')->nullable();
+            $table->string('address')->nullable();
             $table->string('password');
+            $table->longText('description')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('role')->nullable();
+            $table->string('company_type')->nullable();
+            $table->string('facebook_link')->nullable();
+            $table->string('location_map')->nullable();
+            $table->boolean('isVerified')->default(0);
             $table->rememberToken();
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
     }

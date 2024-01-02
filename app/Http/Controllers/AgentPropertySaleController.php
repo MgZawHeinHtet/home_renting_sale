@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
+use App\Http\Requests\PropertySaleFormRequest;
+use App\Models\PropertySale;
 use Illuminate\Http\Request;
 
-class NewsController extends Controller
+    class AgentPropertySaleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('news.index',[
-            'newses'=>News::latest()->paginate(10)
-        ]);
+        return view('agent_dashboard.post-ad-sale');
     }
 
     /**
@@ -28,9 +27,12 @@ class NewsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PropertySaleFormRequest $request)
     {
-        //
+        $cleanData = $request->validated();
+        $cleanData['agent_id'] = auth()->user()->id;
+        PropertySale::create($cleanData);
+        return back()->with('success','create successfully');
     }
 
     /**
@@ -38,11 +40,7 @@ class NewsController extends Controller
      */
     public function show(string $id)
     {
-        $news = News::find($id);
-        return view('news.show',[
-            'detail_news'=> $news,
-            'random_news'=> News::inRandomOrder()->limit(6)->get()
-        ]);
+        //
     }
 
     /**

@@ -21,7 +21,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'company_name',
+        'company_logo',
+        'phone',
+        'address'
     ];
+
+    protected $guarded = [
+        'id'
+    ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,4 +52,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function saleProperties(){
+        return $this->hasMany(PropertySale::class,'agent_id');
+    }
 }

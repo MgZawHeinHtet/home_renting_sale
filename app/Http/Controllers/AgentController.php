@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class NewsController extends Controller
+class AgentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('news.index',[
-            'newses'=>News::latest()->paginate(10)
+        return view('agents.index',[
+            'agents'=>User::where('role','agent')->paginate(5)
         ]);
     }
 
@@ -38,10 +38,9 @@ class NewsController extends Controller
      */
     public function show(string $id)
     {
-        $news = News::find($id);
-        return view('news.show',[
-            'detail_news'=> $news,
-            'random_news'=> News::inRandomOrder()->limit(6)->get()
+        $agent = User::find($id);
+        return view('agents.show',[
+            'agent'=>$agent
         ]);
     }
 
@@ -68,4 +67,6 @@ class NewsController extends Controller
     {
         //
     }
+
+  
 }

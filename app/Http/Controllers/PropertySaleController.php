@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
+use App\Models\PropertySale;
 use Illuminate\Http\Request;
 
-class NewsController extends Controller
+class PropertySaleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('news.index',[
-            'newses'=>News::latest()->paginate(10)
-        ]);
+        //
     }
 
     /**
@@ -36,19 +34,15 @@ class NewsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(PropertySale $propertySale)
     {
-        $news = News::find($id);
-        return view('news.show',[
-            'detail_news'=> $news,
-            'random_news'=> News::inRandomOrder()->limit(6)->get()
-        ]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(PropertySale $propertySale)
     {
         //
     }
@@ -56,7 +50,7 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, PropertySale $propertySale)
     {
         //
     }
@@ -64,7 +58,7 @@ class NewsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(PropertySale $propertySale)
     {
         //
     }

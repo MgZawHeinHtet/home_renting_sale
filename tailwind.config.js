@@ -6,10 +6,6 @@ export default {
         "./resources/**/*.vue",
     ],
     theme: {
-        screens: {
-            'sm': '440px',
-            'lg' : "1024px"
-        },
         extend: {
             colors:{
                 'home': {
