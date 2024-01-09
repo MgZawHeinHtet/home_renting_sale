@@ -71,9 +71,9 @@
             <div class="flex-1 space-y-2">
                 <select class="w-full border-l-4 border-l-yellow-600  p-2" name="floor" id="">
                     <option value="" selected>pls select floor</option>
-                    <option value="1 floor" {{ old('floor', $property?->floor) ? 'selected' : '' }}>1 floor</option>
+                    <option value="1" {{ old('floor', $property?->floor) ? 'selected' : '' }}>1 floor</option>
                     @for ($i = 2; $i <= 20; $i++)
-                        <option class="capitalize" value="{{ $i }} floors"
+                        <option class="capitalize" value="{{ $i }}"
                             {{ old('floor', $property?->floor) === $i . ' floors' ? 'selected' : '' }}>
                             {{ $i }} floors</option>
                     @endfor
@@ -228,7 +228,7 @@
                     <option value="1"
                         {{ old('bedroom', $property?->bedroom) === $i . ' rooms' ? 'selected' : '' }}>1 room</option>
                     @for ($i = 2; $i <= 20; $i++)
-                        <option value="{{ $i }} rooms"
+                        <option value="{{ $i }}"
                             {{ old('bedroom', $property?->bedroom) === $i . ' rooms' ? 'selected' : '' }}>
                             {{ $i }} rooms</option>
                     @endfor
@@ -244,10 +244,10 @@
                 <select class="p-2 w-full border-l-4 border-l-yellow-600 outline-none" name="bathroom"
                     id="">
                     <option value="">not included</option>
-                    <option value="1 room"
+                    <option value="1"
                         {{ old('bathroom', $property?->bathroom) === $i . ' rooms' ? 'selected' : '' }}>1 room</option>
                     @for ($i = 2; $i <= 20; $i++)
-                        <option value="{{ $i }} rooms"
+                        <option value="{{ $i }}"
                             {{ old('bathroom', $property?->bathroom) === $i . ' rooms' ? 'selected' : '' }}>
                             {{ $i }} rooms</option>
                     @endfor

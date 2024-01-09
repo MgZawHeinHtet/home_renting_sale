@@ -53,7 +53,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function saleProperties(){
+    public function propertySale(){
         return $this->hasMany(PropertySale::class,'agent_id');
     }
 }

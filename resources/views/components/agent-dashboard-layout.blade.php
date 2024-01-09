@@ -12,7 +12,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="font-serif">
+<body class="font-serif bg-home-600">
 
 
     <button data-drawer-target="sidebar-multi-level-sidebar" data-drawer-toggle="sidebar-multi-level-sidebar"

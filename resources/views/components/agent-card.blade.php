@@ -5,7 +5,7 @@
         </div>
         <div class="space-y-3 ">
             <h4 class="text-xl tracking-wide font-normal">{{ $agent->company_name }}</h4>
-            <p class="opacity-90"><i class="fa-solid fa-fax text-yellow-600"></i> Agency | Total Ads : 0</p>
+            <p class="opacity-90"><i class="fa-solid fa-fax text-yellow-600"></i> Agency | Total Ads : {{ $agent->propertySale->count() }}</p>
             <address class="opacity-90">{{ $agent->address }}</address>
         </div>
     

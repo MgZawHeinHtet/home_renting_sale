@@ -1,41 +1,45 @@
 <div class="flex gap-5 items-center hover:shadow-lg transition-all duration-500">
-    <div class="relative">
-        <img class="w-[400px] h-[180px] object-cover rounded"
-            src="https://media.istockphoto.com/id/1289883686/photo/spacious-apartment-with-window-wall.webp?b=1&s=170667a&w=0&k=20&c=jjGtivMy9dz60nrCuNhQVcS60ZMW9KMkVAg7GWzScPQ="
+    <div class="relative w-[280px]">
+        <img class="w-full h-[200px] object-cover rounded"
+            src="{{ $property->images->count() ? $property->images[0]->image : asset('assets/insteadImg.jpg') }}"
             alt="">
         <img class="absolute inline-block w-16 h-16 bottom-0 right-0"
-            src="https://images-platform.99static.com//eox_uBdQ0XPHI3fp6Y0RjpsXEyI=/0x5106:1357x6463/fit-in/500x500/99designs-contests-attachments/69/69057/attachment_69057435"
+            src="{{ $logo }}"
             alt="">
     </div>
     <div class="flex-grow">
         <div class="space-y-2">
-            <h2 class="line-clamp-1 text-lg font-bold text-home-900">လှိုင်မြို့နယ်
-                ဓမ္မသုခကျောင်းလမ်းပေါ်ရှိ Fully Furnished ပုံပါတိုင်းအကုန်ပါမည့် Royal Thukha Condo
-                အခန်းရောင်းမည်</h2>
-            <p class="text-base text-slate-600"><span>Hlaing</span> | <span>Yangon</span></p>
-            <p class="text-2xl text-yellow-600 font-bold">560 lakhs</p>
+            <h2 class="line-clamp-1 text-lg font-bold text-home-900">{{ $property->title }}</h2>
+            <p class="text-base text-slate-600"><span>{{ $property->region }}</span> | <span>{{ $property->township }}</span></p>
+            <p class="text-2xl text-yellow-600 font-bold">{{ $property->price }} lakhs</p>
         </div>
         <div class="flex justify-between items-center border-t-2 border-b-2 mt-5 py-4">
             <ul class="flex gap-4">
                 <li>
-                    <span class="border-r border-r-home-600 pr-4"><i class="fas fa-home text-yellow-600"></i>
-                        Condo</span>
+                    <span class="border-r border-r-home-600 pr-4 capitalize"><i class="fas fa-home text-yellow-600"></i>
+                        {{ $property->type }}</span>
                 </li>
                 <li>
+                    @if ($property->areaType === "l*w")
                     <span class="border-r border-r-home-600 pr-4 ">
-                        <span class="font-bold">1340</span> sqft
+                        <span class="">{{ $property->length }}' x {{ $property->width }}'</span> 
                     </span>
+                    @else
+                    <span class="border-r border-r-home-600 pr-4 ">
+                        <span class="font-bold">{{ $property->area }}</span> {{ $property->areaUnit }}
+                    </span>
+                    @endif
                 </li>
                 <li>
                     <span class="border-r border-r-home-600 pr-4">
                         <i class="fas fa-bed text-home-600"></i><sup
-                            class="text-lg p-1 font-bold  text-yellow-600">4</sup>
+                            class="text-lg p-1 font-bold  text-yellow-600">{{ $property->bedroom }}</sup>
                     </span>
                 </li>
                 <li>
                     <span class="b pr-4">
                         <i class="fas fa-bath text-home-600"></i><sup
-                            class="text-lg p-1 font-bold text-yellow-600">4</sup>
+                            class="text-lg p-1 font-bold text-yellow-600">{{ $property->bathroom }}</sup>
                     </span>
                 </li>
             </ul>

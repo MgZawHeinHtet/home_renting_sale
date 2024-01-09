@@ -25,7 +25,7 @@
             </div>
             <div class="space-y-3">
                 <p class="text-lg"><span class="w-16 inline-block capitalize"><i
-                            class="fa-solid fa-house text-yellow-600"></i> rent</span>| Total Ads : 34</p>
+                            class="fa-solid fa-house text-yellow-600"></i> rent</span>| Total Ads : {{ $agent->propertySale->count() }}</p>
                 <p class="text-lg"><span class="w-16 inline-block capitalize"><i
                             class="fa-solid fa-shop text-yellow-600"></i> Sell</span>| Total Ads : 34</p>
                 <button class="bg-home-900 text-white w-full text-center py-3 outline outline-yellow-600 rounded">View
@@ -117,10 +117,11 @@
                 {{-- card container --}}
                 <div class="space-y-10">
                     {{-- single card --}}
-                    <x-agent-product-card></x-agent-product-card>
-                    <x-agent-product-card></x-agent-product-card>
-                    <x-agent-product-card></x-agent-product-card>
-                    <x-agent-product-card></x-agent-product-card>
+                    @foreach ($properties as $property)
+                        
+                    <x-agent-product-card :logo="$agent->company_logo" :property="$property"></x-agent-product-card>
+                    @endforeach
+                    {{ $properties->links() }}
                 </div>
             </div>
             

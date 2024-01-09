@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\News;
+use App\Models\PropertySale;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -16,9 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory(10)->create();
-
-
+        
         User::create([
             'name' =>'zaw hein htet',
             'email' => 'zawhh1223@gmail.com',
@@ -27,6 +26,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         News::factory(20)->create();
-    
+        
+        User::factory(10)->has(
+            PropertySale::factory()->count(15)
+        )->create();
     }
 }

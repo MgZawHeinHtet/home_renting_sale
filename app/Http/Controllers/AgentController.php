@@ -13,7 +13,8 @@ class AgentController extends Controller
     public function index()
     {
         return view('agents.index',[
-            'agents'=>User::where('role','agent')->paginate(5)
+            'agents'=>User::where('role','agent')->paginate(5),
+            'total_agents'=>User::where('role','agent')->count()
         ]);
     }
 
@@ -39,8 +40,12 @@ class AgentController extends Controller
     public function show(string $id)
     {
         $agent = User::find($id);
-        return view('agents.show',[
-            'agent'=>$agent
+        $properties = $agent->propertySale()->paginate(10);
+
+        
+        return view('agents.show',[ 
+            'agent'=>$agent,
+            'properties'=>$properties
         ]);
     }
 

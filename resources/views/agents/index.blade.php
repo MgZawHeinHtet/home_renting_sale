@@ -15,15 +15,15 @@
         <div class="sm:px-5 lg:px-44 grid sm:grid-cols-1 lg:grid-cols-3 my-32 items-start gap-5">
             {{-- chane premimun to normal  --}}
             <div class="">
-                <h4 class="text-3xl tracking-wide font-extralight mb-4 text-home-600">Premium Agency</h4>
+                <h4 class="text-3xl tracking-wide font-extralight mb-4 text-home-600">Choose Your Agency</h4>
 
-                 <p class="text-lg mb-12">1080 results</p>
+                 <p class="text-lg mb-12">{{ $total_agents }} results</p>
 
                  <div class="w-20 border-2 border-yellow-600 mb-4"></div>
 
-                 <p class="text-lg text-slate-700 font-thin italic tracking-wide mb-4">Connect with normal agency</p>
+                 <p class="text-lg text-slate-700 font-thin italic tracking-wide mb-4">Connect with  premium agency</p>
 
-                 <a class=" text-lg text-home-600 tracking-wide" href="">Find your normal agency <span class="text-xl ml-3">&#8594;</span>
+                 <a class=" text-lg text-home-600 tracking-wide" href="">Create your own agency <span class="text-xl ml-3">&#8594;</span>
                  </a>
             </div>
             <div class="sm:col-span-1 lg:col-span-2">

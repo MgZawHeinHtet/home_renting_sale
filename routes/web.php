@@ -9,6 +9,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ShowPropertySaleController;
 use App\Http\Middleware\AgentMiddleware;
 use App\Http\Middleware\AuthMiddleware;
+use App\Models\SalePropertyImage;
 use Illuminate\Support\Facades\Route;
 
 
@@ -52,4 +53,7 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::get('',[AgentDashboardController::class,'index']);
     Route::resource('post-ad-sale',AgentPropertySaleController::class);
     Route::resource('show-ad-sale',ShowPropertySaleController::class);
+    Route::get('images-upload/{proeprty:id}/sale',[SalePropertyImage::class,'index']);
+    Route::post('images-upload/{property:id}',[SalePropertyImage::class,'store']);
+    Route::delete('images/{image:id}',[SalePropertyImage::class,'destory']);
 });

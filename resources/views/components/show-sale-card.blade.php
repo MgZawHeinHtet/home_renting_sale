@@ -1,6 +1,6 @@
 <div class="border border-white p-5 rounded-lg">
     <h4 class="text-white text-xl capitalize mb-4">{{ $property->title }}</h4>
-    <p  class="capitalize text-yellow-600">{{ $property->township }} | {{ $property->yangon }}</p>
+    <p  class="capitalize text-yellow-600">{{ $property->township }} | {{ $property->region }}</p>
     <p class="text-white mb-4">{{ $property->price }}lakh (kyat) | {{ $property->type }}</p>
 
     {{-- //conditional image  --}}
@@ -20,8 +20,10 @@
         <button class="p-2 bg-orange-700 text-white rounded-lg"><i class="fa-solid fa-copy"></i> Make Copy</button>
 
     </div>
-    <div class="mb-3">
-        <button class="p-2 bg-orange-700 text-white rounded-lg"><i class="fa-solid fa-circle-plus"></i> Add Photos</button>
+    <div class="mb-3 flex gap-1">
+        <form action="/adminAgents/images-upload/{{ $property->id }}/sale">
+            <button class="p-2 bg-orange-700 text-white rounded-lg"><i class="fa-solid fa-circle-plus"></i> Add Photos</button>
+        </form>
 
         <button class="p-2 bg-yellow-700 text-white rounded-lg"><i class="fa-solid fa-star"></i> To Make Featured Ad</button>
         <button class="p-2 bg-blue-700 text-white rounded-lg"><i class="fa-solid fa-check"></i> Mark As Sold</button>
