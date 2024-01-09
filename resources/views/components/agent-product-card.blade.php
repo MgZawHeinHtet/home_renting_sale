@@ -1,7 +1,7 @@
 <div class="flex gap-5 items-center hover:shadow-lg transition-all duration-500">
-    <div class="relative w-[280px]">
+    <div class="relative w-[300px]">
         <img class="w-full h-[200px] object-cover rounded"
-            src="{{ $property->images->count() ? $property->images[0]->image : asset('assets/insteadImg.jpg') }}"
+            src="{{ $property->salePropertyImage->count() ? $property->salePropertyImage[0]->image : asset('assets/insteadImg.jpg') }}"
             alt="">
         <img class="absolute inline-block w-16 h-16 bottom-0 right-0"
             src="{{ $logo }}"

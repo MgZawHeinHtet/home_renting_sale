@@ -40,7 +40,7 @@ class AgentController extends Controller
     public function show(string $id)
     {
         $agent = User::find($id);
-        $properties = $agent->propertySale()->paginate(10);
+        $properties = $agent->propertySale()->paginate(7);
 
         
         return view('agents.show',[ 

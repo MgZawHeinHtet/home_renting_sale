@@ -44,7 +44,7 @@
                             class="fas fa-search mr-3"></i> Search</a>
                 </li>
                 <li>
-                    <a
+                    <a  href="/properties?type=sale"
                         class="text-base py-6 hover:border-b-4 hover:border-b-yellow-600 tracking-wider text-white uppercase">
                         Properties</a>
                 </li>

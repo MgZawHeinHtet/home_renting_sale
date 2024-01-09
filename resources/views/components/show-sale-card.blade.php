@@ -4,7 +4,7 @@
     <p class="text-white mb-4">{{ $property->price }}lakh (kyat) | {{ $property->type }}</p>
 
     {{-- //conditional image  --}}
-    <img class="w-full h-[250px] object-cover rounded-lg" src="{{ $property->images->count() ? $property->images()->first()->image : asset('assets/insteadImg.jpg') }}" alt="">
+    <img class="w-full h-[250px] object-cover rounded-lg" src="{{ $property->salePropertyImage->count() ? $property->salePropertyImage()->first()->image : asset('assets/insteadImg.jpg') }}" alt="">
     <div class="p-2 my-3 rounded-lg bg-yellow-700 text-center">
         <p class="text-sm text-white capitalize"><i class="fa fa-eye" aria-hidden="true"></i>
             Page View <span class="text-lg font-bold">34</span> | Contact click view <span class="text-lg font-bold">34</span> | 

@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\News;
 use App\Models\PropertySale;
+use App\Models\SalePropertyImage;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -28,7 +29,9 @@ class DatabaseSeeder extends Seeder
         News::factory(20)->create();
         
         User::factory(10)->has(
-            PropertySale::factory()->count(15)
+            PropertySale::factory(10)->has(
+                SalePropertyImage::factory()->count(4)
+            )
         )->create();
     }
 }

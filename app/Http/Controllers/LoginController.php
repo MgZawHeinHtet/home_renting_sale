@@ -13,13 +13,14 @@ class LoginController extends Controller
     public function login(Request $request){
         $credentials = $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required'],
+            'password' => ['required','min:8'],
         ]);
 
         
         if(Auth::attempt($credentials)){
-            
             return redirect('/');
+        }else{
+            return back()->withErrors(['error'=>'Wrong Credentials!!💥'])->withInput();
         }
     }
 }

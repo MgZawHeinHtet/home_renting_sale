@@ -18,7 +18,7 @@ class PropertySaleFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->title(),
+            'title' => fake()->jobTitle(),
             'type'=> 'apartment',
             'floor'=>fake()->numberBetween(1,20),
             'price'=>fake()->randomNumber(),

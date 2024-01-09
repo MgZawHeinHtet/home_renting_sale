@@ -3,6 +3,7 @@
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\AgentDashboardController;
 use App\Http\Controllers\AgentPropertySaleController;
+use App\Http\Controllers\DisplayPropertiesController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\NewsController;
@@ -33,6 +34,11 @@ Route::get('/', function () {
 Route::prefix('news')->group(function(){
     Route::get('',[NewsController::class, 'index']);
     Route::get('/{news:id}',[NewsController::class, 'show']);
+});
+
+//property route
+Route::prefix('properties')->group(function(){
+    Route::get('',[DisplayPropertiesController::class,'index']);
 });
 
 //agent front route

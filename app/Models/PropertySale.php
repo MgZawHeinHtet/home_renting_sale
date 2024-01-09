@@ -10,11 +10,17 @@ class PropertySale extends Model
 {
     use HasFactory;
 
-    public function images(){
+    public function salePropertyImage(){
         return $this->hasMany(SalePropertyImage::class,'property_id');
     }
 
     public function agent(){
-        return $this->belongsTo(User::class,'id');
+        return $this->belongsTo(User::class,'agent_id');
+    }
+
+    public function scopeFilter($query,$request){
+        if(false){
+            $query->where('id',3);
+        }
     }
 }
