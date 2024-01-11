@@ -97,9 +97,9 @@
         </div>
     </form>
 
-    <h4 class="text-xl text-yellow-600 text-center mb-10">Number of uploaded photos = ({{ $property->images->count() }})</h4>
+    <h4 class="text-xl text-yellow-600 text-center mb-10">Number of uploaded photos = ({{ $property->salePropertyImage->count() }})</h4>
     <div class="grid grid-cols-4 gap-5">
-        @foreach ($property->images as $image)
+        @foreach ($property->salePropertyImage as $image)
             <div class="p-2 bg-white rounded-lg relative">
                 <img class="w-full  object-cover h-40" src="{{ $image->image }}" alt="">
                 <form action="/adminAgents/images/{{ $image->id }}" method="POST">

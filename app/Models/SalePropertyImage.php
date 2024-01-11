@@ -19,7 +19,7 @@ class SalePropertyImage extends Model
         $curr_routes = url()->current();
         $isSale = str_contains($curr_routes, 'sale');
         if ($isSale) {
-            $property = PropertySale::find($id)->load('images');
+            $property = PropertySale::find($id);
         }
 
         return view('agent_dashboard.images-upload', [

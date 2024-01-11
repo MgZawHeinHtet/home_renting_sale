@@ -18,9 +18,18 @@ class PropertySale extends Model
         return $this->belongsTo(User::class,'agent_id');
     }
 
-    public function scopeFilter($query,$request){
+    public function scopeFilter($propertyQuery,$request){
         if(false){
-            $query->where('id',3);
+            $propertyQuery->where('id',3);
+        }
+
+        if($search_input = $request['search_input'] ?? null)
+        {
+            $propertyQuery->where(function($query) use ($search_input){
+                $query->where('title','LIKE','%'.$search_input."%")
+                ->orWhere('region','LIKE','%'.$search_input."%")
+                ->orWhere('township','LIKE','%'.$search_input."%");
+            });
         }
     }
 }

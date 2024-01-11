@@ -10,6 +10,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ShowPropertySaleController;
 use App\Http\Middleware\AgentMiddleware;
 use App\Http\Middleware\AuthMiddleware;
+use App\Models\NewsComment;
 use App\Models\SalePropertyImage;
 use Illuminate\Support\Facades\Route;
 
@@ -34,11 +35,15 @@ Route::get('/', function () {
 Route::prefix('news')->group(function(){
     Route::get('',[NewsController::class, 'index']);
     Route::get('/{news:id}',[NewsController::class, 'show']);
+    Route::post('/{detail_news:id}/comment',[NewsComment::class,'upload']);
 });
+
+
 
 //property route
 Route::prefix('properties')->group(function(){
-    Route::get('',[DisplayPropertiesController::class,'index']);
+    Route::get('/sale',[DisplayPropertiesController::class,'index']);
+    Route::get('/{property:id}',[DisplayPropertiesController::class, 'show']);
 });
 
 //agent front route

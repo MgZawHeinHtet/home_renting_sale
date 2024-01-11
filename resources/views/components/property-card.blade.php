@@ -3,14 +3,13 @@
         <button>Video</button>
     </div>
     <div class>
-        <div class="w-full h-[250px] ">
+        <div class="w-full h-[340px] ">
 
             <div id="default-carousel" class="relative w-full h-full" data-carousel="static">
                 <!-- Carousel wrapper -->
                 <div class="overflow-hidden relative w-full xl:h-full lg:h-full h-64 rounded">
 
                     @foreach ($property->salePropertyImage as $img)
-                    
                         <div class="hidden duration-700 w-full h-full  ease-in-out" data-carousel-item>
 
                             <img src="{{ $img->image }}"
@@ -19,9 +18,9 @@
 
                         </div>
                     @endforeach
-                  
-                  
-               
+
+
+
                 </div>
 
                 <button type="button"
