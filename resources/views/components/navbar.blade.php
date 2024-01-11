@@ -36,7 +36,7 @@
                 <span class="block text-sm font-thin text-slate-50 opacity-90">Management System</span>
             </h4>
         </div>
-        <div class="sm:hidden md:hidden lg:flex">
+        <div class="sm:hidden md:hidden hidden lg:flex">
             <ul class="flex  gap-10 ">
                 <li class="">
                     <a

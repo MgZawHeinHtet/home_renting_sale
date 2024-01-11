@@ -39,9 +39,11 @@ class NewsController extends Controller
     public function show(string $id)
     {
         $news = News::find($id);
+        $comments = $news->newsComment()->with('user')->latest()->paginate(4);
         return view('news.show',[
             'detail_news'=> $news,
-            'random_news'=> News::inRandomOrder()->limit(6)->get()
+            'random_news'=> News::inRandomOrder()->limit(6)->get(),
+            'comments' => $comments
         ]);
     }
 

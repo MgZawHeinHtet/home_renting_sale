@@ -26,32 +26,13 @@
                 </div>
                 {{-- comment container --}}
                 <div class="space-y-10 clear-both">
-                    <div class="">
-                        <div class="flex items-center gap-5">
-                            <img class="w-24 h-24 object-cover block" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn5mYnPu_x3LQWrzLUZNkbXw_pRMqCKUo9UN-cmtV2ww&s" alt="">
-                            <div class="space-y-2">
-                                <span class="text-lg font-semibold mr-3 text-home-900">Zaw Hein Htet</span><span class="text-gray-500">4 min ago</span><span class="text-sky-600">| Edit</span><span class="text-red-600">| Delete</span>
-                                <p class="tracking-wide text-gray-500">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius fugiat quisquam, culpa dolorem veniam facere dignissimos, minima, repellat in sunt quasi repellendus cum! Est fuga distinctio deserunt veniam! Cum, debitis.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="">
-                        <div class="flex items-center gap-5">
-                            <img class="w-24 h-24 object-cover block" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn5mYnPu_x3LQWrzLUZNkbXw_pRMqCKUo9UN-cmtV2ww&s" alt="">
-                            <div class="space-y-2">
-                                <span class="text-lg font-semibold mr-3 text-home-900">Zaw Hein Htet</span><span class="text-gray-500">4 min ago</span><span class="text-sky-600">| Edit</span><span class="text-red-600">| Delete</span>
-                                <p class="tracking-wide text-gray-500">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius fugiat quisquam, culpa dolorem veniam facere dignissimos, minima, repellat in sunt quasi repellendus cum! Est fuga distinctio deserunt veniam! Cum, debitis.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="">
-                        <div class="flex items-center gap-5">
-                            <img class="w-24 h-24 object-cover block" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn5mYnPu_x3LQWrzLUZNkbXw_pRMqCKUo9UN-cmtV2ww&s" alt="">
-                            <div class="space-y-2">
-                                <span class="text-lg font-semibold mr-3 text-home-900">Zaw Hein Htet</span><span class="text-gray-500">4 min ago</span><span class="text-sky-600">| Edit</span><span class="text-red-600">| Delete</span>
-                                <p class="tracking-wide text-gray-500">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius fugiat quisquam, culpa dolorem veniam facere dignissimos, minima, repellat in sunt quasi repellendus cum! Est fuga distinctio deserunt veniam! Cum, debitis.</p>
-                            </div>
-                        </div>
+                   
+
+                    @foreach ($comments as $comment)
+                        <x-comment :comment="$comment"></x-comment>
+                    @endforeach
+                    <div>
+                        {{ $comments->links() }}
                     </div>
                 </div>
             </div>
@@ -64,9 +45,39 @@
                                 <x-news-card :news="$news"></x-news-card>
                            @endforeach
                     </div>
+                   
                 </div>
             </div>
             
         </div>
     </section>
 </x-layout>
+
+@section('javascript')
+
+<script>
+    const edit_container = document.querySelectorAll(".edit-form")
+    const btns = document.querySelectorAll('.edit-btn')
+    btns.forEach((btn, index) => {
+        btn.addEventListener('click',function(e){
+            const data_key = this.getAttribute('data-set')
+            document.querySelector(`.description-${data_key}`).classList.remove('hidden')
+            edit_container.forEach((item, index) => {
+                item.classList.add('hidden')
+                const container_key = item.getAttribute('data-set')
+              
+                if(data_key === container_key){
+                    document.querySelector(`.description-${container_key}`).classList.add('hidden')
+                }else{
+                    document.querySelector(`.description-${container_key}`).classList.remove('hidden')
+                }
+                if(item.getAttribute('data-set')===data_key){
+                    item.classList.remove('hidden')
+                }
+            })
+        })
+    })
+</script>
+@endsection
+
+@yield('javascript')

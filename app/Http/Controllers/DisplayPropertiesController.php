@@ -14,10 +14,10 @@ class DisplayPropertiesController extends Controller
         $requests = request(['type','search_input']);
         if($is_sale){
             $type = 'sale';
-            $properties = PropertySale::filter($requests)->latest()->paginate(9)->withQueryString();
+            $properties = PropertySale::with(['agent','salePropertyImage'])->filter($requests)->latest()->paginate(9)->withQueryString();
         }else if($is_rent){
             $type = 'rent';
-            $properties = PropertySale::filter($requests)->latest()->paginate(9)->withQueryString();
+            $properties = PropertySale::with(['agent'])->filter($requests)->latest()->paginate(9)->withQueryString();
         }
         return view('property.index',[
             'properties' =>$properties,

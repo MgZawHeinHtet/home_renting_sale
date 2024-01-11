@@ -17,15 +17,5 @@ class NewsComment extends Model
         return $this->belongsTo(News::class);
     }
 
-    public function upload($id){
-        $cleanData = request()->validate([
-            'description'=>['required']
-        ]);
-        NewsComment::create([
-            'description'=>$cleanData['description'],
-            'user_id'=>auth()->user()->id,
-            'news_id'=>$id
-        ]);
-        return back();
-    }
+    
 }

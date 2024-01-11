@@ -26,6 +26,13 @@ class DatabaseSeeder extends Seeder
             'role'=>'agent'
         ]);
 
+        User::create([
+            'name' =>'honey',
+            'email' => 'honey@gmail.com',
+            'password'=> 'customer123',
+            'role'=>'customer'
+        ]);
+
         News::factory(20)->create();
         
         User::factory(10)->has(

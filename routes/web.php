@@ -6,6 +6,7 @@ use App\Http\Controllers\AgentPropertySaleController;
 use App\Http\Controllers\DisplayPropertiesController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\NewsCommentController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ShowPropertySaleController;
 use App\Http\Middleware\AgentMiddleware;
@@ -35,7 +36,11 @@ Route::get('/', function () {
 Route::prefix('news')->group(function(){
     Route::get('',[NewsController::class, 'index']);
     Route::get('/{news:id}',[NewsController::class, 'show']);
-    Route::post('/{detail_news:id}/comment',[NewsComment::class,'upload']);
+    Route::middleware(AuthMiddleware::class)->group(function(){
+        Route::post('/{detail_news:id}/comment',[NewsCommentController::class,'upload']);
+        Route::patch('/comment/{comment:id}',[NewsCommentController::class,'update']);
+        Route::delete('/comment/{comment:id}',[NewsCommentController::class,'destory']);
+    });
 });
 
 

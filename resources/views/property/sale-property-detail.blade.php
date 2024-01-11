@@ -1,52 +1,66 @@
 <x-layout>
     <div class="container mx-auto">
 
-        <section class="flex flex-row justify-between p-5 lg:p-7 ">
-            <div class="w pr-10">
-                <h1 class="text-[28px] font-[500]">Condo For Sale in Ahlon</h1>
-                <p class="text-[18px] font-[500] pb-5">4 bedroom, 3 bathroom Condo for sale in Ahlon, Yangon</p>
+        <section class="w-full flex flex-col lg:flex-row justify-between p-5 lg:p-7 gap-5 ">
+            <div class="flex-1 ">
+                <h1 class=" text-[26px] md:text-[28px] font-[500]">Condo For Sale in Ahlon</h1>
+                <p class="text-[16px] md:text-[18px] font-[500] pb-5">4 bedroom, 3 bathroom Condo for sale in Ahlon, Yangon
+                </p>
     
                 <!-- Image -->
                 @php
-                    $properties = [
-                        [
-                            'thumbnails' => ['https://www.shweproperty.com/property-img/f258e7cc3872a19ec1f87ccb5e3c340893554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9', 'https://www.shweproperty.com/property-img/943a68b6182c633537ced614c759b70693554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9', 'https://www.shweproperty.com/property-img/5c9920643fd1c9c92c26ac3ff76cbf4593554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9', 'https://www.shweproperty.com/property-img/d8dbab5164f7ed3a7c049e890ffcdd4693554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9', 'https://www.shweproperty.com/property-img/92ddcbbe5ed978baf2f9e29cbcd7904693554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9'],
-                        ],
-                    ];
-                    $currentImageIndex = 0;
+                $imageUrls = [
+                'https://www.shweproperty.com/property-img/f258e7cc3872a19ec1f87ccb5e3c340893554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
+                'https://www.shweproperty.com/property-img/943a68b6182c633537ced614c759b70693554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
+                'https://www.shweproperty.com/property-img/5c9920643fd1c9c92c26ac3ff76cbf4593554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
+                'https://www.shweproperty.com/property-img/d8dbab5164f7ed3a7c049e890ffcdd4693554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
+                'https://www.shweproperty.com/property-img/f258e7cc3872a19ec1f87ccb5e3c340893554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
+                'https://www.shweproperty.com/property-img/943a68b6182c633537ced614c759b70693554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
+                'https://www.shweproperty.com/property-img/5c9920643fd1c9c92c26ac3ff76cbf4593554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
+                'https://www.shweproperty.com/property-img/d8dbab5164f7ed3a7c049e890ffcdd4693554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
+                'https://www.shweproperty.com/property-img/92ddcbbe5ed978baf2f9e29cbcd7904693554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
+                ];
                 @endphp
-                <div class="relative py-5">
-                    <!-- Main Image Section -->
-                    <div class="flex justify-center">
-                        <div class="relative overflow-hidden w-full">
-                            <img id="mainImage" src="{{ $properties[0]['thumbnails'][0] }}" alt="Main Image"
-                                class="w-full h-96 object-cover">
-                            <i class="fas fa-chevron-left text-xl cursor-pointer absolute top-1/2 transform -translate-y-1/2 left-4 z-10 opacity-50 bg-[#002349] text-white px-2 pointer-events-none"
-                                onclick="prevImage()" id="leftIcon"></i>
-                            <i class="fas fa-chevron-right text-xl cursor-pointer absolute top-1/2 transform -translate-y-1/2 right-4 z-10 opacity-{{ count($properties[0]['thumbnails']) > 1 ? '100' : '50' }} bg-[#002349] text-white px-2 pointer-events-{{ count($properties[0]['thumbnails']) > 1 ? 'auto' : 'none' }}"
-                                onclick="nextImage()" id="rightIcon"></i>
-                        </div>
+                <div class="relative overflow-hidden">
+                    <!-- Main image -->
+                    <div id="fullWidthImages" class="flex transition-transform duration-300 ease-in-out">
+                        @foreach ($imageUrls as $index => $image)
+                        <img src="{{ $image }}" alt="Full Width Image" class=" flex-shrink-0 w-full h-auto"
+                            data-index="{{ $index }}">
+                        @endforeach
                     </div>
     
-                    <!-- Thumbnails Section -->
-                    <div class="flex justify-center mt-5">
-                        <div class="w-full flex flex-wrap justify-center">
-                            @foreach ($properties[0]['thumbnails'] as $index => $thumbnail)
-                                <img src="{{ $thumbnail }}" alt="Thumbnail {{ $index }}"
-                                    class="w-16 h-16 cursor-pointer mb-2 md:mb-0 md:mr-2 @if ($index === $currentImageIndex) border-2 border-[#002349] @endif"
-                                    onclick="changeImage('{{ $thumbnail }}', {{ $index }})">
-                            @endforeach
-                        </div>
+                    <!-- Previous Button -->
+                    <div id="prevButton"
+                        class=" absolute top-[50%]  translate-y-[-50%]  w-[30px] h-[30px] md:w-[40px] md:h-[40px] bg-white bg-opacity-70 rounded-full flex justify-center items-center cursor-pointer left-[10px]">
+                        <i class="fas fa-chevron-left text-[#002349]"></i>
+                    </div>
+    
+                    <!-- Next Button -->
+                    <div id="nextButton"
+                        class=" absolute top-[50%]  translate-y-[-50%] w-[30px] h-[30px] md:w-[40px] md:h-[40px] bg-white bg-opacity-70 rounded-full flex justify-center items-center cursor-pointer right-[10px]">
+                        <i class="fas fa-chevron-right text-[#002349]"></i>
                     </div>
                 </div>
     
+                <!-- Small images -->
+                <div class="flex justify-center items-center py-2">
+                    <div id="smallImages" class="overflow-x-scroll flex justify-start gap-2 cursor-pointer">
+                        @foreach ($imageUrls as $index => $image)
+                        <img src="{{ $image }}"
+                            class="w-16 h-16 small-image @if ($index === 0) border-[#002349] border-solid border-2 @endif"
+                            alt="Small Image" data-index="{{ $index }}">
+                        @endforeach
+                    </div>
+                </div>
     
-                <div class="flex justify-between py-2 text-[18px] font-[500]">
+                <div class="flex flex-wrap gap-2 flex-row justify-between py-2 text-[14px] md:text-[18px] font-[500]">
                     <h3 class="">Ahlon, Yangon</h3>
-                    <h3 class=""><span class=" text-[#002349] font-bold">For Rent </span>30 Lakhs</h3>
+                    <h3 class=""><span class=" text-[#002349] font-bold">For Rent </span>30 Lakhs
+                    </h3>
                 </div>
-                <div class="flex justify-between py-2">
-                    <ul class=" list-none flex text-[12px] text-[#2e3238]">
+                <div class="flex flex-wrap flex-row gap-2 justify-between py-2">
+                    <ul class=" list-none flex flex-wrap text-[12px] text-[#2e3238]">
                         <li class="border-solid border-r-[1px] pr-2 flex justify-center items-center gap-2"><i
                                 class="fa fa-home text-[#002349]" aria-hidden="true"></i><span>Condo</span></li>
                         <li class="border-solid border-r-[1px] px-2 flex justify-center items-center ">2360 ft<span
@@ -59,10 +73,10 @@
                     <p class=" border-solid border-[#ccc] border-2 font-[500] text-[14px] px-2">Property
                         ID: S-1361176</p>
                 </div>
-                <div class="flex justify-between py-2">
+                <div class="flex flex-wrap justify-between gap-2  py-2">
                     <div class="flex justify-center items-center gap-2 text-[#002349] text-[14px] "><i
                             class="fa-solid fa-bolt " aria-hidden="true"></i><span>Premium</span></div>
-                    <p class="  text-[14px] px-2 text-[#2e3238]">Posted Date : 02 Jan 2024</p>
+                    <p class=" flex-0  text-[14px] px-2 text-[#2e3238]">Posted Date : 02 Jan 2024</p>
                 </div>
     
                 <div class=" text-[#65738b] text-[14px]">
@@ -72,10 +86,10 @@
                     </div>
                     <div class="mb-4">
                         <p class=""">#အရောင်းဈေးနှုန်း၇၅၀၀သိန်ညှိနှိုင်း</p>
-                        <p class="">#Forsale7500Lmmk(negotiate)</p>
-                    </div>
+                    <p class="">#Forsale7500Lmmk(negotiate)</p>
+                </div>
     
-                    <div class=" mb-4">
+                <div class=" mb-4">
                         <p class="font-bold">💎 Shwe Zabu Date Luxury Condo ၊ အလုံမြို့နယ်</p>
                         <ul class="list-none">
                             <li class="mb-2">✅ အကျယ် ( 2360sqft )</li>
@@ -132,20 +146,25 @@
                 </div>
     
                 <div class="grid grid-cols-3 text-[#65738b]">
-                    @foreach ([['icon' => 'fa-solid fa-house', 'property' => 'TYPE', 'value' => 'Condo'], ['icon' => 'fa-brands fa-codepen', 'property' => 'AREA', 'value' => '2360 ft2'], ['icon' => 'fa-solid fa-bed', 'property' => 'BED ROOM', 'value' => '2'], ['icon' => 'fa-solid fa-bath', 'property' => 'BATH ROOM', 'value' => '3'], ['icon' => 'fa-regular fa-user', 'property' => 'OWNERSHIP', 'value' => '']] as $property)
-                        <div class="bg-white rounded-lg p-4 flex items-center gap-2 ">
-                            <!--  property content -->
-                            <i class="{{ $property['icon'] }} text-[#002349]"></i>
-                            <div class="text-[10px] flex flex-col "><span class="">{{ $property['property'] }}</span>
-                                <span class="">{{ $property['value'] }}</span>
-                            </div>
+                    @foreach([
+                    ['icon' => 'fa-solid fa-house', 'property' => 'TYPE', 'value' => 'Condo'],
+                    ['icon' => 'fa-brands fa-codepen', 'property' => 'AREA', 'value' => '2360 ft2'],
+                    ['icon' => 'fa-solid fa-bed', 'property' => 'BED ROOM', 'value' => '2'],
+                    ['icon' => 'fa-solid fa-bath', 'property' => 'BATH ROOM', 'value' => '3'],
+                    ['icon' => 'fa-regular fa-user', 'property' => 'OWNERSHIP', 'value' => ''],
+                    ] as $property)
+                    <div class="bg-white rounded-lg p-4 flex items-center gap-2 ">
+                        <!--  property content -->
+                        <i class="{{ $property['icon'] }} text-[#002349]"></i>
+                        <div class="text-[10px] flex flex-col "><span class="">{{ $property['property'] }}</span>
+                            <span class="">{{ $property['value'] }}</span>
                         </div>
+                    </div>
                     @endforeach
                 </div>
-    
             </div>
     
-            <div class=" py-5">
+            <div class="w-full lg:w-1/4 py-5">
                 <div class="flex items-center gap-3 text-[14px] pb-7 font-[500] ">
                     <i class="fas fa-chevron-left cursor-pointer"></i>
                     <h3>BACK TO SEARCH</h3>
@@ -180,24 +199,23 @@
                         class="mb-2 outline-none relative w-full h-[48px] px-[15px] border-[#e0e0e0] border-solid border-[2px] rounded-md text-[13px]"
                         type="text" placeholder="Email Address" required />
                     <textarea
-                        class="resize-none mb-2 outline-none relative w-full h-[100px] p-[15px] border-[#e0e0e0] border-solid border-[2px] rounded-md text-[13px]"
-                        type="text" value="" />Hello, I am interested in this property posted on ShweProperty.com and would
-                    like to request more information. Could you please contact me back as soon as possible? Thank
-                    you.</textarea>
-                    <label class="relative inline-flex items-center cursor-pointer ">
-                        <input type="checkbox" value="" class="sr-only peer " checked>
+                        class=" resize-none mb-2 outline-none relative w-full h-[100px] p-[15px] border-[#e0e0e0] border-solid border-[2px] rounded-md text-[13px]"
+                        type="text" value="" />Hello, I am interested in this property posted on ShweProperty.com and would like to request more information. Could you please contact me back as soon as possible? Thank you.</textarea>
+                    <label class="relative inline-flex mr-5 cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer" checked>
                         <div
-                            class="w-11 h-6 bg-gray-400 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-600 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#002349]">
+                            class="w-9 h-5 md:w-11 md:h-6 bg-gray-400 rounded-full peer dark:bg-gray-400 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-500 after:border after:rounded-full after:h-4 md:after:h-5  after:w-4 md:after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#002349]">
                         </div>
-                        <span class="ms-3 text-[13px] font-medium text-gray-900 dark:text-gray-300">Keep me updates with
+                        <span class="flex-1 ml-3 text-[13px] font-medium text-gray-900 dark:text-gray-300">Keep me updates
+                            with
                             real estate news</span>
                     </label>
                     <button
-                        class=" text-center bg-[#002349] text-white w-full rounded-md h-[42px] cursor-pointer text-[14px] font-600">Send
+                        class=" text-center bg-[#002349] text-wrap text-white w-full rounded-md h-[42px] cursor-pointer text-[12px] md:text-[14px] font-600">Send
                         Now</button>
                 </form>
             </div>
-        </section>
+            </div>
     </div>
 </x-layout>
 
