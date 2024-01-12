@@ -19,6 +19,7 @@ class PropertySaleFactory extends Factory
     {
         return [
             'title' => fake()->jobTitle(),
+            'propertyNumber'=>'S-'. rand(1000,9999),
             'type'=> 'apartment',
             'floor'=>fake()->numberBetween(1,20),
             'price'=>fake()->randomNumber(),

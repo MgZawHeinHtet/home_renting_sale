@@ -3,11 +3,13 @@
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\AgentDashboardController;
 use App\Http\Controllers\AgentPropertySaleController;
+use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\DisplayPropertiesController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\NewsCommentController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShowPropertySaleController;
 use App\Http\Middleware\AgentMiddleware;
 use App\Http\Middleware\AuthMiddleware;
@@ -57,6 +59,11 @@ Route::prefix('agents')->group(function(){
     Route::get('/{agent:id}',[AgentController::class, 'show']);
 });
 
+Route::prefix('profile')->group(function(){
+    Route::get('',[ProfileController::class,'index']);
+    Route::patch('/user/{user:id}',[ProfileController::class,'update']);
+});
+
 //login route
 
 Route::post('/login',[LoginController::class,'login']);
@@ -73,3 +80,6 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::post('images-upload/{property:id}',[SalePropertyImage::class,'store']);
     Route::delete('images/{image:id}',[SalePropertyImage::class,'destory']);
 });
+
+// contact us 
+Route::get('/contact_us',[ContactusController::class,'index']);

@@ -68,93 +68,39 @@
                                 class="fa-solid fa-bath"></i><span class=" -translate-y-2 ">{{ $property->bathroom }}</span></li>
                     </ul>
                     <p class=" border-solid border-[#ccc] border-2 font-[500] text-[14px] px-2">Property
-                        ID: S-1361176</p>
+                        ID: {{ $property->propertyNumber }}</p>
                 </div>
                 <div class="flex flex-wrap justify-between gap-2  py-2">
                     <div class="flex justify-center items-center gap-2 text-[#002349] text-[14px] "><i
                             class="fa-solid fa-bolt " aria-hidden="true"></i><span>Premium</span></div>
-                    <p class=" flex-0  text-[14px] px-2 text-[#2e3238]">Posted Date : {{ $property->created_at->format('d m ') }}</p>
+                    <p class=" flex-0  text-[14px] px-2 text-[#2e3238]">Posted Date : {{ $property->created_at->format('d M Y') }}</p>
+                </div>
+
+                <div class="my-4">
+                    {!! $property->description !!}
                 </div>
     
-                {{-- <div class=" text-[#65738b] text-[14px]">
-                    <div class="mb-4">
-                        အလုံမြို့နယ် ကမ်းနားလမ်းမပေါ်မှာတည်ရှိတဲ့ ပိုင်ဆိုင်မှုခိုင်မာသော Shwe Zabu Date Luxury Condo မှ
-                        ရောင်းရန်ရှိသော အသင့်နေ အခန်း
-                    </div>
-                    <div class="mb-4">
-                        <p class=""">#အရောင်းဈေးနှုန်း၇၅၀၀သိန်ညှိနှိုင်း</p>
-                    <p class="">#Forsale7500Lmmk(negotiate)</p>
-                </div>
-     --}}
-                {{-- <div class=" mb-4">
-                        <p class="font-bold">💎 Shwe Zabu Date Luxury Condo ၊ အလုံမြို့နယ်</p>
-                        <ul class="list-none">
-                            <li class="mb-2">✅ အကျယ် ( 2360sqft )</li>
-                            <li class="mb-2">✅ 2 master bedrooms</li>
-                            <li class="mb-2">✅ 2 single bedrooms</li>
-                            <li class="mb-2">✅ Fully Decorated</li>
-                        </ul>
-                    </div>
-                    <div class="mb-4">
-                        <p class="font-bold">Facilities 🌲🌲🌲</p>
-                        <ul class="list-none">
-                            <li class="mb-2">✅ Lift</li>
-                            <li class="mb-2">✅ Car Parking</li>
-                            <li class="mb-2">✅ Security</li>
-                            <li class="mb-2">✅ Generator</li>
-                            <li class="mb-2">✅ Swimming Pool / Gym</li>
-                            <li class="mb-2">✅ Mini Cinema</li>
-                        </ul>
-                    </div>
-                    <div class="mb-4">
-                        <p class="font-bold">2024#CodeCondo1a</p>
-                        <p class="font-bold">Contact</p>
-                        <p>📳 09420010411</p>
-                        <p>📳 09795544104</p>
-                        <p>📳 09796878985</p>
-                    </div>
-                    <div class="mb-4">
-                        <p class="">#ShweHtakeTannKhit </p>
-                        <p class="">#RealEstateService </p>
-                    </div>
-                    <p class="mb-4">
-                        လူကြီးမင်းတို့ပိုင် အိမ်၊ခြံ၊မြေများကိုလည်းအမြန်ဆုံးရောင်း/ငှားဖြစ်အောင် ဆက်သွယ်အပ်နှံနိုင်ပါသည်
-                    </p>
-                    <p class="mb-4">
-                        ယခုကြော်ငြာများအပြင် အိမ်ခြံမြေကွန်ဒိုတိုက်ခန်းစက်မှုဇုန် ရောင်း/ငှားရန် အခြားနေရာကောင်းများ
-                        လည်းရှိပါသဖြင့် ယခုပဲ လူကြီးမင်းတို့ ဆက်သွယ်စုံစမ်းမေးမြန်းနိုင်ပါသည်
-                    </p>
-                    <p class="">#homeforeverybody </p>
-                    <p class="">#shweproperty </p>
-                    <p class="">#ShweHtakeTannKhit </p>
-                    <p class="">#အိမ်ခြံမြေ </p>
-                    <p class="">#အကျိုးဆောင် </p>
-                    <p class="">#ရွှေထိပ်တန်းခေတ် </p>
-                    <p class="">#realestate </p>
-                    <p class="">#Condosale</p>
-                </div> --}}
-    
-                <!-- Property Details -->
-                {{-- <div class=" border-t-[1px] border-solid mt-2 py-2">
+
+                <div class=" border-t-[1px] border-solid mt-2 py-2">
                     <h3 class="">Property Details</h3>
-                    <p class="text-[14px]"><span class="font-bold">Property Name : </span> အလုံမြို့နယ်
-                        ကမ်းနားလမ်းမပေါ်မှာတည်ရှိတဲ့ ပိုင်ဆိုင်မှုခိုင်မာသော Shwe Zabu Date Luxury Condoမှ ရောင်းရန်ရှိသော
+                    <p class="text-[14px]"><span class="font-bold">Property Name : </span>
+                        {{ $property->title }}
                     </p>
-                </div> --}}
+                </div>
     
                 <div class="grid grid-cols-3 text-[#65738b]">
                     @foreach([
-                    ['icon' => 'fa-solid fa-house', 'property' => 'TYPE', 'value' => 'Condo'],
-                    ['icon' => 'fa-brands fa-codepen', 'property' => 'AREA', 'value' => '2360 ft2'],
-                    ['icon' => 'fa-solid fa-bed', 'property' => 'BED ROOM', 'value' => '2'],
-                    ['icon' => 'fa-solid fa-bath', 'property' => 'BATH ROOM', 'value' => '3'],
-                    ['icon' => 'fa-regular fa-user', 'property' => 'OWNERSHIP', 'value' => ''],
-                    ] as $property)
-                    <div class="bg-white rounded-lg p-4 flex items-center gap-2 ">
-                        <!--  property content -->
-                        <i class="{{ $property['icon'] }} text-[#002349]"></i>
-                        <div class="text-[10px] flex flex-col "><span class="">{{ $property['property'] }}</span>
-                            <span class="">{{ $property['value'] }}</span>
+                    ['icon' => 'fa-solid fa-house text-xl', 'property' => 'TYPE', 'value' => " $property->type"],
+                    ['icon' => 'fa-brands fa-codepen text-xl', 'property' => "$property->areaType", 'value' => " $property->width ' * $property->length '"],
+                    ['icon' => 'fa-solid fa-bed text-xl', 'property' => 'BED ROOM', 'value' => "$property->bedroom"],
+                    ['icon' => 'fa-solid fa-bath text-xl', 'property' => 'BATH ROOM', 'value' => "$property->bathroom"],
+                    ['icon' => 'fa-regular fa-user text-xl', 'property' => 'Furnishing Type', 'value' => "$property->furnished"],
+                    ] as $property_icon)
+                    <div class="bg-white rounded-lg p-4 flex items-center gap-4 ">
+                        <!--  property_icon content -->
+                        <i class="{{ $property_icon['icon'] }} text-[#002349]"></i>
+                        <div class="text-[10px] flex flex-col"><span class="text-base">{{ $property_icon['property'] }}</span>
+                            <span class="">{{ $property_icon['value'] }}</span>
                         </div>
                     </div>
                     @endforeach
@@ -166,15 +112,16 @@
                     <i class="fas fa-chevron-left cursor-pointer"></i>
                     <h3>BACK TO SEARCH</h3>
                 </div>
+                {{-- @dd($property->agent->company_logo) --}}
+                
                 <div class="bg-white rounded-lg py-4 flex items-center gap-5 ">
                     <div
                         class=" overflow-hidden w-[85px] h-[85px] relative border-solid border-[2px] border-[#e0e0e0] rounded-full">
-                        <img class=" absolute top-0 left-0 object-cover"
-                            src="" />
+                        <img class=" w-full h-full top-0 left-0 object-cover"
+                            src="{{ $property->agent->company_logo }}" />
                     </div>
                     <div class="text-[10px] flex flex-col flex-1 ">
-                        <a class=" pb-[5px] text-[16px] font-[500] cursor-pointer hover:underline text-blue-500">Shwe Htake
-                            Tann Khit</a>
+                        <a class=" pb-[5px] text-[16px] font-[500] cursor-pointer hover:underline text-blue-500">{{ $property->title }}</a>
                         <a
                             class="flex justify-center items-center gap-[1px]  w-full h-[44px] border-[#0da50c] border-solid border-[1px] rounded-md">
                             <i

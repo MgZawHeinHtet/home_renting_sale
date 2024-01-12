@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('property_sales', function (Blueprint $table) {
             $table->id();
+            $table->string('propertyNumber');
             $table->string('title');
             $table->string('type');
             $table->string('floor')->nullable();

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('profile_img')->nullable();
             $table->string('company_logo')->nullable();
             $table->string('address')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('dob')->nullable();
             $table->string('password');
             $table->longText('description')->nullable();
             $table->string('phone')->nullable();

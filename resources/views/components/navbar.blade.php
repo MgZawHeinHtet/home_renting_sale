@@ -1,32 +1,35 @@
 <header>
     <nav class="w-full py-3 px-10 bg-home-900 flex items-center justify-end">
-        <div class="">
+            <div class="">
             @auth
 
                 @if (auth()->user()->role === 'agent')
                     <a class="text-white mx-3 " href="/adminAgents">Agent Dashobard</a>
-            </div>
-            @endif
+           
+                  @elseif (auth()->user()->role === "customer")
+                  <a class="text-white mx-3 " href="/profile"><i class="fa-solid fa-user mr-1"></i>  Profile</a>
+                    @endif
+                </div>
 
             <form action="/logout" method="POST">
                 @csrf
                 <button class="mx-1 text-white"><i class="fa fa-sign-out" aria-hidden="true"></i>
-                     Logout</button>
+                    Logout</button>
             </form>
         @else
-            <a class="text-white" href="">Join</a>
-            <span class="mx-1 text-white">/</span>
+            <div>
 
-            <a class="text-white" href="/login">Login</a>
+                <a class="text-white" href="">Join</a>
+                <span class="mx-1 text-white">/</span>
+    
+                <a class="text-white" href="/login">Login</a>
+            </div>
 
 
         @endauth
 
         <button class="ml-5 text-white"><i class="fa fa-cog" aria-hidden="true"></i> Preferences
         </button>
-
-
-
     </nav>
     <nav
         class="py-3 sm:px-5 md:container-space lg:px-10 bg-home-600 flex justify-between items-center hover:border-b-2 hover:border-b-yellow-200">
@@ -44,7 +47,7 @@
                             class="fas fa-search mr-3"></i> Search</a>
                 </li>
                 <li>
-                    <a  href="/properties/sale"
+                    <a href="/properties/sale"
                         class="text-base py-6 hover:border-b-4 hover:border-b-yellow-600 tracking-wider text-white uppercase">
                         Properties</a>
                 </li>
@@ -57,6 +60,11 @@
                     <a href="/agents"
                         class="text-base py-6 hover:border-b-4 hover:border-b-yellow-600 tracking-wider text-white uppercase">
                         Agents</a>
+                </li>
+                <li>
+                    <a href="/contact_us"
+                        class="border border-yellow-600 text-base hover:text-white-600 hover:bg-yellow-600 py-4 px-6 tracking-wider text-white uppercase rounded transition-all duration-300">Contact
+                        us</a>
                 </li>
             </ul>
         </div>

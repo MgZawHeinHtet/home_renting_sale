@@ -18,9 +18,7 @@
                     <form class="relative" action="/news/{{ $detail_news->id}}/comment" method="POST">
                         @csrf
                         <x-error name="description"></x-error>
-                        <textarea class="w-full mt-5 p-2 border outline-none rounded-lg border-home-900 border-opacity-50" name="description" id="" cols="30" rows="9" placeholder="Comment here">
-                           
-                        </textarea>
+                        <textarea class="w-full mt-5 p-2 border outline-none rounded-lg border-home-900 border-opacity-50" name="description" id="" cols="30" rows="9" placeholder="Comment here"></textarea>
                         <button class="p-2 block mx-auto bg-yellow-600 rounded text-white absolute bottom-5 right-5">Submit</button>
                     </form>
                 </div>

@@ -29,8 +29,10 @@ use Illuminate\Http\Request;
      */
     public function store(PropertySaleFormRequest $request)
     {
+        $property_number = 'S-'.rand(1000,9999);
         $cleanData = $request->validated();
         $cleanData['agent_id'] = auth()->user()->id;
+        $cleanData['propertyNumber'] = $property_number;
         PropertySale::create($cleanData);
         return back()->with('success','create successfully');
     }
