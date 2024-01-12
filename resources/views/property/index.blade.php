@@ -107,7 +107,9 @@
     <div
         class="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 grid-cols-1   lg:px-[50px] px-[30px] gap-x-5 gap-y-[50px]">
         @foreach ($properties as $property)
-            <x-property-card :property="$property"></x-property-card>
+            <a href="/properties/{{ $property->id }}/{{ $type }}">
+                <x-property-card :property="$property"></x-property-card>
+            </a>
         @endforeach
 
 

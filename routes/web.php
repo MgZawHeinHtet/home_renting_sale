@@ -48,7 +48,7 @@ Route::prefix('news')->group(function(){
 //property route
 Route::prefix('properties')->group(function(){
     Route::get('/sale',[DisplayPropertiesController::class,'index']);
-    Route::get('/{property:id}',[DisplayPropertiesController::class, 'show']);
+    Route::get('/{property:id}/sale ',[DisplayPropertiesController::class, 'show']);
 });
 
 //agent front route

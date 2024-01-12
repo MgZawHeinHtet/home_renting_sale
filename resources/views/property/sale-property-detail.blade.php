@@ -1,25 +1,22 @@
 <x-layout>
     <div class="container mx-auto">
+       
 
         <section class="w-full flex flex-col lg:flex-row justify-between p-5 lg:p-7 gap-5 ">
             <div class="flex-1 ">
-                <h1 class=" text-[26px] md:text-[28px] font-[500]">Condo For Sale in Ahlon</h1>
-                <p class="text-[16px] md:text-[18px] font-[500] pb-5">4 bedroom, 3 bathroom Condo for sale in Ahlon, Yangon
+                <h1 class=" text-[26px] md:text-[28px] font-[500]">{{ $property->title }}</h1>
+                <p class="text-[16px] md:text-[18px] font-[500] pb-5">{{ $property->bedroom }} bedroom, {{ $property->bathroom }} bathroom {{ $property->type }} for {{ $property_type }} in {{ $property->township }}, {{ $property->region }}
                 </p>
     
                 <!-- Image -->
                 @php
-                $imageUrls = [
-                'https://www.shweproperty.com/property-img/f258e7cc3872a19ec1f87ccb5e3c340893554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
-                'https://www.shweproperty.com/property-img/943a68b6182c633537ced614c759b70693554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
-                'https://www.shweproperty.com/property-img/5c9920643fd1c9c92c26ac3ff76cbf4593554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
-                'https://www.shweproperty.com/property-img/d8dbab5164f7ed3a7c049e890ffcdd4693554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
-                'https://www.shweproperty.com/property-img/f258e7cc3872a19ec1f87ccb5e3c340893554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
-                'https://www.shweproperty.com/property-img/943a68b6182c633537ced614c759b70693554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
-                'https://www.shweproperty.com/property-img/5c9920643fd1c9c92c26ac3ff76cbf4593554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
-                'https://www.shweproperty.com/property-img/d8dbab5164f7ed3a7c049e890ffcdd4693554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
-                'https://www.shweproperty.com/property-img/92ddcbbe5ed978baf2f9e29cbcd7904693554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9',
+                 $imageUrls = [
+                
                 ];
+                 foreach ($property->salePropertyImage as $image) {
+                    $imageUrls[] = $image->image;
+                 }
+
                 @endphp
                 <div class="relative overflow-hidden">
                     <!-- Main image -->
@@ -55,20 +52,20 @@
                 </div>
     
                 <div class="flex flex-wrap gap-2 flex-row justify-between py-2 text-[14px] md:text-[18px] font-[500]">
-                    <h3 class="">Ahlon, Yangon</h3>
-                    <h3 class=""><span class=" text-[#002349] font-bold">For Rent </span>30 Lakhs
+                    <h3 class="">{{ $property->township }}, {{ $property->region }}</h3>
+                    <h3 class=""><span class=" text-[#002349] font-bold">For Sale </span>{{ $property->price }} Lakhs
                     </h3>
                 </div>
                 <div class="flex flex-wrap flex-row gap-2 justify-between py-2">
                     <ul class=" list-none flex flex-wrap text-[12px] text-[#2e3238]">
                         <li class="border-solid border-r-[1px] pr-2 flex justify-center items-center gap-2"><i
-                                class="fa fa-home text-[#002349]" aria-hidden="true"></i><span>Condo</span></li>
-                        <li class="border-solid border-r-[1px] px-2 flex justify-center items-center ">2360 ft<span
+                                class="fa fa-home text-[#002349]" aria-hidden="true"></i><span>{{ $property->type }}</span></li>
+                        <li class="border-solid border-r-[1px] px-2 flex justify-center items-center ">{{ $property->area }} ft<span
                                 class=" -translate-y-2 ">2</span></li>
                         <li class="border-solid border-r-[1px] px-2 flex justify-center items-center gap-2 "><i
-                                class="fa-solid fa-bed"></i><span class=" -translate-y-2 ">4</span></li>
+                                class="fa-solid fa-bed"></i><span class=" -translate-y-2 ">{{ $property->bedroom }}</span></li>
                         <li class="border-solid border-r-[1px] px-2 flex justify-center items-center gap-2 "><i
-                                class="fa-solid fa-bath"></i><span class=" -translate-y-2 ">3</span></li>
+                                class="fa-solid fa-bath"></i><span class=" -translate-y-2 ">{{ $property->bathroom }}</span></li>
                     </ul>
                     <p class=" border-solid border-[#ccc] border-2 font-[500] text-[14px] px-2">Property
                         ID: S-1361176</p>
@@ -76,10 +73,10 @@
                 <div class="flex flex-wrap justify-between gap-2  py-2">
                     <div class="flex justify-center items-center gap-2 text-[#002349] text-[14px] "><i
                             class="fa-solid fa-bolt " aria-hidden="true"></i><span>Premium</span></div>
-                    <p class=" flex-0  text-[14px] px-2 text-[#2e3238]">Posted Date : 02 Jan 2024</p>
+                    <p class=" flex-0  text-[14px] px-2 text-[#2e3238]">Posted Date : {{ $property->created_at->format('d m ') }}</p>
                 </div>
     
-                <div class=" text-[#65738b] text-[14px]">
+                {{-- <div class=" text-[#65738b] text-[14px]">
                     <div class="mb-4">
                         အလုံမြို့နယ် ကမ်းနားလမ်းမပေါ်မှာတည်ရှိတဲ့ ပိုင်ဆိုင်မှုခိုင်မာသော Shwe Zabu Date Luxury Condo မှ
                         ရောင်းရန်ရှိသော အသင့်နေ အခန်း
@@ -88,8 +85,8 @@
                         <p class=""">#အရောင်းဈေးနှုန်း၇၅၀၀သိန်ညှိနှိုင်း</p>
                     <p class="">#Forsale7500Lmmk(negotiate)</p>
                 </div>
-    
-                <div class=" mb-4">
+     --}}
+                {{-- <div class=" mb-4">
                         <p class="font-bold">💎 Shwe Zabu Date Luxury Condo ၊ အလုံမြို့နယ်</p>
                         <ul class="list-none">
                             <li class="mb-2">✅ အကျယ် ( 2360sqft )</li>
@@ -135,15 +132,15 @@
                     <p class="">#ရွှေထိပ်တန်းခေတ် </p>
                     <p class="">#realestate </p>
                     <p class="">#Condosale</p>
-                </div>
+                </div> --}}
     
                 <!-- Property Details -->
-                <div class=" border-t-[1px] border-solid mt-2 py-2">
+                {{-- <div class=" border-t-[1px] border-solid mt-2 py-2">
                     <h3 class="">Property Details</h3>
                     <p class="text-[14px]"><span class="font-bold">Property Name : </span> အလုံမြို့နယ်
                         ကမ်းနားလမ်းမပေါ်မှာတည်ရှိတဲ့ ပိုင်ဆိုင်မှုခိုင်မာသော Shwe Zabu Date Luxury Condoမှ ရောင်းရန်ရှိသော
                     </p>
-                </div>
+                </div> --}}
     
                 <div class="grid grid-cols-3 text-[#65738b]">
                     @foreach([
@@ -173,7 +170,7 @@
                     <div
                         class=" overflow-hidden w-[85px] h-[85px] relative border-solid border-[2px] border-[#e0e0e0] rounded-full">
                         <img class=" absolute top-0 left-0 object-cover"
-                            src="https://www.shweproperty.com/logo/df4051519f4c3f59cd1fc1911e7d39a69322354e7s12t12eu7l5y1s5p35174ff5c37670b5f6cf46f5aa0f6c4f9" />
+                            src="" />
                     </div>
                     <div class="text-[10px] flex flex-col flex-1 ">
                         <a class=" pb-[5px] text-[16px] font-[500] cursor-pointer hover:underline text-blue-500">Shwe Htake
@@ -226,6 +223,8 @@
         const leftIcon = document.getElementById('leftIcon');
         const rightIcon = document.getElementById('rightIcon');
         const thumbnails = document.querySelectorAll('.w-full.flex.flex-wrap.justify-center > img');
+        
+      
 
         function changeImage(newImageUrl, index) {
             mainImage.src = newImageUrl;
@@ -234,6 +233,7 @@
         }
 
         function prevImage() {
+        console.log('prev');
             if (currentImageIndex > 0) {
                 currentImageIndex--;
                 mainImage.src = thumbnails[currentImageIndex].src;
@@ -272,21 +272,4 @@
 
 @yield('javascript')
 
-{{-- <!doctype html>
-<html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    @vite('resources/css/app.css')
-</head>
-
-<body class=" container mx-auto ">
-    
-        <script src="{{ asset('js/property.js') }}"></script>
-</body>
-
-</html> --}}

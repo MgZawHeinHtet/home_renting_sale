@@ -26,6 +26,12 @@ class DisplayPropertiesController extends Controller
     }
 
     public function show($id){
-        return view('property.sale-property-detail');
+    
+        $property = PropertySale::findOrFail($id);
+        $type = 'sale';
+        return view('property.sale-property-detail',[
+            'property'=>$property,
+            'property_type'=>$type
+        ]);
     }
 }
