@@ -140,7 +140,7 @@
             <p class="text-gray-400">Update your password associated with your account.</p>
         </div>
         <div class="col-span-2">
-            <form class="space-y-5" action="/profile/user/{{ $user->id }}/password" method="POST">
+            <form class="space-y-5" action="/profile/changePassword/{{ $user->id }}" method="POST">
                 @csrf
                 @method('PATCH')
                 <div>

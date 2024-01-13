@@ -1,8 +1,8 @@
 <header>
     <nav class="w-full py-3 px-10 bg-home-900 flex items-center justify-end">
-            <div class="">
+            
             @auth
-
+            <div class="">
                 @if (auth()->user()->role === 'agent')
                     <a class="text-white mx-3 " href="/adminAgents">Agent Dashobard</a>
            
@@ -18,14 +18,10 @@
             </form>
         @else
             <div>
-
                 <a class="text-white" href="">Join</a>
                 <span class="mx-1 text-white">/</span>
-    
                 <a class="text-white" href="/login">Login</a>
             </div>
-
-
         @endauth
 
         <button class="ml-5 text-white"><i class="fa fa-cog" aria-hidden="true"></i> Preferences

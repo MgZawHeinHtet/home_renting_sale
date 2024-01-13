@@ -62,6 +62,7 @@ Route::prefix('agents')->group(function(){
 Route::prefix('profile')->group(function(){
     Route::get('',[ProfileController::class,'index']);
     Route::patch('/user/{user:id}',[ProfileController::class,'update']);
+    Route::patch('/changePassword/{user:id}',[ProfileController::class, 'changePassword']);
 });
 
 //login route
