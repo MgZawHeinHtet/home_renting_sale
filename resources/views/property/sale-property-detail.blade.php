@@ -132,20 +132,31 @@
                     </div>
                 </div>
                 {{-- Form --}}
-                <form>
+                <form action="/properties/{{ $property->id }}/enquiry" method="POST">
+                    @csrf
+                    <input type="hidden" name="agent_id" value="{{ $property->agent->id }}">
                     <input
+                        value="{{ old('name',auth()->user()?->name) }}"
                         class="mb-2 outline-none relative w-full h-[48px] px-[15px] border-[#e0e0e0] border-solid border-[2px] rounded-md text-[13px]"
-                        type="text" placeholder="Name*" required />
+                        type="text" placeholder="Name*" name="name" required />
+                    <x-error name="name"></x-error>
                     <input
+                        value="{{ old('phone') }}"
                         class="mb-2 outline-none relative w-full h-[48px] px-[15px] border-[#e0e0e0] border-solid border-[2px] rounded-md text-[13px]"
-                        type="text" placeholder="Mobile Number" required />
+                        type="text" placeholder="Mobile Number" name="phone" required />
+                    <x-error name="phone"></x-error>
                     <input
+                        value="{{ old('email',auth()->user()?->email) }}"
                         class="mb-2 outline-none relative w-full h-[48px] px-[15px] border-[#e0e0e0] border-solid border-[2px] rounded-md text-[13px]"
-                        type="text" placeholder="Email Address" required />
+                        type="text" placeholder="Email Address" name="email" required />
+                        <x-error name="email"></x-error>
+
                     <textarea
                         class=" resize-none mb-2 outline-none relative w-full h-[100px] p-[15px] border-[#e0e0e0] border-solid border-[2px] rounded-md text-[13px]"
-                        type="text" value="" />Hello, I am interested in this property posted on ShweProperty.com and would like to request more information. Could you please contact me back as soon as possible? Thank you.</textarea>
-                    <label class="relative inline-flex mr-5 cursor-pointer">
+                        type="text" name="description"/>{{ old('description','Hello, I am interested in this property posted on ShweProperty.com and would like to request more information. Could you please contact me back as soon as possible? Thank you.') }}</textarea>
+                        <x-error name="description"></x-error>
+
+                    {{-- <label class="relative inline-flex mr-5 cursor-pointer">
                         <input type="checkbox" value="" class="sr-only peer" checked>
                         <div
                             class="w-9 h-5 md:w-11 md:h-6 bg-gray-400 rounded-full peer dark:bg-gray-400 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-500 after:border after:rounded-full after:h-4 md:after:h-5  after:w-4 md:after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#002349]">
@@ -153,7 +164,7 @@
                         <span class="flex-1 ml-3 text-[13px] font-medium text-gray-900 dark:text-gray-300">Keep me updates
                             with
                             real estate news</span>
-                    </label>
+                    </label> --}}
                     <button
                         class=" text-center bg-[#002349] text-wrap text-white w-full rounded-md h-[42px] cursor-pointer text-[12px] md:text-[14px] font-600">Send
                         Now</button>

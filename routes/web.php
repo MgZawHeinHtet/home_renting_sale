@@ -2,14 +2,17 @@
 
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\AgentDashboardController;
+use App\Http\Controllers\AgentenquiryController;
 use App\Http\Controllers\AgentPropertySaleController;
 use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\DisplayPropertiesController;
+use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\NewsCommentController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SalePropertyImageController;
 use App\Http\Controllers\ShowPropertySaleController;
 use App\Http\Middleware\AgentMiddleware;
 use App\Http\Middleware\AuthMiddleware;
@@ -51,6 +54,8 @@ Route::prefix('news')->group(function(){
 Route::prefix('properties')->group(function(){
     Route::get('/sale',[DisplayPropertiesController::class,'index']);
     Route::get('/{property:id}/sale ',[DisplayPropertiesController::class, 'show']);
+    //sending enquiry
+    Route::post('/{propery:id}/enquiry',[EnquiryController::class,'send']);
 });
 
 //agent front route
@@ -73,14 +78,19 @@ Route::get('/login',[LoginController::class, 'index']);
 
 Route::post('logout',[LogoutController::class,'logout']);
 
+//admin dashboard agent route
 Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('adminAgents')->group(function (){
     Route::get('',[AgentDashboardController::class,'index']);
     Route::resource('post-ad-sale',AgentPropertySaleController::class);
     Route::resource('show-ad-sale',ShowPropertySaleController::class);
-    Route::get('images-upload/{proeprty:id}/sale',[SalePropertyImage::class,'index']);
-    Route::post('images-upload/{property:id}',[SalePropertyImage::class,'store']);
-    Route::delete('images/{image:id}',[SalePropertyImage::class,'destory']);
+    Route::get('images-upload/{proeprty:id}/sale',[SalePropertyImageController::class,'index']);
+    Route::post('images-upload/{property:id}',[SalePropertyImageController::class,'store']);
+    Route::delete('images/{image:id}',[SalePropertyImageController::class,'destory']);
+    Route::get('/enquries',[AgentenquiryController::class,'index']);
+    Route::patch('/enquries/{enqury:id}/read',[AgentenquiryController::class, 'markAsRead']);
+    Route::delete('/enquries/{enqury:id}',[AgentenquiryController::class, 'destory']);
 });
 
 // contact us 
 Route::get('/contact_us',[ContactusController::class,'index']);
+

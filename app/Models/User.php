@@ -60,4 +60,8 @@ class User extends Authenticatable
     public function newsComment(){
         return $this->hasMany(NewsComment::class);
     }
+
+    public function enquries(){
+        return $this->hasMany(Enquiry::class,'agent_id');
+    }
 }
