@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container mx-auto">
+    <div class="px-20 mx-auto">
        
 
         <section class="w-full flex flex-col lg:flex-row justify-between p-5 lg:p-7 gap-5 ">
@@ -42,7 +42,7 @@
     
                 <!-- Small images -->
                 <div class="flex justify-center items-center py-2">
-                    <div id="smallImages" class="overflow-x-scroll flex justify-start gap-2 cursor-pointer">
+                    <div id="smallImages" class="overflow-x-scroll no-scrollbar flex justify-start gap-2 cursor-pointer">
                         @foreach ($imageUrls as $index => $image)
                         <img src="{{ $image }}"
                             class="w-16 h-16 small-image @if ($index === 0) border-[#002349] border-solid border-2 @endif"
@@ -105,6 +105,94 @@
                     </div>
                     @endforeach
                 </div>
+                <form class=" w-full my-5 py-5" method="POST" action="/properties/{{ $property->id }}/schedule">
+                    @csrf
+                    <input type="hidden" name="agent_id" value="{{ $property->agent->id }}">
+                    
+                    <h3 class="pb-3 border-b-[1px] text-lg border-gray-300 font-[500]">Schedule a Viewing</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 py-5 mb-5">
+                        <div class=" flex flex-col gap-3">
+                            <label for="types" class=" text-sm font-medium">Viewing Type</label>
+                            <select id="types" name="viewType"
+                                class=" p-2 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:outline-0">
+                                <option selected>Select</option>
+                                <option value="in person">In Person</option>
+                                <option value="video chat">Video Chat</option>
+                                
+                            </select>
+                            <x-error name="viewType"></x-error>
+                        </div>
+                        <div class=" flex flex-col gap-3">
+                            <label for="date" class=" text-sm font-medium">Date</label>
+                            <input id="date" type="date" name="date"
+                                class=" p-2 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:outline-0"
+                                placeholder="Select Viewing Date" />
+                                <x-error name="date"></x-error>
+
+                        </div>
+                        <div class=" flex flex-col gap-3">
+                            <label for="time" class=" text-sm font-medium">
+                                Time
+                            </label>
+                            <input name="time" class=" p-2 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:outline-0" type="time">
+                            <x-error name="time"></x-error>
+                            {{-- <select id="time"
+                                class=" p-2 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:outline-0">
+                                <option selected>10:00 am</option>
+                                <option value="11">11:00 am</option>
+                                <option value="12">12:00 pm</option>
+                                <option value="13">1:00 pm</option>
+                                <option value="14">2:00 pm</option>
+                                <option value="15">3:00 pm</option>
+                            </select> --}}
+                        </div>
+                    </div>
+                    <h3 class="pb-3 border-b-[1px] border-gray-300 font-[400] text-md">Your Information</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 pt-5 pb-3">
+                        <div class=" flex flex-col gap-3">
+                            <label for="name" class=" text-sm font-medium">Name</label>
+                            <input
+                                name="name"
+                                class=" p-2 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:outline-0"
+                                placeholder="Enter Your Name" />
+                                <x-error name="name"></x-error>
+                        </div>
+                        <div class=" flex flex-col gap-3">
+                            <label for="phone" class=" text-sm font-medium">Phone</label>
+                            <input
+                                name="phone"
+                                class=" p-2 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:outline-0"
+                                placeholder="Enter Your Phone" />
+                                <x-error name="phone"></x-error>
+
+                        </div>
+                        <div class=" flex flex-col gap-3">
+                            <label for="email" class=" text-sm font-medium">Email</label>
+                            <input
+                                name="email"
+                                class=" p-2 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:outline-0"
+                                placeholder="Enter Your Email" />
+                            <x-error name="email"></x-error>
+                        </div>
+                    </div>
+                    <div class=" flex flex-col gap-3">
+                        <label for="message" class=" text-sm font-medium">Message</label>
+                        <textarea
+                            name="message"
+                            class=" p-2 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:outline-0 h-100"
+                            placeholder="Enter Your Message"></textarea>
+                            <x-error name="message"></x-error>
+                    </div>
+                    <div class=" flex gap-3 py-3">
+                        <input type="checkbox" class="term-use"/>
+                        <label for="message" class=" text-sm font-normal">By submitting this form I agree to Terms of
+                            Use</label>
+                    </div>
+                    <button disabled="disabled"
+                    
+                        class="schedule-btn text-center opacity-20 bg-[#002349] text-wrap text-white w-auto px-5 py-2 rounded-md cursor-pointer text-[12px] md:text-[14px] font-600">Submit
+                        A Viewing Request</button>
+                </form> 
             </div>
     
             <div class="w-full lg:w-1/4 py-5">
@@ -152,7 +240,7 @@
                         <x-error name="email"></x-error>
 
                     <textarea
-                        class=" resize-none mb-2 outline-none relative w-full h-[100px] p-[15px] border-[#e0e0e0] border-solid border-[2px] rounded-md text-[13px]"
+                        class="no-scrollbar resize-none mb-2 outline-none relative w-full h-[100px] p-[15px] border-[#e0e0e0] border-solid border-[2px] rounded-md text-[13px]"
                         type="text" name="description"/>{{ old('description','Hello, I am interested in this property posted on ShweProperty.com and would like to request more information. Could you please contact me back as soon as possible? Thank you.') }}</textarea>
                         <x-error name="description"></x-error>
 
@@ -181,8 +269,21 @@
         const leftIcon = document.getElementById('leftIcon');
         const rightIcon = document.getElementById('rightIcon');
         const thumbnails = document.querySelectorAll('.w-full.flex.flex-wrap.justify-center > img');
-        
+        const termUse  = document.querySelector('.term-use');
+        const scheduleBtn = document.querySelector('.schedule-btn')
+        console.log(termUse.checked,scheduleBtn);
       
+        //clickable btn when ckeckbox selected
+
+        termUse.addEventListener('change', function(e){
+            if(termUse.checked){
+                scheduleBtn.classList.remove('opacity-20')
+                scheduleBtn.removeAttribute('disabled')
+            }else{
+                scheduleBtn.classList.add('opacity-20')
+                scheduleBtn.setAttribute('disabled','disabled')
+            }
+        })
 
         function changeImage(newImageUrl, index) {
             mainImage.src = newImageUrl;

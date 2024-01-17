@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminscheduleController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\AgentDashboardController;
 use App\Http\Controllers\AgentenquiryController;
 use App\Http\Controllers\AgentPropertySaleController;
+use App\Http\Controllers\AgentscheduleController;
 use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\DisplayPropertiesController;
 use App\Http\Controllers\EnquiryController;
@@ -13,11 +15,13 @@ use App\Http\Controllers\NewsCommentController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalePropertyImageController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ShowPropertySaleController;
 use App\Http\Middleware\AgentMiddleware;
 use App\Http\Middleware\AuthMiddleware;
 use App\Models\NewsComment;
 use App\Models\SalePropertyImage;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Route;
 
 
@@ -56,6 +60,7 @@ Route::prefix('properties')->group(function(){
     Route::get('/{property:id}/sale ',[DisplayPropertiesController::class, 'show']);
     //sending enquiry
     Route::post('/{propery:id}/enquiry',[EnquiryController::class,'send']);
+    Route::post('/{property:id}/schedule',[ScheduleController::class,'takeSchedule'])->middleware(AuthMiddleware::class);
 });
 
 //agent front route
@@ -89,6 +94,7 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::get('/enquries',[AgentenquiryController::class,'index']);
     Route::patch('/enquries/{enqury:id}/read',[AgentenquiryController::class, 'markAsRead']);
     Route::delete('/enquries/{enqury:id}',[AgentenquiryController::class, 'destory']);
+    Route::get('/schedules',[AgentscheduleController::class,'index']);
 });
 
 // contact us 

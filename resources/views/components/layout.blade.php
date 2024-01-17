@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     @vite('resources/css/app.css')
 </head>
-<body class="font-serif overflow-x-hidden">
+<body class="font-serif overflow-x-hidden no-scrollbar">
     <x-navbar></x-navbar>
     {{ $slot }}
 </body>

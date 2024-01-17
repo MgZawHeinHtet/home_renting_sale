@@ -64,4 +64,8 @@ class User extends Authenticatable
     public function enquries(){
         return $this->hasMany(Enquiry::class,'agent_id');
     }
+
+    public function schedules(){
+        return $this->hasMany(Schedule::class);
+    }
 }
