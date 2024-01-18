@@ -13,6 +13,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\NewsCommentController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalePropertyImageController;
 use App\Http\Controllers\ScheduleController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\ShowPropertySaleController;
 use App\Http\Middleware\AgentMiddleware;
 use App\Http\Middleware\AuthMiddleware;
 use App\Models\NewsComment;
+use App\Models\Notification;
 use App\Models\SalePropertyImage;
 use App\Models\Schedule;
 use Illuminate\Support\Facades\Route;
@@ -73,6 +75,10 @@ Route::prefix('profile')->group(function(){
     Route::get('',[ProfileController::class,'index']);
     Route::patch('/user/{user:id}',[ProfileController::class,'update']);
     Route::patch('/changePassword/{user:id}',[ProfileController::class, 'changePassword']);
+    Route::get('notifications',[NotificationController::class,'index']);
+    Route::patch('/notifications/{notification:id}',[NotificationController::class, 'read']);
+    Route::delete('/notifications/{notification:id}',[NotificationController::class, 'destory']);
+    Route::post('/notifications/allread',[NotificationController::class,'makeAllRead']);
 });
 
 //login route
@@ -95,8 +101,11 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::patch('/enquries/{enqury:id}/read',[AgentenquiryController::class, 'markAsRead']);
     Route::delete('/enquries/{enqury:id}',[AgentenquiryController::class, 'destory']);
     Route::get('/schedules',[AgentscheduleController::class,'index']);
+    Route::patch('/schedules/{schedule:id}/accept',[AgentscheduleController::class, 'accept']);
+    Route::patch('/schedules/{schedule:id}/reject',[AgentscheduleController::class, 'reject']);
+
 });
 
-// contact us 
+// contact us /schedules/{schedule:id}/accept
 Route::get('/contact_us',[ContactusController::class,'index']);
 

@@ -104,7 +104,7 @@
                         email
                     </th>
                     <th scope="col" class=" px-6 py-3">
-                        Description
+                        Messages
                     </th>
                     <th scope="col" class="px-6 py-3">
                         View type
@@ -117,6 +117,9 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Your properties
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Status
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Action
@@ -164,13 +167,20 @@
                             </a>
                             
                         </td>
+                        <td class="px-6 py-4 capitalize">
+                            {{ $schedule->status }}
+                        </td>
                         <td class="px-6 py-4">
                             <div class="flex items-center">
-                                <a href="/dashboard/products/{/edit"
-                                    class="font-medium mr-3 text-green-600 dark:text-green-500 hover:underline">Confirm</a>
-                                <form action="/dashboard/products/{" method="POST">
+                                <form action="/adminAgents/schedules/{{ $schedule->id }}/accept" method="POST">
                                     @csrf
-                                    @method('DELETE')
+                                    @method('PATCH')
+                                    <button 
+                                        class="font-medium mr-3 text-green-600 dark:text-green-500 hover:underline">Accept</button>
+                                </form>
+                                <form action="/adminAgents/schedules/{{ $schedule->id }}/reject" method="POST">
+                                    @csrf
+                                    @method('PATCH')
                                     <button type="submit" class="font-medium text-red-500 hover:underline">Reject</button>
                                 </form>
                             </div>

@@ -68,4 +68,9 @@ class User extends Authenticatable
     public function schedules(){
         return $this->hasMany(Schedule::class);
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class,'recipent_id');
+    }
 }

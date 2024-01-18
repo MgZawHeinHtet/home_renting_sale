@@ -55,7 +55,7 @@
         </div>
     </div>
     <div class="px-[20px] pt-[20px] pb-[10px] flex flex-col gap-4">
-        <p class="text-[24px] font-bold">{{ $property->title }}</p>
+        <p class="text-[24px] font-bold line-clamp-1">{{ $property->title }}</p>
         <p>{{ $property->region }},{{ $property->township }}</p>
         <p>{{ $property->price }} <span>lakhs</span></p>
         <p>{{ $property->bedroom }} Bedrooms ,
