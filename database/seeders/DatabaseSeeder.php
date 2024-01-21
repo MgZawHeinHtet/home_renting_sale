@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Amenity;
 use App\Models\News;
 use App\Models\PropertySale;
+use App\Models\rule;
 use App\Models\SalePropertyImage;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -40,5 +42,8 @@ class DatabaseSeeder extends Seeder
                 SalePropertyImage::factory()->count(4)
             )
         )->create();
+
+        Amenity::factory(14)->create();
+        rule::factory(5)->create();
     }
 }

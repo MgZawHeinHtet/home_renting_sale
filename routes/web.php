@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminscheduleController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\AgentDashboardController;
 use App\Http\Controllers\AgentenquiryController;
+use App\Http\Controllers\AgentPropertyRentController;
 use App\Http\Controllers\AgentPropertySaleController;
 use App\Http\Controllers\AgentscheduleController;
 use App\Http\Controllers\ContactusController;
@@ -110,6 +111,8 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::patch('/schedules/{schedule:id}/accept',[AgentscheduleController::class, 'accept']);
     Route::patch('/schedules/{schedule:id}/reject',[AgentscheduleController::class, 'reject']);
 
+    //FOR RENT
+    Route::resource('post-ad-rent',AgentPropertyRentController::class);
 });
 
 // contact us /schedules/{schedule:id}/accept
