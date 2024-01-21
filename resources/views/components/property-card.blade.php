@@ -1,4 +1,4 @@
-<div class="w-full border-2 shadow-md rounded relative pb-8">
+<div class="w-full border-2 shadow-md rounded relative pb-8 bg-white">
     <div class="absolute z-30 bg-[#002349] px-4 py-2 left-4 top-4 text-white">
         <button>Video</button>
     </div>

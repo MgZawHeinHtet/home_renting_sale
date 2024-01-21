@@ -28,13 +28,14 @@
                 </a>
             </li>
             <li>
-                <a class="font-bold text-base text-gray-400" href="/profile/orders">
-                    Order Lists
+                <a class="font-bold text-base text-gray-400" href="/profile/schedules">
+                    Schedule Request Lists
                 </a>
             </li>
+           
             <li>
-                <a class="font-bold text-base text-gray-400" href="/profile/ratedProduct">
-                    Rated Products
+                <a class="font-bold text-base text-gray-400" href="/profile/savedProperties">
+                    Saved Properties
                 </a>
             </li>
         </ul>

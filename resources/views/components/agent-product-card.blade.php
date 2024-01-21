@@ -47,12 +47,10 @@
                 <li>
                     <a class="uppercase" href="">View Detail</a>
                 </li>
-                <li class="border-x px-2 border-x-home-600">
-                    <button class="uppercase"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+                <li class="border-l px-2 border-x-home-600">
+                    <button class="uppercase"><i class="fa-solid fa-bookmark"></i> BookMark</button>
                 </li>
-                <li class="mr-1">
-                    <button class="uppercase"><i class="fa-solid fa-envelope"></i> Email</button>
-                </li>
+               
 
             </ul>
         </div>

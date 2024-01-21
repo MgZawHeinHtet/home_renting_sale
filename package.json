@@ -15,6 +15,7 @@
     },
     "dependencies": {
         "font-awesome": "^4.7.0",
+        "leaflet": "^1.9.4",
         "tinymce": "^6.8.2"
     }
 }

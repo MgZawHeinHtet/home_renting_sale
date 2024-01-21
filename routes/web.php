@@ -15,6 +15,8 @@ use App\Http\Controllers\NewsCommentController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfilescheduleController;
+use App\Http\Controllers\PropertySaveController;
 use App\Http\Controllers\SalePropertyImageController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ShowPropertySaleController;
@@ -60,6 +62,7 @@ Route::prefix('news')->group(function(){
 Route::prefix('properties')->group(function(){
     Route::get('/sale',[DisplayPropertiesController::class,'index']);
     Route::get('/{property:id}/sale ',[DisplayPropertiesController::class, 'show']);
+    Route::post('/{property:id}/saveSale',[PropertySaveController::class,'saveSale']);
     //sending enquiry
     Route::post('/{propery:id}/enquiry',[EnquiryController::class,'send']);
     Route::post('/{property:id}/schedule',[ScheduleController::class,'takeSchedule'])->middleware(AuthMiddleware::class);
@@ -71,7 +74,7 @@ Route::prefix('agents')->group(function(){
     Route::get('/{agent:id}',[AgentController::class, 'show']);
 });
 
-Route::prefix('profile')->group(function(){
+Route::middleware(AuthMiddleware::class)->prefix('profile')->group(function(){
     Route::get('',[ProfileController::class,'index']);
     Route::patch('/user/{user:id}',[ProfileController::class,'update']);
     Route::patch('/changePassword/{user:id}',[ProfileController::class, 'changePassword']);
@@ -79,6 +82,9 @@ Route::prefix('profile')->group(function(){
     Route::patch('/notifications/{notification:id}',[NotificationController::class, 'read']);
     Route::delete('/notifications/{notification:id}',[NotificationController::class, 'destory']);
     Route::post('/notifications/allread',[NotificationController::class,'makeAllRead']);
+    Route::get('/schedules',[ProfilescheduleController::class,'index']);
+    Route::post('/schedules/{schedule:id}/cancel',[ProfilescheduleController::class,'cancel']);
+    Route::get('/savedProperties',[ProfileController::class,'savedProperties']);
 });
 
 //login route

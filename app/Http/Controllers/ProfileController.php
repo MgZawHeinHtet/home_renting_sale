@@ -56,4 +56,12 @@ class ProfileController extends Controller
 
         return back()->with('create', 'Change Successfully 🎉');
     }
+
+    public function savedProperties(){
+        return view('profile.saved-properties',[
+            'properties' =>auth()->user()->savedSaleProperties()->latest()->paginate(8)
+        ]);
+
+        
+    }
 }

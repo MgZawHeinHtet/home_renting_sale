@@ -36,4 +36,8 @@ class PropertySale extends Model
     public function enquries(){
         return $this->hasMany(Enquiry::class,'property_id');
     }
+
+    public function savedUsers(){
+        return $this->belongsToMany(User::class);
+    }
 }

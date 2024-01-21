@@ -73,4 +73,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class,'recipent_id');
     }
+
+    public function savedSaleProperties(){
+        return $this->belongsToMany(PropertySale::class);
+    }
+
+    public function isSavedProperties($property){
+        return $this->savedSaleProperties->contains('id',$property->id);
+    }
 }
