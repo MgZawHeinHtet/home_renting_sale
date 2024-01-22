@@ -18,6 +18,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfilescheduleController;
 use App\Http\Controllers\PropertySaveController;
+use App\Http\Controllers\RentPropertyImageController;
 use App\Http\Controllers\SalePropertyImageController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ShowPropertySaleController;
@@ -25,6 +26,7 @@ use App\Http\Middleware\AgentMiddleware;
 use App\Http\Middleware\AuthMiddleware;
 use App\Models\NewsComment;
 use App\Models\Notification;
+use App\Models\RentPropertyImage;
 use App\Models\SalePropertyImage;
 use App\Models\Schedule;
 use Illuminate\Support\Facades\Route;
@@ -101,9 +103,9 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::get('',[AgentDashboardController::class,'index']);
     Route::resource('post-ad-sale',AgentPropertySaleController::class);
     Route::resource('show-ad-sale',ShowPropertySaleController::class);
-    Route::get('images-upload/{proeprty:id}/sale',[SalePropertyImageController::class,'index']);
-    Route::post('images-upload/{property:id}',[SalePropertyImageController::class,'store']);
-    Route::delete('images/{image:id}',[SalePropertyImageController::class,'destory']);
+    Route::get('images-upload/{property:id}/sale',[SalePropertyImageController::class,'index']);
+    Route::post('images-upload/{property:id}/sale',[SalePropertyImageController::class,'store']);
+    Route::delete('images/{image:id}/sale',[SalePropertyImageController::class,'destory']);
     Route::get('/enquries',[AgentenquiryController::class,'index']);
     Route::patch('/enquries/{enqury:id}/read',[AgentenquiryController::class, 'markAsRead']);
     Route::delete('/enquries/{enqury:id}',[AgentenquiryController::class, 'destory']);
@@ -113,6 +115,10 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
 
     //FOR RENT
     Route::resource('post-ad-rent',AgentPropertyRentController::class);
+    Route::get('images-upload/{property:id}/rent',[RentPropertyImageController::class,'index']);
+    Route::post('images-upload/{property:id}/rent',[RentPropertyImageController::class,'store']);
+    Route::delete('images/{image:id}/rent',[RentPropertyImageController::class,'destory']);
+
 });
 
 // contact us /schedules/{schedule:id}/accept

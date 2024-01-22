@@ -11,14 +11,13 @@ class SalePropertyImageController extends Controller
 {
     public function index($id)
     {
-        $curr_routes = url()->current();
-        $isSale = str_contains($curr_routes, 'sale');
-        if ($isSale) {
-            $property = PropertySale::find($id);
-        }
+      
+         $property = PropertySale::find($id);
+        
 
         return view('agent_dashboard.images-upload', [
-            'property' => $property
+            'property' => $property,
+            'property_type'=>'sale'
         ]);
     }
 

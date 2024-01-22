@@ -4,7 +4,7 @@
     <p class="p-3 text-center bg-home-900 rounded text-white mb-10 tracking-wide">If your advertisement with photo,it
         will be more interesting.
     </p>
-    <form action="/adminAgents/images-upload/{{ $property->id }}" method="POST" enctype="multipart/form-data"">
+    <form action="{{ $property_type == 'sale' ? '/adminAgents/images-upload/'.$property->id.'/sale' : '/adminAgents/images-upload/'.$property->id.'/rent' }}" method="POST" enctype="multipart/form-data"">
         @csrf
     <div class="flex justify-between items-center mb-5">
         <p class="text-white"><i class="fa-solid fa-triangle-exclamation text-yellow-600 text-xl tracking-wide"></i> You
@@ -97,18 +97,25 @@
         </div>
     </form>
 
-    <h4 class="text-xl text-yellow-600 text-center mb-10">Number of uploaded photos = ({{ $property->salePropertyImage->count() }})</h4>
+    <h4 class="text-xl text-yellow-600 text-center mb-10">Number of uploaded photos = ({{$property_type === 'sale' ? $property->salePropertyImage->count() : $property->rentPropertyImage->count() }})</h4>
     <div class="grid grid-cols-4 gap-5">
-        @foreach ($property->salePropertyImage as $image)
+        @php
+            $property_images = $property_type === "sale" ? $property?->salePropertyImage : $property?->rentPropertyImage;
+            
+        @endphp
+            
+        @foreach ($property_images as $image)
             <div class="p-2 bg-white rounded-lg relative">
                 <img class="w-full  object-cover h-40" src="{{ $image->image }}" alt="">
-                <form action="/adminAgents/images/{{ $image->id }}" method="POST">
+                <form action="{{ $property_type == 'sale' ? '/adminAgents/images/'.$image->id.'/sale' : '/adminAgents/images/'.$image->id.'/rent' }}" method="POST">
                     @csrf
                     @method('DELETE')
+                    <input type="hidden" name="property_type" value="{{ $property_type }}">
                     <button class="absolute top-3 right-3"><i class="fas fa-trash text-red-600 text-xl"></i></button>
                 </form>
             </div>
         @endforeach
+        
     </div>
 </x-agent-dashboard-layout>
 

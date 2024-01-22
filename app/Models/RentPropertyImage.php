@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PropertyRent extends Model
+class RentPropertyImage extends Model
 {
     use HasFactory;
 
-    public function rentPropertyImage(){
-        return $this->hasMany(RentPropertyImage::class,'property_id');
+    public function rentProperty()
+    {
+        return $this->belongsTo(PropertyRent::class, 'property_id');
     }
 }
