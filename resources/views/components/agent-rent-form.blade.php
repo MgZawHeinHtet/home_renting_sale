@@ -1,26 +1,33 @@
-@props(['type', 'amenities','rules'])
+@props(['type', 'amenities', 'rules', 'property' => null])
 
 <div class="w-[900px] p-5 py-8 bg-home-900 mx-auto rounded">
-    <form class="text-white" action="/adminAgents/post-ad-rent" method="POST">
+    <form class="text-white"
+        action="{{ $type === 'sale' ? '/adminAgents/post-ad-rent' : '/adminAgents/show-ad-rent/' . $property->id }}"
+        method="POST">
         @csrf
-        <h2 class="text-center text-white text-xl tracking-wide mb-5">For Rent Property</h2>
+        @if ($type === 'edit')
+            @method('PATCH')
+        @endif
+        <h2 class="text-center text-white text-xl tracking-wide mb-5 capitalize">For Rent Property {{ $type }}
+        </h2>
         <div class="grid grid-cols-2 gap-5 capitalize t ext-white">
             <div class="space-y-2 col-span-2">
                 <label class="block text-white" for="">Property Title</label>
-                <input   name="title" type="text" class="w-full bg-home-600 rounded">
+                <input value="{{ old('title', $property?->title) }}" name="title" type="text"
+                    class="w-full bg-home-600 rounded">
                 <x-error name="title"></x-error>
             </div>
             <div class="space-y-2">
                 <label class="block text-white" for="">region,State</label>
                 <select name="state" class="p-2 w-full  bg-home-600 rounded" id="">
-                    <option value="" >Pls select one</option>
-                    <option value="yangon" >Yangon</option>
+                    <option value="">Pls select one</option>
+                    <option value="yangon">Yangon</option>
                 </select>
                 <x-error name="state"></x-error>
             </div>
             <div class="space-y-2">
                 <label class="block text-white" for="">township</label>
-                <select name="township" class="p-2 w-full  bg-home-600 rounded"  id="">
+                <select name="township" class="p-2 w-full  bg-home-600 rounded" id="">
                     <option value="" selected>Pls select one</option>
                     <option value="hmawbi">Hmawbi</option>
                 </select>
@@ -28,117 +35,166 @@
             </div>
             <div class="space-y-2">
                 <label class="block text-white" for="">Category</label>
+                @php
+                    $property_type = old('type', $property?->category);
+                @endphp
                 <select class="p-2 w-full  bg-home-600 rounded" name="category" id="">
-                    <option value="" >Pls select one</option>
-                    <option value="apartment">Apartment</option>
+                    <option value="">Pls select one</option>
+                    <option class="capitalize" {{ $property_type === 'apartment' ? 'selected' : '' }} value="apartment">
+                        apartment
+                    </option>
+                    <option class="capitalize" {{ $property_type === 'mini condo' ? 'selected' : '' }}
+                        value="mini condo">mini
+                        condo
+                    </option>
+                    <option class="capitalize" {{ $property_type === 'condo' ? 'selected' : '' }} value="condo">condo
+                    </option>
+                    <option class="capitalize" {{ $property_type === 'house' ? 'selected' : '' }} value="house">house
+                    </option>
+                    <option class="capitalize" {{ $property_type === 'land' ? 'selected' : '' }} value="land">land
+                    </option>
+
                 </select>
                 <x-error name="category"></x-error>
             </div>
             <div class="space-y-2">
                 <label class="block text-white" for="">Rent Price Per Month</label>
-                <input name="price" type="text" class="w-full bg-home-600 rounded">
+                <input value="{{ old('price', $property?->price) }}" name="price" type="text"
+                    class="w-full bg-home-600 rounded">
                 <x-error name="price"></x-error>
             </div>
-            
+
             <div>
                 <div class="grid grid-cols-2 gap-2">
-    
+
                     <div class="space-y-2">
                         <label class="block text-white" for="">Limit amount of people</label>
-                        <input name="people" type="number" class="w-full bg-home-600 rounded">
+                        <input value="{{ old('people', $property?->people) }}" name="people" type="number"
+                            class="w-full bg-home-600 rounded">
                         <x-error name="people"></x-error>
                     </div>
                     <div class="space-y-2">
                         <label class="block text-white" for="">Map</label>
-                        <input name="map" type="text" class="w-full bg-home-600 rounded" placeholder="eg-34324.324,32423">
+                        <input value="{{ old('map', $property?->map) }}" name="map" type="text"
+                            class="w-full bg-home-600 rounded" placeholder="eg-34324.324,32423">
                         <x-error name="map"></x-error>
                     </div>
-    
+
                 </div>
             </div>
             <div>
                 <div class="grid grid-cols-2 gap-2">
-    
+
                     <div class="space-y-2">
                         <label class="block text-white" for="">area</label>
-                        <input name="area" type="text" class="w-full bg-home-600 rounded">
+                        <input value="{{ old('area', $property?->area) }}" name="area" type="text"
+                            class="w-full bg-home-600 rounded">
                         <x-error name="area"></x-error>
                     </div>
                     <div class="space-y-2">
                         <label class="block text-white" for="">area unit</label>
                         <select name="area_unit" class="p-2 w-full bg-home-600 rounded" name="areaType" id="area_type">
                             <option value="" selected>Pls select one</option>
-                            <option value="l*w">
-                                Length x Width</option>
-                            <option value="au">Area
-                                Unit</option>
+                            <option value="sqft"
+                                {{ old('area_unit', $property?->area_unit) == 'sqft' ? 'selected' : '' }}>
+                                sqrt</option>
+                            <option value="acre"
+                                {{ old('area_unit', $property?->area_unit) == 'acre' ? 'selected' : '' }}>acre
+                            </option>
                         </select>
                         <x-error name="area_unit"></x-error>
                     </div>
-    
+
                 </div>
             </div>
-    
+
             <div class="space-y-2 col-span-2">
                 <label class="block text-white" for="">Number of Bathrooms </label>
-                <input name="bathroom" type="number" class="w-full bg-home-600 rounded">
+                <input value="{{ old('bathroom', $property?->bathroom) }}" name="bathroom" type="number"
+                    class="w-full bg-home-600 rounded">
                 <x-error name="bathroom"></x-error>
             </div>
             <div class="space-y-2 col-span-2">
                 <label class="block text-white" for="">Number of Bedrooms </label>
-                <input name="bedroom" type="number" class="w-full bg-home-600 rounded">
+
+                <input value="{{ old('bedroom', $property?->bedroom) }}" name="bedroom" type="number"
+                    class="w-full bg-home-600 rounded">
                 <x-error name="bedroom"></x-error>
             </div>
             <div class="space-y-2 col-span-2">
                 <label class="block text-white" for="">Description </label>
-                <textarea  class="w-full bg-home-600 rounded" name="description" id="" cols="30" rows="10"></textarea>
+                <textarea class="w-full bg-home-600 rounded" name="description" id="" cols="30" rows="10"> {{ old('description', $property?->description) }}</textarea>
                 <x-error name="description"></x-error>
             </div>
-    
+
             <div class="space-y-5 col-span-2">
                 <label class="block text-lg text-white" for="">Amenities </label>
                 <div class="flex flex-wrap gap-6">
-                    @foreach ($amenities as $amenity)
+                    @php
+                        $oldAmenities = json_decode($property?->amenities);
+
+                    @endphp
+                    @foreach ($amenities as $key => $amenity)
                         <div>
-                            <input value="<i class='{{ $amenity->icon }} mr-1'></i>{{ $amenity->title }}" type="checkbox" name="amenities[]">
-                            <label  for="">{{ $amenity->title }}</label>
-                        </div>
-                    @endforeach
+                            <input value="<i class='{{ $amenity->icon }} mr-1'></i>{{ $amenity->title }}"
+                                type="checkbox" name="amenities[]" 
+                                
+                               @foreach ($oldAmenities as $oldAmenity)
+                                
+                               {{ $oldAmenity === "<i class='$amenity->icon mr-1'></i>$amenity->title" ? 'checked' : '' }}
+                               @endforeach
+                    
+                    >
+                    <label for="">{{ $amenity->title }}</label>
                 </div>
-            </div>
-            <hr class="col-span-2">
-            <div class="space-y-5 col-span-2">
-                <label class="block text-lg text-white" for="">House rules </label>
-                <div class="flex flex-wrap gap-6">
-                    @foreach ($rules as $rule)
-                        <div>
-                            <input value="<i class='{{ $rule->icon }} mr-1'></i>{{ $rule->title }}" type="checkbox" name="house_rules[]">
-                            <label for="">{{ $rule->title }}</label>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-    
-            <div class="space-y-2 col-span-2">
-                <label class="block text-white" for="">What's nearby </label>
-                <input name="nearby" type="text" class="w-full py-5 bg-home-600 rounded" placeholder="eg.20km from shop,47km from school">
-                <x-error name="nearby"></x-error>
-            </div>
-    
-            <div class="space-y-2">
-                <label class="block text-white" for="">Check-In(24hour format)</label>
-                <input name="check_in" type="text" class="w-full bg-home-600 rounded" placeholder="eg-12:00">
-                <x-error name="check_in"></x-error>
-    
-            </div>
-            <div class="space-y-2">
-                <label class="block text-white" for="">Check-Out (24hour format)</label>
-                <input name="check_out" type="text" class="w-full bg-home-600 rounded" placeholder="eg-12:00">
-                <x-error name="check_out"></x-error>
+                @endforeach
             </div>
         </div>
-        <button class="fixed bottom-10 animate-bounce right-10 w-20 h-20 shadow text-white rounded-full bg-yellow-600">Submit</button>
-    </form>
+        <hr class="col-span-2">
+        <div class="space-y-5 col-span-2">
+            <label class="block text-lg text-white" for="">House rules </label>
+            <div class="flex flex-wrap gap-6">
+                @php
+                    $oldRules = json_decode($property?->house_rules);
+
+                @endphp
+                @foreach ($rules as $key => $rule)
+                    <div>
+                        <input value="<i class='{{ $rule->icon }}  mr-1'></i>{{ $rule->title }}"
+                            type="checkbox" name="house_rules[]"
+
+                            @foreach ($oldRules as $oldRule)
+                                
+                               {{ $oldRule === "<i class='$rule->icon  mr-1'></i>$rule->title" ? 'checked' : '' }}
+                               @endforeach
+                        <label for="">{{ $rule->title }}</label>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="space-y-2 col-span-2">
+            <label class="block text-white" for="">What's nearby </label>
+            <input value="{{ old('nearby', $property?->nearby) }}" name="nearby" type="text"
+                class="w-full py-5 bg-home-600 rounded" placeholder="eg.20km from shop,47km from school">
+            <x-error name="nearby"></x-error>
+        </div>
+
+        <div class="space-y-2">
+            <label class="block text-white" for="">Check-In(24hour format)</label>
+            <input value="{{ old('check_in', $property?->check_in) }}" name="check_in" type="text"
+                class="w-full bg-home-600 rounded" placeholder="eg-12:00">
+            <x-error name="check_in"></x-error>
+
+        </div>
+        <div class="space-y-2">
+            <label class="block text-white" for="">Check-Out (24hour format)</label>
+            <input value="{{ old('check_out', $property?->check_out) }}" name="check_out" type="text"
+                class="w-full bg-home-600 rounded" placeholder="eg-12:00">
+            <x-error name="check_out"></x-error>
+        </div>
 </div>
-
-
+<button
+    class="fixed bottom-10 animate-bounce right-10 w-20 h-20 shadow text-white rounded-full bg-yellow-600">Submit</button>
+</form>
+</div>

@@ -21,6 +21,7 @@ use App\Http\Controllers\PropertySaveController;
 use App\Http\Controllers\RentPropertyImageController;
 use App\Http\Controllers\SalePropertyImageController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\ShowPropertyRentController;
 use App\Http\Controllers\ShowPropertySaleController;
 use App\Http\Middleware\AgentMiddleware;
 use App\Http\Middleware\AuthMiddleware;
@@ -118,6 +119,10 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::get('images-upload/{property:id}/rent',[RentPropertyImageController::class,'index']);
     Route::post('images-upload/{property:id}/rent',[RentPropertyImageController::class,'store']);
     Route::delete('images/{image:id}/rent',[RentPropertyImageController::class,'destory']);
+
+    //rent property show and other staff
+    Route::resource('show-ad-rent',ShowPropertyRentController::class);
+        
 
 });
 

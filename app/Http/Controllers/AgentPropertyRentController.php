@@ -40,7 +40,7 @@ class AgentPropertyRentController extends Controller
         $property_number = 'R-'.rand(1000,9999);
         $cleanData['property_number'] = $property_number;
         $cleanData['agent_id'] = auth()->user()->id;
-        
+            
         $cleanData['amenities'] = json_encode(Request()->amenities) ;
         $cleanData['house_rules'] = json_encode(Request()->house_rules);
         $property = PropertyRent::create($cleanData);
@@ -74,8 +74,10 @@ class AgentPropertyRentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $property = PropertyRent::find($id);
+        $property->delete();
+        return back();
     }
 }
