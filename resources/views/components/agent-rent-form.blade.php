@@ -2,7 +2,7 @@
 
 <div class="w-[900px] p-5 py-8 bg-home-900 mx-auto rounded">
     <form class="text-white"
-        action="{{ $type === 'sale' ? '/adminAgents/post-ad-rent' : '/adminAgents/show-ad-rent/' . $property->id }}"
+        action="{{ $type === 'create' ? '/adminAgents/post-ad-rent' : '/adminAgents/show-ad-rent/' . $property->id }}"
         method="POST">
         @csrf
         @if ($type === 'edit')
@@ -19,11 +19,11 @@
             </div>
             <div class="space-y-2">
                 <label class="block text-white" for="">region,State</label>
-                <select name="state" class="p-2 w-full  bg-home-600 rounded" id="">
+                <select name="region" class="p-2 w-full  bg-home-600 rounded" id="">
                     <option value="">Pls select one</option>
                     <option value="yangon">Yangon</option>
                 </select>
-                <x-error name="state"></x-error>
+                <x-error name="region"></x-error>
             </div>
             <div class="space-y-2">
                 <label class="block text-white" for="">township</label>
@@ -137,13 +137,12 @@
                     @foreach ($amenities as $key => $amenity)
                         <div>
                             <input value="<i class='{{ $amenity->icon }} mr-1'></i>{{ $amenity->title }}"
-                                type="checkbox" name="amenities[]" 
-                                
-                               @foreach ($oldAmenities as $oldAmenity)
-                                
-                               {{ $oldAmenity === "<i class='$amenity->icon mr-1'></i>$amenity->title" ? 'checked' : '' }}
-                               @endforeach
-                    
+                                type="checkbox" name="amenities[]" @if (isset($oldAmenities))
+                            @foreach ($oldAmenities as $oldAmenity)
+                                {{ $oldAmenity === "<i class='$amenity->icon mr-1'></i>$amenity->title" ? 'checked' : '' }}
+                            @endforeach
+                    @endif
+
                     >
                     <label for="">{{ $amenity->title }}</label>
                 </div>
@@ -160,39 +159,38 @@
                 @endphp
                 @foreach ($rules as $key => $rule)
                     <div>
-                        <input value="<i class='{{ $rule->icon }}  mr-1'></i>{{ $rule->title }}"
-                            type="checkbox" name="house_rules[]"
-
-                            @foreach ($oldRules as $oldRule)
-                                
-                               {{ $oldRule === "<i class='$rule->icon  mr-1'></i>$rule->title" ? 'checked' : '' }}
-                               @endforeach
-                        <label for="">{{ $rule->title }}</label>
-                    </div>
-                @endforeach
+                        <input value="<i class='{{ $rule->icon }}  mr-1'></i>{{ $rule->title }}" type="checkbox"
+                            name="house_rules[]" @if (isset($oldRules))
+                        @foreach ($oldRules as $oldRule)
+                            {{ $oldRule === "<i class='$rule->icon  mr-1'></i>$rule->title" ? 'checked' : '' }}
+                        @endforeach
+                @endif
+                <label for="">{{ $rule->title }}</label>
             </div>
+            @endforeach
         </div>
+</div>
 
-        <div class="space-y-2 col-span-2">
-            <label class="block text-white" for="">What's nearby </label>
-            <input value="{{ old('nearby', $property?->nearby) }}" name="nearby" type="text"
-                class="w-full py-5 bg-home-600 rounded" placeholder="eg.20km from shop,47km from school">
-            <x-error name="nearby"></x-error>
-        </div>
+<div class="space-y-2 col-span-2">
+    <label class="block text-white" for="">What's nearby </label>
+    <input value="{{ old('nearby', $property?->nearby) }}" name="nearby" type="text"
+        class="w-full py-5 bg-home-600 rounded" placeholder="eg.20km from shop,47km from school">
+    <x-error name="nearby"></x-error>
+</div>
 
-        <div class="space-y-2">
-            <label class="block text-white" for="">Check-In(24hour format)</label>
-            <input value="{{ old('check_in', $property?->check_in) }}" name="check_in" type="text"
-                class="w-full bg-home-600 rounded" placeholder="eg-12:00">
-            <x-error name="check_in"></x-error>
+<div class="space-y-2">
+    <label class="block text-white" for="">Check-In(24hour format)</label>
+    <input value="{{ old('check_in', $property?->check_in) }}" name="check_in" type="text"
+        class="w-full bg-home-600 rounded" placeholder="eg-12:00">
+    <x-error name="check_in"></x-error>
 
-        </div>
-        <div class="space-y-2">
-            <label class="block text-white" for="">Check-Out (24hour format)</label>
-            <input value="{{ old('check_out', $property?->check_out) }}" name="check_out" type="text"
-                class="w-full bg-home-600 rounded" placeholder="eg-12:00">
-            <x-error name="check_out"></x-error>
-        </div>
+</div>
+<div class="space-y-2">
+    <label class="block text-white" for="">Check-Out (24hour format)</label>
+    <input value="{{ old('check_out', $property?->check_out) }}" name="check_out" type="text"
+        class="w-full bg-home-600 rounded" placeholder="eg-12:00">
+    <x-error name="check_out"></x-error>
+</div>
 </div>
 <button
     class="fixed bottom-10 animate-bounce right-10 w-20 h-20 shadow text-white rounded-full bg-yellow-600">Submit</button>

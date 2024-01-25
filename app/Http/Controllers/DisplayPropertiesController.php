@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PropertyRent;
 use App\Models\PropertySale;
 use Illuminate\Http\Request;
+use PhpParser\Builder\Property;
 
 class DisplayPropertiesController extends Controller
 {
@@ -15,9 +17,10 @@ class DisplayPropertiesController extends Controller
         if($is_sale){
             $type = 'sale';
             $properties = PropertySale::with(['agent','salePropertyImage'])->filter($requests)->latest()->paginate(9)->withQueryString();
+            
         }else if($is_rent){
             $type = 'rent';
-            $properties = PropertySale::with(['agent'])->filter($requests)->latest()->paginate(9)->withQueryString();
+            $properties = PropertyRent::with(['agent'])->filter($requests)->latest()->paginate(9)->withQueryString();
         }
         return view('property.index',[
             'properties' =>$properties,
@@ -25,13 +28,23 @@ class DisplayPropertiesController extends Controller
         ]);
     }
 
-    public function show($id){
+    public function saleShow($id){
     
         $property = PropertySale::findOrFail($id);
-        $type = 'sale';
+        
         return view('property.sale-property-detail',[
             'property'=>$property,
-            'property_type'=>$type
+            'property_type'=>'sale'
+        ]);
+    }
+
+    public function rentShow($id){
+    
+        $property = PropertyRent::findOrFail($id);
+       
+        return view('property.rent-property-detail',[
+            'property'=>$property,
+            'property_type'=>'rent'
         ]);
     }
 }

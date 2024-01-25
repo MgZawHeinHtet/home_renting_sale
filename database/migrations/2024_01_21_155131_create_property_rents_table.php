@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('property_number')->unique();
             $table->string('title');
-            $table->string('state');
+            $table->string('region');
             $table->string('township');
             $table->string('category');
             $table->string('price');

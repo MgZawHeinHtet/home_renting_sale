@@ -4,8 +4,6 @@
     @endpush
     @stack('css')
     <div class="px-20 mx-auto">
-
-
         <div
             class="overlay hidden w-screen h-screen  items-center justify-center fixed top-0 left-0 z-50 bg-black bg-opacity-50">
             <div class="shadow rounded w-[1000px] h-[600px] z-50" id="map"></div>
@@ -25,7 +23,7 @@
                     <div class="space-x-3 flex items-center">
                         <form action="/properties/{{ $property->id }}/saveSale" method="POST">
                             @csrf
-                            @if (!auth()->user()->isSavedProperties($property))
+                            @if (!auth()->user()?->isSavedProperties($property) ?? null)
                                 
                             <button><i class="fa-regular fa-bookmark text-2xl text-yellow-600"></i></button>
                             @else
@@ -50,7 +48,7 @@
                     <!-- Main image -->
                     <div id="fullWidthImages" class="flex transition-transform duration-300 ease-in-out">
                         @foreach ($imageUrls as $index => $image)
-                            <img src="{{ $image }}" alt="Full Width Image" class=" flex-shrink-0 w-full h-auto"
+                            <img  src="{{ $image }}" alt="Full Width Image" class=" flex-shrink-0 w-full h-[550px] object-cover"
                                 data-index="{{ $index }}">
                         @endforeach
                     </div>

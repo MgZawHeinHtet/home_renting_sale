@@ -8,19 +8,17 @@
             <div id="default-carousel" class="relative w-full h-full" data-carousel="static">
                 <!-- Carousel wrapper -->
                 <div class="overflow-hidden relative w-full xl:h-full lg:h-full h-64 rounded">
-
-                    @foreach ($property->salePropertyImage as $img)
+                    @php
+                        $images = $type === 'sale' ? $property->salePropertyImage : $property->rentPropertyImage;
+                    @endphp
+                    @foreach ($images as $img)
                         <div class="hidden duration-700 w-full h-full  ease-in-out" data-carousel-item>
 
                             <img src="{{ $img->image }}"
                                 class="absolute rounded object-cover block w-full h-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                                 alt="...">
-
                         </div>
                     @endforeach
-
-
-
                 </div>
 
                 <button type="button"
@@ -58,9 +56,14 @@
         <p class="text-[24px] font-bold line-clamp-1">{{ $property->title }}</p>
         <p>{{ $property->region }},{{ $property->township }}</p>
         <p>{{ $property->price }} <span>lakhs</span></p>
-        <p>{{ $property->bedroom }} Bedrooms ,
-            {{ isset($property->length) ? $property->width . "' x " . $property->length . "'" : '' }}
+        <p>{{ $property->bedroom }} Bedrooms 
+            {{ isset($property->length) ? $property->width . ",' x " . $property->length . "'" : '' }}
+
+            @if($type=='rent')
+                 {{ isset($property->area) ? ',    ' . $property->area . ' ' . $property->area_unit : '' }}</p>
+            @else
             {{ isset($property->area) ? ',    ' . $property->area . ' ' . $property->areaUnit : '' }}</p>
-        <p>Marketed By {{ $property->agent->name }}.</p>
+            @endif
+        <p>Marketed By {{ $property->agent->company_name }}.</p>
     </div>
 </div>

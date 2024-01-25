@@ -23,7 +23,7 @@ class PropertyRentFormRequest extends FormRequest
     {
         return [
             'title'=> ['required'],
-            'state'=> ['required'],
+            'region'=> ['required'],
             'township'=> ['required'],
             'category'=> ['required'],
             'price'=> ['required'],

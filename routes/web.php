@@ -65,8 +65,10 @@ Route::prefix('news')->group(function(){
 //property route
 Route::prefix('properties')->group(function(){
     Route::get('/sale',[DisplayPropertiesController::class,'index']);
-    Route::get('/{property:id}/sale ',[DisplayPropertiesController::class, 'show']);
-    Route::post('/{property:id}/saveSale',[PropertySaveController::class,'saveSale']);
+    Route::get('/rent',[DisplayPropertiesController::class, 'index']);
+    Route::get('/{property:id}/sale ',[DisplayPropertiesController::class, 'saleShow']);
+    Route::get('/{property:id}/rent',[DisplayPropertiesController::class, 'rentShow']);
+    Route::post('/{property:id}/saveSale',[PropertySaveController::class,'saveSale'])->middleware(AuthMiddleware::class);
     //sending enquiry
     Route::post('/{propery:id}/enquiry',[EnquiryController::class,'send']);
     Route::post('/{property:id}/schedule',[ScheduleController::class,'takeSchedule'])->middleware(AuthMiddleware::class);

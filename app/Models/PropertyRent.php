@@ -9,7 +9,25 @@ class PropertyRent extends Model
 {
     use HasFactory;
 
+    public function agent(){
+        return $this->belongsTo(User::class,'agent_id');
+    }
+
     public function rentPropertyImage(){
         return $this->hasMany(RentPropertyImage::class,'property_id');
+    }
+    public function scopeFilter($propertyQuery,$request){
+        if(false){
+            $propertyQuery->where('id',3);
+        }
+
+        if($search_input = $request['search_input'] ?? null)
+        {
+            $propertyQuery->where(function($query) use ($search_input){
+                $query->where('title','LIKE','%'.$search_input."%")
+                ->orWhere('region','LIKE','%'.$search_input."%")
+                ->orWhere('township','LIKE','%'.$search_input."%");
+            });
+        }
     }
 }
