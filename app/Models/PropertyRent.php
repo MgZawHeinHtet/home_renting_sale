@@ -9,6 +9,13 @@ class PropertyRent extends Model
 {
     use HasFactory;
 
+    public function rentReview(){
+        return $this->hasMany(RentReview::class,'property_id');
+    }
+    public function booking(){
+        return $this->hasMany(booking::class,'property_id');
+    }
+
     public function agent(){
         return $this->belongsTo(User::class,'agent_id');
     }
@@ -30,4 +37,5 @@ class PropertyRent extends Model
             });
         }
     }
+
 }

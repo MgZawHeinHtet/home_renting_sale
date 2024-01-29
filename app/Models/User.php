@@ -84,4 +84,6 @@ class User extends Authenticatable
     public function isSavedProperties($property){
         return $this->savedSaleProperties->contains('id',$property->id);
     }
+
+
 }

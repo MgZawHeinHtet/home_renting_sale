@@ -1,4 +1,5 @@
 @import 'leaflet/dist/leaflet.css';
+@import "hotel-datepicker/dist/css/hotel-datepicker.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,6 +26,13 @@
       }
     }
   } 
+
+  .datepicker{
+    positiion : absolute;
+    top : 100px;
+    left : -580px;
+    
+  }
 
  
 

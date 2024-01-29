@@ -1,6 +1,8 @@
 <x-layout>
     @push('css')
         <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/t-datepicker@1.0.4/public/theme/css/t-datepicker.min.css">
+        <link rel="stylesheet" href="{{ asset('table_design/t-datepicker-blue.css') }}">
     @endpush
     @stack('css')
 
@@ -14,8 +16,9 @@
                             <!-- Carousel wrapper -->
                             <div class="overflow-hidden relative rounded-lg w-full h-full ">
                                 <!-- Item 1 -->
-                                @foreach ($property?->rentPropertyImage as $img)
-                                    <div class="hidden duration-700 w-full h-full  ease-in-out" data-carousel-item>
+                                @foreach ($property?->rentPropertyImage as $key => $img)
+                                    <div class="hidden duration-700 w-full h-full  ease-in-out"
+                                        data-carousel-item="Slide {{ $key + 1 }}">
 
                                         <img class="object-cover w-full" src="{{ $img->image }}" alt>
                                     </div>
@@ -23,9 +26,10 @@
 
                             </div>
                             <!-- Slider indicators -->
-                            <div class="flex w-full gap-5 mt-2">
+                            <div class="flex overflow-x-scroll w-full gap-5 mt-2 no-scrollbar">
                                 @foreach ($property?->rentPropertyImage as $key => $img)
-                                    <button type="button" class="w-[11%] h-[40px] rounded-md border-2 border-white"
+                                    <button type="button"
+                                        class="flex-grow-0 flex-shrink-0 w-[120px]  h-[70px] rounded-md border-2 border-white"
                                         aria-current="false" aria-label="Slide {{ $key + 1 }}"
                                         data-carousel-slide-to="{{ $key }}">
                                         <img class="object-cover rounded-md" src="{{ $img->image }}" alt>
@@ -67,7 +71,7 @@
 
                     </div>
                 </div>
-                <div class="mt-[100px] ms-[150px] me-[30px]">
+                <div class="mt-[150px] ms-[150px] me-[30px]">
                     <div
                         class="w-[130px] py-[5px] rounded-md justify-center flex gap-2 items-center bg-white shadow-md">
                         <svg xmlns="http://www.w3.org/2000/svg" class="text-[#0D8763]" width="24" height="24"
@@ -293,17 +297,12 @@
                     <div class="w-full bg-[#EDEDFF] px-[25px] rounded-md py-[7px] mb-[30px]">
                         152 guests rated this home
                     </div>
-                    
-                    {{-- review card section  --}}
-                   
-                    <x-rent-review-card></x-rent-review-card>
-                    <x-rent-review-card></x-rent-review-card>
-                    <x-rent-review-card></x-rent-review-card>
-                    <x-rent-review-card></x-rent-review-card>
-                    <x-rent-review-card></x-rent-review-card>
 
-                    
-                    
+                    {{-- review card section  --}}
+                    @foreach ($property->rentReview as $review)
+                        
+                    <x-rent-review-card :review="$review"></x-rent-review-card>
+                    @endforeach
                    
                     <!-- psganation -->
                     <div></div>
@@ -339,216 +338,50 @@
                                 Save
                             </button>
                         </div>
-                        <p class="mb-[10px]">{{ $property->area }} {{ $property->area_unit }}
+                        <p class="mb-[10px] ">{{ $property->area }} {{ $property->area_unit }}
                             {{ $property->category }} ∙ {{ $property->bedroom }} bedrooms ∙ {{ $property->people }}
                             people</p>
-                        <p class="mb-[5px]">{{ $property->township }}, {{ $property->region }}</p>
-                        <div class="bg-[#FFEEDF] rounded-md">
-                            <p class="px-[20px] py-[5px] mb-[5px] text-[14px]">Choose
-                                dates to check availability</p>
-                            <div class="w-full bg-white rounded-md border-2">
-                                <div class="flex w-full relative ">
-                                    <div class="w-[50%]">
-                                        <div x-data="{ subMenuOpen: false }" class="relative">
-                                            <button @click="subMenuOpen = !subMenuOpen"
-                                                class="flex justify-between items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 relative rounded-md">
-                                                Check In
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                    viewBox="0 0 24 24">
-                                                    <path fill="currentColor"
-                                                        d="M12 14.708L6.692 9.4l.708-.708l4.6 4.6l4.6-4.6l.708.708z" />
-                                                </svg>
-                                            </button>
-                                            <div x-show="subMenuOpen" @click.away="subMenuOpen = false"
-                                                class="absolute z-[100] top-0 right-full ml-4 w-[400px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 px-2 py-2">
-                                                <div class=" flex items-center justify-center">
-
-                                                    <div class="w-full">
-                                                        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                                                            <div
-                                                                class="flex items-center justify-between px-6 py-3 bg-gray-700">
-                                                                <button id="prevMonth"
-                                                                    class="text-white">Previous</button>
-                                                                <h2 id="currentMonth" class="text-white"></h2>
-                                                                <button id="nextMonth"
-                                                                    class="text-white">Next</button>
-                                                            </div>
-                                                            <div class="grid grid-cols-7 gap-2 p-4" id="calendar">
-                                                                <!-- Calendar Days Go Here -->
-                                                            </div>
-                                                            <div id="myModal"
-                                                                class="modal hidden fixed inset-0 flex items-center justify-center z-50">
-                                                                <div
-                                                                    class="modal-overlay absolute inset-0 bg-black opacity-50">
-                                                                </div>
-
-                                                                <div
-                                                                    class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-                                                                    <div class="modal-content py-4 text-left px-6">
-                                                                        <div
-                                                                            class="flex justify-between items-center pb-3">
-                                                                            <p class="text-2xl font-bold">Selected
-                                                                                Date</p>
-                                                                            <button id="closeModal"
-                                                                                class="modal-close px-3 py-1 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring">✕</button>
-                                                                        </div>
-                                                                        <div id="modalDate"
-                                                                            class="text-xl font-semibold"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
-
-                                    </div>
-                                    <div class="w-[50%]">
-                                        <div x-data="{ subMenuOpen: false }" class="relative">
-                                            <button @click="subMenuOpen = !subMenuOpen"
-                                                class="flex justify-between items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 relative rounded-md">
-                                                Check Out
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                    viewBox="0 0 24 24">
-                                                    <path fill="currentColor"
-                                                        d="M12 14.708L6.692 9.4l.708-.708l4.6 4.6l4.6-4.6l.708.708z" />
-                                                </svg>
-
-                                            </button>
-                                            <div x-show="subMenuOpen" @click.away="subMenuOpen = false"
-                                                class="absolute z-[100] top-0 right-[260px] ml-4 w-[400px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 px-2 py-2">
-                                                <div class=" flex items-center justify-center">
-
-                                                    <div class="w-full">
-                                                        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                                                            <div
-                                                                class="flex items-center justify-between px-6 py-3 bg-gray-700">
-                                                                <button id="prevMonth1"
-                                                                    class="text-white">Previous</button>
-                                                                <h2 id="currentMonth1" class="text-white"></h2>
-                                                                <button id="nextMonth1"
-                                                                    class="text-white">Next</button>
-                                                            </div>
-                                                            <div class="grid grid-cols-7 gap-2 p-4" id="calendar1">
-                                                                <!-- Calendar Days Go Here -->
-                                                            </div>
-                                                            <div id="myModal1"
-                                                                class="modal hidden fixed inset-0 flex items-center justify-center z-[50]">
-                                                                <div
-                                                                    class="modal-overlay absolute inset-0 bg-black opacity-50">
-                                                                </div>
-
-                                                                <div
-                                                                    class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-                                                                    <div class="modal-content py-4 text-left px-6">
-                                                                        <div
-                                                                            class="flex justify-between items-center pb-3">
-                                                                            <p class="text-2xl font-bold">Selected
-                                                                                Date</p>
-                                                                            <button id="closeModal1"
-                                                                                class="modal-close px-3 py-1 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none focus:ring">✕</button>
-                                                                        </div>
-                                                                        <div id="modalDate1"
-                                                                            class="text-xl font-semibold"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
-
-                                    </div>
-                                </div>
-                                <div>
-                                    <div x-data="{ subMenuOpen: false }" class="relative">
-                                        <button @click="subMenuOpen = !subMenuOpen"
-                                            class="flex justify-between items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 relative rounded-md">
-                                            <div class="w-full flex justify-between ">
-                                                <div class="flex justify-center items-center"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24">
-                                                        <path fill="currentColor"
-                                                            d="M5 17.808v-.839q0-.619.36-1.158q.361-.54.97-.838q1.416-.679 2.833-1.018q1.418-.34 2.837-.34q.675 0 1.354.084t1.367.238l-.829.834q-.485-.067-.946-.111q-.46-.045-.946-.045q-1.335 0-2.646.319q-1.312.318-2.546.916q-.38.202-.594.494Q6 16.637 6 16.97v.646h5.846v1H5.808q-.344 0-.576-.232Q5 18.151 5 17.808m9.23 1.384v-.73q0-.332.134-.633q.134-.3.351-.517l4.848-4.83q.149-.147.306-.2t.315-.051q.172 0 .338.064q.165.065.301.193l.925.945q.123.148.188.307q.064.16.064.32t-.062.322q-.061.162-.19.31l-4.829 4.83q-.217.216-.518.347q-.3.131-.632.131h-.73q-.344 0-.576-.232q-.232-.232-.232-.576m6.884-5.132l-.925-.945zm-6 5.055h.95l3.468-3.473l-.47-.475l-.455-.488l-3.493 3.486zm3.948-3.948l-.455-.488l.925.963zM12 11.385q-1.237 0-2.119-.882T9 8.385q0-1.238.881-2.12q.881-.88 2.119-.88t2.119.88q.881.882.881 2.12q0 1.237-.881 2.118T12 11.385m0-1q.825 0 1.413-.588T14 8.385q0-.825-.587-1.413T12 6.385q-.825 0-1.412.587T10 8.385q0 .825.588 1.412t1.412.588m0-2" />
-                                                    </svg>
-                                                    2 guests (2 adultss, 0 children)</div>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24">
-                                                    <path fill="currentColor"
-                                                        d="M12 14.708L6.692 9.4l.708-.708l4.6 4.6l4.6-4.6l.708.708z" />
-                                                </svg>
-
-                                            </div>
-
-                                        </button>
-                                        <div x-show="subMenuOpen" @click.away="subMenuOpen = false"
-                                            class="absolute w-[350px] z-[100] top-0 right-full ml-4 w-full rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 px-5 py-2">
-                                            <div class=" flex items-center justify-between mb-[10px]">
-
-                                                <div class="flex justify-center items-center gap-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24">
-                                                        <path fill="currentColor"
-                                                            d="M12 11.385q-1.237 0-2.119-.882T9 8.385q0-1.238.881-2.12q.881-.88 2.119-.88t2.119.88q.881.882.881 2.12q0 1.237-.881 2.118T12 11.385m-7 7.23V16.97q0-.619.36-1.158q.361-.54.97-.838q1.416-.679 2.833-1.018q1.418-.34 2.837-.34q1.42 0 2.837.34q1.417.34 2.832 1.018q.61.298.97.838q.361.539.361 1.158v1.646zm1-1h12v-.646q0-.332-.214-.625q-.215-.292-.594-.494q-1.234-.598-2.546-.916q-1.31-.319-2.646-.319q-1.335 0-2.646.319q-1.312.318-2.546.916q-.38.202-.594.494Q6 16.637 6 16.97zm6-7.23q.825 0 1.413-.588T14 8.385q0-.825-.587-1.413T12 6.385q-.825 0-1.412.587T10 8.385q0 .825.588 1.412t1.412.588m0 7.23" />
-                                                    </svg>
-                                                    <div>
-                                                        <p>Adults</p>
-                                                        <p>Ages 18 or
-                                                            above</p>
-                                                    </div>
-                                                </div>
-                                                <div class="flex justify-center items-center gap-[15px]">
-                                                    <button
-                                                        class="border-2 border-[#9333ea] w-[30px]  text-[24px] font-bold  taxt-center">+</button>
-                                                    <p class="text-[24px] font-bold">9</p>
-                                                    <button
-                                                        class="border-2 border-[#9333ea] w-[30px]  text-[24px] font-bold  taxt-center">-</button>
-                                                </div>
-
-                                            </div>
-                                            <div class=" flex items-center justify-between">
-
-                                                <div class="flex justify-center items-center gap-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24">
-                                                        <path fill="currentColor"
-                                                            d="M12 11.385q-1.237 0-2.119-.882T9 8.385q0-1.238.881-2.12q.881-.88 2.119-.88t2.119.88q.881.882.881 2.12q0 1.237-.881 2.118T12 11.385m-7 7.23V16.97q0-.619.36-1.158q.361-.54.97-.838q1.416-.679 2.833-1.018q1.418-.34 2.837-.34q1.42 0 2.837.34q1.417.34 2.832 1.018q.61.298.97.838q.361.539.361 1.158v1.646zm1-1h12v-.646q0-.332-.214-.625q-.215-.292-.594-.494q-1.234-.598-2.546-.916q-1.31-.319-2.646-.319q-1.335 0-2.646.319q-1.312.318-2.546.916q-.38.202-.594.494Q6 16.637 6 16.97zm6-7.23q.825 0 1.413-.588T14 8.385q0-.825-.587-1.413T12 6.385q-.825 0-1.412.587T10 8.385q0 .825.588 1.412t1.412.588m0 7.23" />
-                                                    </svg>
-                                                    <div>
-                                                        <p>Children</p>
-                                                        <p>Ages 18 or
-                                                            above</p>
-                                                    </div>
-                                                </div>
-                                                <div class="flex justify-center items-center gap-[15px]">
-                                                    <button
-                                                        class="border-2 border-[#9333ea] w-[30px]  text-[24px] font-bold  taxt-center">+</button>
-                                                    <p class="text-[24px] font-bold">9</p>
-                                                    <button
-                                                        class="border-2 border-[#9333ea] w-[30px]  text-[24px] font-bold  taxt-center">-</button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
+                        <p class="mb-[10px] capitalize">{{ $property->township }}, {{ $property->region }}</p>
+                        <form action="/check-date/{{ $property->id }}" method="POST">
+                            @csrf
+                            @if (session('status'))
+                            <div class="bg-green-100 rounded-md">
+                                <p class="px-[20px] py-[8px] mb-[5px] text-[14px] text-green-600">{{ session('status') }}</p>
                             </div>
-                        </div>
-                        <button class="mt-3 bg-[#002349] w-full inline rounded-lg py-[7px] text-white mb-5">Check
-                            availability</button>
+                            @elseif ( session('error'))
+                            <div class="bg-red-100  rounded-md">
+                                <p class="px-[20px] py-[8px] mb-[5px] text-[14px] text-red-500 font-bold">{{ session('error') }} <br><span class="text-[10px]">Choose different date to check availability</span></p>
+                            </div>
+                            @else
+                            <div class="bg-orange-100  rounded-md">
+                                <p class="px-[20px] py-[8px] mb-[5px] text-[14px] text-orange-600 font-bold">Choose Date for accurate deal</p>
+                            </div>
+                            
+                            @endif
+                            <div class="w-full bg-white rounded-md border-2">
+                                <input value="{{ old('check') }}" name="check" class="w-full border  p-2"
+                                    id="input-id" type="text"
+                                    placeholder="Pls Select Check in | Check out date" />
+                            </div>
+                            <button class="mt-3 bg-[#002349] w-full inline rounded-lg py-[7px] text-white mb-5">Check
+                                availability</button>
+                        </form>
                         <div class="flex justify-between mb-5">
                             <p>Book on</p>
                             <p>Booking.com</p>
                         </div>
+                        @if (session('total_days'))
+                            
+                        <div class="flex justify-between mb-5">
+                            <p>Price for {{ session('total_days') }} days</p>
+                            <p> {{round($property->price * session('total_days')/30,2)  }}  kyats</p>
+                        </div>
+                        @else 
                         <div class="flex justify-between mb-5">
                             <p>Price per month</p>
-                            <p>from {{ $property->price }} kyats</p>
+                            <p>from {{ $property->price  }}  kyats</p>
                         </div>
+                        @endif
 
                     </div>
                 </div>
@@ -561,86 +394,21 @@
                     class="border-2 px-[15px] mb-[50px] py-[15px] font-bold  hover:bg-[#EDEDFF] border-[#002349] text-[#002349] rounded-md">Keep
                     Searching</button>
             </div>
-            <div class="py-[10px] w-full bg-[#EDEDFF] rounded-lg px-[30px] py-[50px]">
-                <div class="flex w-full gap-3">
-                    <div class="w-[50%]">
-                        <p class="text-[22px] font-semibold pb-3">Receive exclusive offers, inspirational stories, and
-                            travel regulation updates</p>
-                        <p class="text-[18px] text-gray-600 font-lighter">Become a subscriber and receive great tips on
-                            travel planning!</p>
-                    </div>
-                    <div class="w-[50%]">
-                        <div class="w-full mb-[10px]">
-                            <input type="email"
-                                class="shawdow-lg rounded-lg w-[70%] px-[10px] py-[10px] outline-none text-gray-700"
-                                placeholder="Enter email address">
-                            <button
-                                class="w-[20%] border-2 py-[10px] rounded-lg bg-[#002349] text-white px-[10px] ">Subscribe</button>
-                        </div>
-                        <p>
-                            By signing up, you agree to our <a href="" class="underline text-blue-700">Terms of
-                                Service</a> and <a href="" class="underline text-blue-700">Privacy Policy</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+        
         </div>
         <!-- footer -->
-        <div class="w-full py-[30px] px-[150px] bg-[#F4F4F4]">
-            <div class="w-full flex gap-[150px]">
-                <div class="flex flex-col gap-4">
-                    <p class="font-bold text-[18px] text-gray-600">HomeToGo</p>
-                    <div class="flex flex-col gap-4 text-gray-500 ">
-                        <a href="" class="font-semibold text-[14px]">About us</a>
-                        <a href="" class="font-semibold text-[14px]">Careers</a>
-                        <a href="" class="font-semibold text-[14px]">Investors</a>
-                        <a href="" class="font-semibold text-[14px]">HomeToGo stock</a>
-                        <a href="" class="font-semibold text-[14px]">App</a>
-                        <a href="" class="font-semibold text-[14px]">Product features</a>
-                        <a href="" class="font-semibold text-[14px]">Insights</a>
-                        <a href="" class="font-semibold text-[14px]">Inspiration</a>
-                    </div>
-
-                </div>
-                <div class="flex flex-col gap-4">
-                    <p class="font-bold text-[18px] text-gray-600">Contact
-                    </p>
-                    <div class="flex flex-col gap-4 text-gray-500 ">
-                        <a href="" class="font-semibold text-[14px]">Help Center and contact
-                        </a>
-                        <a href="" class="font-semibold text-[14px]">List your home</a>
-                        <a href="" class="font-semibold text-[14px]">Become an affiliate partner
-                        </a>
-                        <a href="" class="font-semibold text-[14px]">Press
-                        </a>
-
-                    </div>
-
-                </div>
-                <div class="flex flex-col gap-4">
-                    <p class="font-bold text-[18px] text-gray-600">Legal policies
-                    </p>
-                    <div class="flex flex-col gap-4 text-gray-500 ">
-                        <a href="" class="font-semibold text-[14px]">Terms of Service</a>
-                        <a href="" class="font-semibold text-[14px]">Privacy Policy</a>
-                        <a href="" class="font-semibold text-[14px]">Legal</a>
-                        <a href="" class="font-semibold text-[14px]">How the platform works</a>
-                        <a href="" class="font-semibold text-[14px]">Security</a>
-
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
+     
     </div>
 </x-layout>
 
 @section('javascript')
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/t-datepicker@1.0.4/public/theme/js/t-datepicker.min.js"></script>
     <script>
         var map = L.map('map').setView([{{ $property->map }}], 13);
 
@@ -651,25 +419,29 @@
 
         const marker = L.marker([{{ $property->map }}]).addTo(map);
 
-        let prevMarker ;
+        let prevMarker;
 
         map.on('click', function(e) {
 
-            if(prevMarker != undefined){
-               
+            if (prevMarker != undefined) {
+
                 map.removeLayer(prevMarker);
             }
-            
-            L.Routing.control({ createMarker: function() { return null; } });
 
-             prevMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+            L.Routing.control({
+                createMarker: function() {
+                    return null;
+                }
+            });
+
+            prevMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
 
             L.Routing.control({
                     waypoints: [L.latLng({{ $property->map }}), L.latLng([e.latlng.lat, e.latlng.lng])],
                 })
                 .on('routesfound', function(e) {
                     e.routes[0].coordinates.forEach((coor, index) => {
-                        
+
                         setTimeout(() => {
                             marker.setLatLng([coor.lat, coor.lng]);
                         }, 100 * index);

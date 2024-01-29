@@ -19,6 +19,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfilescheduleController;
 use App\Http\Controllers\PropertySaveController;
 use App\Http\Controllers\RentPropertyImageController;
+use App\Http\Controllers\RentReviewController;
 use App\Http\Controllers\SalePropertyImageController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ShowPropertyRentController;
@@ -27,9 +28,13 @@ use App\Http\Middleware\AgentMiddleware;
 use App\Http\Middleware\AuthMiddleware;
 use App\Models\NewsComment;
 use App\Models\Notification;
+use App\Models\PropertyRent;
 use App\Models\RentPropertyImage;
+use App\Models\RentReview;
 use App\Models\SalePropertyImage;
 use App\Models\Schedule;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -130,4 +135,34 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
 
 // contact us /schedules/{schedule:id}/accept
 Route::get('/contact_us',[ContactusController::class,'index']);
+
+Route::post('/check-date/{property:id}',function(Request $request,PropertyRent $property){
+    $booking_dates = $property->booking;
+    $dateToCheck = explode(' ',$request->check);
+
+    foreach($booking_dates as $date){
+        $check_date_in = Carbon::parse($date->date_in);
+        $check_date_out = Carbon::parse($date->date_out);
+        $start_date = Carbon::parse($dateToCheck[0]);
+        $end_date =  Carbon::parse($dateToCheck[2]);
+        $interval = $start_date->diff($end_date)->days;
+        if($start_date->between($check_date_in,$check_date_out) || $end_date->between($check_date_in,$check_date_out)){
+            return back()->with('error','Booked up for your Date');
+        }else{
+            return back()->with('status','selected dates are aviable ✅')->with('total_days',round($interval))->withInput();
+        }
+    }
+});
+
+Route::get('/booking/{property:id}',function(PropertyRent $property){
+    return $property->booking()->get(['date_in','date_out']);
+});
+
+
+
+
+
+Route::get('/properties/{id}/review',[RentReviewController::class,'index']);
+
+Route::post('/properties/{id}/review',[RentReviewController::class,'store']);
 
