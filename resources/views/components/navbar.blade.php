@@ -3,7 +3,7 @@
             
             @auth
             <div class="">
-                @if (auth()->user()->role === 'agent')
+                @if (auth()->user()->role === 'agent'|| auth()->user()->role="admin")
                     <a class="text-white mx-3 " href="/adminAgents">Agent Dashobard</a>
            
                   @elseif (auth()->user()->role === "customer")

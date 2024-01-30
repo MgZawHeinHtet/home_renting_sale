@@ -133,26 +133,44 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     //agent profile
     Route::get('/profile',[AgentProifleController::class,'index']);
     Route::post('/profile',[AgentProifleController::class,'upload']);
+
+    //news 
+    Route::get('/news',[NewsController::class,'news_index']);
+    Route::delete('/news/{news:id}',[NewsController::class, 'destroy']);
+    Route::get('/news/create',[NewsController::class,'create']);
+    Route::post('/news',[NewsController::class,'store']);
+    Route::get('/news/{news:id}/edit',[NewsController::class, 'edit']);
+    Route::patch('/news/{news:id} ',[NewsController::class, 'update']);
 });
 
 // contact us /schedules/{schedule:id}/accept
 Route::get('/contact_us',[ContactusController::class,'index']);
 
 Route::post('/check-date/{property:id}',function(Request $request,PropertyRent $property){
+    
     $booking_dates = $property->booking;
     $dateToCheck = explode(' ',$request->check);
+    $start_date = Carbon::parse($dateToCheck[0]);
+    $end_date =  Carbon::parse($dateToCheck[2]);
+    $interval = $start_date->diff($end_date)->days;
+    if($booking_dates->count()){
 
-    foreach($booking_dates as $date){
-        $check_date_in = Carbon::parse($date->date_in);
-        $check_date_out = Carbon::parse($date->date_out);
-        $start_date = Carbon::parse($dateToCheck[0]);
-        $end_date =  Carbon::parse($dateToCheck[2]);
-        $interval = $start_date->diff($end_date)->days;
-        if($start_date->between($check_date_in,$check_date_out) || $end_date->between($check_date_in,$check_date_out)){
-            return back()->with('error','Booked up for your Date');
-        }else{
-            return back()->with('status','selected dates are aviable ✅')->with('total_days',round($interval))->withInput();
+        foreach($booking_dates as $date){
+            $check_date_in = Carbon::parse($date->date_in);
+            $check_date_out = Carbon::parse($date->date_out);
+           
+         
+            if($start_date->between($check_date_in,$check_date_out) || $end_date->between($check_date_in,$check_date_out)){
+               
+                return back()->with('error','Booked up for your Date');
+            }else{
+               
+                return back()->with('status','selected dates are aviable ✅')->with('total_days',round($interval))->withInput();
+            }
         }
+    }else{
+        
+        return back()->with('status','selected dates are aviable ✅')->with('total_days',round($interval))->withInput();
     }
 });
 

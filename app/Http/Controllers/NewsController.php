@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NewsFormRequest;
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class NewsController extends Controller
 {
@@ -25,15 +27,20 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //
+        return view('agent_dashboard.post_news');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(NewsFormRequest $request)
     {
-        //
+        $cleanData = $request->validated();
+        $image_url = '/storage/' . $cleanData['photo']->store('/news');
+        $cleanData['photo'] = $image_url;
+        $cleanData['writer_id']= auth()->user()->id;
+        News::create($cleanData);
+        return redirect('/adminAgents/news');
     }
 
     /**
@@ -55,17 +62,28 @@ class NewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(News $news)
     {
-        //
+      
+        return view('agent_dashboard.edit-news',[
+            'news'=>$news
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(NewsFormRequest $request, News $news)
     {
-        //
+        $cleanData = $request->validated();
+        if ($file = request('photo')) {
+            if ($path = public_path($news->photo)) {
+                File::delete($path);
+            }
+            $cleanData['photo'] =  '/storage/' . $file->store('/news');
+        }
+        $news->update($cleanData);
+        return back();
     }
 
     /**
@@ -73,7 +91,9 @@ class NewsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $news = News::find($id);
+        $news->delete();
+        return back();
     }
 
     public function like($id){
@@ -86,5 +106,12 @@ class NewsController extends Controller
             $news->likedUser()->attach(auth()->user()->id);
         }
         return back();
+    }
+
+    public function news_index(){
+        $news = News::latest()->paginate(15);
+        return view('agent_dashboard.news_index',[
+            'newses'=>$news
+        ]);
     }
 }

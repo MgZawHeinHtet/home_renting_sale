@@ -30,7 +30,6 @@
                     {!! $detail_news->description !!}
 
                     <h4> Written By : {{ $detail_news->writer->name }} (ShweProperty.com)</h4>
-                    <h4>Posted By : {{ $detail_news->poster->name }} (ShweProperty.com)</h4>
                 </div>
                 <div class="">
                     <form class="relative" action="/news/{{ $detail_news->id }}/comment" method="POST">

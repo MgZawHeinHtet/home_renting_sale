@@ -16,10 +16,7 @@ class News extends Model
         return $this->belongsTo(User::class, 'writer_id');
     }
 
-    public function poster()
-    {
-        return $this->belongsTo(User::class, 'poster_id');
-    }
+   
 
     public function newsComment()
     {

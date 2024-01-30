@@ -20,8 +20,8 @@ class NewsFactory extends Factory
             'title'=>fake()->name(),
             'photo'=>fake()->imageUrl(),
             'description'=>fake()->paragraph(),
-            'writer_id'=> 1,
-            'poster_id'=>2
+            'writer_id'=> 3,
+           
         ];
     }
 }
