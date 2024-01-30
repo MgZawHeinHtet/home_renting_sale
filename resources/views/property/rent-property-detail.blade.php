@@ -299,13 +299,13 @@
                     </div>
 
                     {{-- review card section  --}}
-                    @foreach ($property->rentReview as $review)
+                    @foreach ($reviews as $review)
                         
                     <x-rent-review-card :review="$review"></x-rent-review-card>
                     @endforeach
                    
                     <!-- psganation -->
-                    <div></div>
+                    <div class="text-left mb-5">{{ $reviews->links() }}</div>
                     <!-- paganation end -->
                     <div class="w-full border-t-2 border-b-2 py-5">
                         <p class="text-gray-600 text-[16px] font-bold">Home ID: <span

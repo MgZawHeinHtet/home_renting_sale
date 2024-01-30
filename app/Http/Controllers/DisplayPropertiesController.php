@@ -44,6 +44,7 @@ class DisplayPropertiesController extends Controller
        
         return view('property.rent-property-detail',[
             'property'=>$property,
+            'reviews'=>$property->rentReview()->paginate(5),
             'property_type'=>'rent'
         ]);
     }

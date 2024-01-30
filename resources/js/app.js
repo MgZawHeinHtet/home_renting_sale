@@ -54,7 +54,7 @@ if (input_box) {
 
     const id = current_uri.split("/")[4];
     
-    let a = await getUnavaliableDates(1);
+    let a = await getUnavaliableDates(id);
   
     const options = {
         disabledDates:a,
@@ -75,12 +75,12 @@ if (input_box) {
 
 
 // .. After imports init TinyMCE ..
-window.addEventListener("DOMContentLoaded", () => {
-    tinymce.init({
-        selector: "textarea",
+// window.addEventListener("DOMContentLoaded", () => {
+//     tinymce.init({
+//         selector: "textarea",
 
-        /* TinyMCE configuration options */
-        skin: false,
-        content_css: false,
-    });
-});
+//         /* TinyMCE configuration options */
+//         skin: false,
+//         content_css: false,
+//     });
+// });

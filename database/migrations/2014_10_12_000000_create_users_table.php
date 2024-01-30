@@ -24,10 +24,14 @@ return new class extends Migration
             $table->string('password');
             $table->longText('description')->nullable();
             $table->string('phone')->nullable();
+            $table->string('phone2')->nullable();
+            $table->string('phone3')->nullable();
+            $table->string('phone4')->nullable();
             $table->string('role')->nullable();
             $table->string('company_type')->nullable();
             $table->string('facebook_link')->nullable();
             $table->string('location_map')->nullable();
+
             $table->boolean('isVerified')->default(0);
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();

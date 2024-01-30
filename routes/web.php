@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminscheduleController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\AgentDashboardController;
 use App\Http\Controllers\AgentenquiryController;
+use App\Http\Controllers\AgentProifleController;
 use App\Http\Controllers\AgentPropertyRentController;
 use App\Http\Controllers\AgentPropertySaleController;
 use App\Http\Controllers\AgentscheduleController;
@@ -62,10 +63,9 @@ Route::prefix('news')->group(function(){
         Route::post('/{detail_news:id}/comment',[NewsCommentController::class,'upload']);
         Route::patch('/comment/{comment:id}',[NewsCommentController::class,'update']);
         Route::delete('/comment/{comment:id}',[NewsCommentController::class,'destory']);
+        Route::post('/{detail_news:id}/like',[NewsController::class,'like']);
     });
 });
-
-
 
 //property route
 Route::prefix('properties')->group(function(){
@@ -130,7 +130,9 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     //rent property show and other staff
     Route::resource('show-ad-rent',ShowPropertyRentController::class);
         
-
+    //agent profile
+    Route::get('/profile',[AgentProifleController::class,'index']);
+    Route::post('/profile',[AgentProifleController::class,'upload']);
 });
 
 // contact us /schedules/{schedule:id}/accept
@@ -157,9 +159,6 @@ Route::post('/check-date/{property:id}',function(Request $request,PropertyRent $
 Route::get('/booking/{property:id}',function(PropertyRent $property){
     return $property->booking()->get(['date_in','date_out']);
 });
-
-
-
 
 
 Route::get('/properties/{id}/review',[RentReviewController::class,'index']);

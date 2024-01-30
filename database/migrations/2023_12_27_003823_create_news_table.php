@@ -18,6 +18,7 @@ return new class extends Migration
             $table->longText('description');
             $table->string('writer_id');
             $table->string('poster_id')->nullable();
+            $table->integer('view')->default(0);
             $table->boolean('isPosted')->default(0);
             $table->timestamps();
         });

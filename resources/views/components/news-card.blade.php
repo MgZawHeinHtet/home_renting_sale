@@ -1,7 +1,5 @@
 @props(['news'])
 
-
-
 <div>
 
     {{-- news_img  --}}
@@ -11,6 +9,9 @@
     </div>
     {{-- news_text-container --}}
     <div class="my-3">
+        <div>
+            
+        </div>
         <a href="/news/{{ $news->id }}" class="block font-bold text-lg mb-5 hover:underline underline-offset-8 hover:decoration-home-600">{{ $news->title }}</a>
         <p class="line-clamp-3 opacity-80 mb-4">{{ $news->description }}</p>
         <footer>

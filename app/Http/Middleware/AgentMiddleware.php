@@ -15,7 +15,7 @@ class AgentMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->role !== 'agent'){
+        if(auth()->user()->role == 'customer' ){
             abort(403);
         }
         return $next($request);

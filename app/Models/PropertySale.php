@@ -19,9 +19,7 @@ class PropertySale extends Model
     }
 
     public function scopeFilter($propertyQuery,$request){
-        if(false){
-            $propertyQuery->where('id',3);
-        }
+        
 
         if($search_input = $request['search_input'] ?? null)
         {

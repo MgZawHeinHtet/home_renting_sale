@@ -81,8 +81,16 @@ class User extends Authenticatable
         return $this->belongsToMany(PropertySale::class);
     }
 
+    public function likedNews(){
+        return $this->belongsToMany(News::class);
+    }
+
     public function isSavedProperties($property){
         return $this->savedSaleProperties->contains('id',$property->id);
+    }
+
+    public function isLike($new){
+        return $this->likedNews->contains('id',$new->id);
     }
 
 

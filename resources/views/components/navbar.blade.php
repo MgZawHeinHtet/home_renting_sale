@@ -24,8 +24,7 @@
             </div>
         @endauth
 
-        <button class="ml-5 text-white"><i class="fa fa-cog" aria-hidden="true"></i> Preferences
-        </button>
+        
     </nav>
     <nav
         class="py-3 sm:px-5 md:container-space lg:px-10 bg-home-600 flex justify-between items-center hover:border-b-2 hover:border-b-yellow-200">

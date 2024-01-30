@@ -3,6 +3,6 @@
     <div class="absolute left-5 bottom-5 z-50">
         <h6 class="text-yellow-500">Latest Today</h6> 
         {{-- title  --}}
-        <p class="text-white text-lg font-bold ">Lorem ipsum dolor sit amet consectetur adipisic</p>
+        <p class="text-white text-lg font-bold ">{{ $new_news }}</p>
     </div>
 </div>

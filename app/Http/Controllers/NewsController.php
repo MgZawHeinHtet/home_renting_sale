@@ -12,8 +12,11 @@ class NewsController extends Controller
      */
     public function index()
     {
+        $request = request(['search_input','popular','sort']);
         return view('news.index',[
-            'newses'=>News::latest()->paginate(10)
+            'newses'=>News::filter($request)->paginate(15),
+            'popular_news'=>News::orderBy('view','desc')->first(),
+            'latest_today_news'=>News::latest()->take(3)->get()
         ]);
     }
 
@@ -39,6 +42,8 @@ class NewsController extends Controller
     public function show(string $id)
     {
         $news = News::find($id);
+        $news->view += 1;
+        $news->update();
         $comments = $news->newsComment()->with('user')->latest()->paginate(4);
         return view('news.show',[
             'detail_news'=> $news,
@@ -69,5 +74,17 @@ class NewsController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function like($id){
+        $news = News::find($id);
+        if($news->likeduser->contains('id',auth()->user()->id)){
+            $news->likedUser()->detach(auth()->user()->id);
+
+        }else{
+
+            $news->likedUser()->attach(auth()->user()->id);
+        }
+        return back();
     }
 }
