@@ -109,6 +109,8 @@ Route::post('logout',[LogoutController::class,'logout']);
 //admin dashboard agent route
 Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('adminAgents')->group(function (){
     Route::get('',[AgentDashboardController::class,'index']);
+
+    Route::get('post-ad',[AgentDashboardController::class,'post_ad_index']);
     Route::resource('post-ad-sale',AgentPropertySaleController::class);
     Route::resource('show-ad-sale',ShowPropertySaleController::class);
     Route::get('images-upload/{property:id}/sale',[SalePropertyImageController::class,'index']);
@@ -141,6 +143,9 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::post('/news',[NewsController::class,'store']);
     Route::get('/news/{news:id}/edit',[NewsController::class, 'edit']);
     Route::patch('/news/{news:id} ',[NewsController::class, 'update']);
+
+    //credit system
+    Route::get('/credit',[AgentDashboardController::class,'credit_index']);
 });
 
 // contact us /schedules/{schedule:id}/accept

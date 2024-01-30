@@ -31,7 +31,8 @@ return new class extends Migration
             $table->string('company_type')->nullable();
             $table->string('facebook_link')->nullable();
             $table->string('location_map')->nullable();
-
+            $table->integer('allowed_posts')->default(20);
+        
             $table->boolean('isVerified')->default(0);
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
