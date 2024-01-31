@@ -9,8 +9,7 @@ import "tinymce/models/dom/model";
 
 import * as fecha from "fecha";
 import HotelDatepicker from "hotel-datepicker";
-
-
+import "hotel-datepicker/dist/css/hotel-datepicker.css";
 
 
 async function getUnavaliableDates (id){

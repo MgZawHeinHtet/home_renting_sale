@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CreditPackage;
 use Illuminate\Http\Request;
 
 class AgentDashboardController extends Controller
@@ -25,5 +26,20 @@ class AgentDashboardController extends Controller
 
     public function credit_index(){
         return view('agent_dashboard.credit-system');
+    }
+
+    public function credit_add(){
+        $plans = CreditPackage::all();
+        return view('agent_dashboard.credit_add',[
+            'plans'=> $plans
+        ]);
+    }
+
+    public function credit_record(){
+        $transcations = auth()->user()->creditTranscation;
+        
+        return view('agent_dashboard.credit_record',[
+            'transcations' => $transcations
+        ]);
     }
 }

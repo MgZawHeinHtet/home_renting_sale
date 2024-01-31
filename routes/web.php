@@ -9,6 +9,8 @@ use App\Http\Controllers\AgentPropertyRentController;
 use App\Http\Controllers\AgentPropertySaleController;
 use App\Http\Controllers\AgentscheduleController;
 use App\Http\Controllers\ContactusController;
+use App\Http\Controllers\CreditPackageController;
+use App\Http\Controllers\CreditTranscationController;
 use App\Http\Controllers\DisplayPropertiesController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\LoginController;
@@ -146,6 +148,10 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
 
     //credit system
     Route::get('/credit',[AgentDashboardController::class,'credit_index']);
+    Route::get('/credit/add',[AgentDashboardController::class,'credit_add']);
+    Route::get('/credit/record',[AgentDashboardController::class,'credit_record']);
+    Route::get('/credit/{plan:id}/checkout',[CreditTranscationController::class,'checkout']);
+    Route::post('/credit/{plan:id}/checkout',[CreditTranscationController::class,'send']);
 });
 
 // contact us /schedules/{schedule:id}/accept

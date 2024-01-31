@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Amenity;
+use App\Models\CreditPackage;
 use App\Models\News;
 use App\Models\PropertySale;
 use App\Models\rule;
@@ -40,6 +41,41 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password'=> 'admin123',
             'role'=>'admin'
+        ]);
+
+        CreditPackage::create([
+            'level' => 'basic',
+            'point'=>4,
+            'discount'=>0,
+            'price'=>20000
+        ]);
+
+        CreditPackage::create([
+            'level' => 'bronze',
+            'point'=>8,
+            'discount'=>5,
+            'price'=>40000
+        ]);
+
+        CreditPackage::create([
+            'level' => 'silver',
+            'point'=>12,
+            'discount'=>10,
+            'price'=>60000
+        ]);
+
+        CreditPackage::create([
+            'level' => 'gold',
+            'point'=>20,
+            'discount'=>15,
+            'price'=>100000
+        ]);
+
+        CreditPackage::create([
+            'level' => 'diamond',
+            'point'=>40,
+            'discount'=>20,
+            'price'=>120000
         ]);
 
         News::factory(20)->create();

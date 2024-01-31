@@ -93,5 +93,8 @@ class User extends Authenticatable
         return $this->likedNews->contains('id',$new->id);
     }
 
+    public function creditTranscation(){
+        return $this->hasMany(CreditTranscation::class);
+    }
 
 }

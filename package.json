@@ -15,6 +15,7 @@
     },
     "dependencies": {
         "fecha": "^4.2.3",
+        "flowbite": "^2.2.1",
         "font-awesome": "^4.7.0",
         "hotel-datepicker": "^4.7.1",
         "leaflet": "^1.9.4",
