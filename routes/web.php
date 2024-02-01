@@ -8,6 +8,7 @@ use App\Http\Controllers\AgentProifleController;
 use App\Http\Controllers\AgentPropertyRentController;
 use App\Http\Controllers\AgentPropertySaleController;
 use App\Http\Controllers\AgentscheduleController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\CreditPackageController;
 use App\Http\Controllers\CreditTranscationController;
@@ -155,38 +156,23 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
 });
 
 // contact us /schedules/{schedule:id}/accept
+
 Route::get('/contact_us',[ContactusController::class,'index']);
 
-Route::post('/check-date/{property:id}',function(Request $request,PropertyRent $property){
-    
-    $booking_dates = $property->booking;
-    $dateToCheck = explode(' ',$request->check);
-    $start_date = Carbon::parse($dateToCheck[0]);
-    $end_date =  Carbon::parse($dateToCheck[2]);
-    $interval = $start_date->diff($end_date)->days;
-    if($booking_dates->count()){
-
-        foreach($booking_dates as $date){
-            $check_date_in = Carbon::parse($date->date_in);
-            $check_date_out = Carbon::parse($date->date_out);
-           
-         
-            if($start_date->between($check_date_in,$check_date_out) || $end_date->between($check_date_in,$check_date_out)){
-               
-                return back()->with('error','Booked up for your Date');
-            }else{
-               
-                return back()->with('status','selected dates are aviable ✅')->with('total_days',round($interval))->withInput();
-            }
-        }
-    }else{
-        
-        return back()->with('status','selected dates are aviable ✅')->with('total_days',round($interval))->withInput();
-    }
+Route::middleware(AuthMiddleware::class)->group(function(){
+    Route::post('/check-date/{property:id}',[BookingController::class,'check_avaliable_date' ]);
+    Route::get('/booking/{property:id}/step1',[BookingController::class, 'step1']);
+    Route::get('/booking/{property:id}/step2',[BookingController::class, 'step2']);
+    Route::get('/booking/{property:id}/step3',[BookingController::class, 'step3']);
+    Route::post('/booking/checkout',[BookingController::class, 'checkout']);
 });
 
+
+
+
+//to use with js fetch
 Route::get('/booking/{property:id}',function(PropertyRent $property){
-    return $property->booking()->get(['date_in','date_out']);
+    return $property->booking()->get(['check_in','check_out']);
 });
 
 

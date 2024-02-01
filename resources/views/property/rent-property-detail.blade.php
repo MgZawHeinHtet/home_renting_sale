@@ -342,7 +342,9 @@
                             {{ $property->category }} ∙ {{ $property->bedroom }} bedrooms ∙ {{ $property->people }}
                             people</p>
                         <p class="mb-[10px] capitalize">{{ $property->township }}, {{ $property->region }}</p>
-                        <form action="/check-date/{{ $property->id }}" method="POST">
+                        <form action="{{ !session('status') ? '/check-date/'.$property->id : '/booking/'.$property->id.'/step1' }}" @if (!session('status'))
+                            method="POST"
+                        @endif>
                             @csrf
                             @if (session('status'))
                             <div class="bg-green-100 rounded-md">
@@ -358,13 +360,17 @@
                             </div>
                             
                             @endif
-                            <div class="w-full bg-white rounded-md border-2">
+                            <div class="w-full bg-white rounded-md border-2 p-1  space-y-2">
                                 <input value="{{ old('check') }}" name="check" class="w-full border  p-2"
                                     id="input-id" type="text"
                                     placeholder="Pls Select Check in | Check out date" />
+                                    <x-error name="check"></x-error>
+                                <input value="{{ old('guest') }}" name="guest" class="w-full border p-2 " max="{{ $property->people }}" placeholder="Enter amount of guests" type="number">
+                                <x-error name="guest"></x-error>
                             </div>
-                            <button class="mt-3 bg-[#002349] w-full inline rounded-lg py-[7px] text-white mb-5">Check
-                                availability</button>
+                            
+                            <button class="mt-3 bg-[#002349] w-full inline rounded-lg py-[7px] text-white mb-5">{{ session('status') ? 'View Deal' : 'Check availability' }}
+                                </button>
                         </form>
                         <div class="flex justify-between mb-5">
                             <p>Book on</p>

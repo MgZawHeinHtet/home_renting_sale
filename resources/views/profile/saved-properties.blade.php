@@ -3,7 +3,7 @@
     <div class="grid grid-cols-2 gap-5">
         @foreach ($properties as $property)
             <a href="/properties/{{ $property->id }}/sale">
-                <x-property-card :property="$property"></x-property-card>
+                <x-property-card :type="$type" :property="$property"></x-property-card>
             </a>
         @endforeach
     </div>

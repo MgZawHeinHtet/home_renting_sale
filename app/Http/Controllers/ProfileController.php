@@ -59,7 +59,8 @@ class ProfileController extends Controller
 
     public function savedProperties(){
         return view('profile.saved-properties',[
-            'properties' =>auth()->user()->savedSaleProperties()->latest()->paginate(8)
+            'properties' =>auth()->user()->savedSaleProperties()->latest()->paginate(8),
+            'type'=>'sale'
         ]);
 
         

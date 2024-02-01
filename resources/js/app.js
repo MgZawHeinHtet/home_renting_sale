@@ -17,8 +17,8 @@ async function getUnavaliableDates (id){
     let total_date = [] ;
     
     for (let i = 0; i < data.length; i++) {
-        const start_date = new Date(data[i].date_in);
-        const end_date = new Date(data[i].date_out);
+        const start_date = new Date(data[i].check_in);
+        const end_date = new Date(data[i].check_out);
 
         // loop from start date to end date
         for (

@@ -3,12 +3,12 @@
             
             @auth
             <div class="">
-                @if (auth()->user()->role === 'agent'|| auth()->user()->role="admin")
-                    <a class="text-white mx-3 " href="/adminAgents">Agent Dashobard</a>
-           
-                  @elseif (auth()->user()->role === "customer")
-                  <a class="text-white mx-3 " href="/profile"><i class="fa-solid fa-user mr-1"></i>  Profile</a>
-                    @endif
+                @if (auth()->user()->role==="customer")
+                
+                <a class="text-white mx-3 " href="/profile"><i class="fa-solid fa-user mr-1"></i>  Profile</a>
+                @else
+                <a class="text-white mx-3 " href="/adminAgents">Agent Dashobard</a>
+                @endif
                 </div>
 
             <form action="/logout" method="POST">
