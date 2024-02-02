@@ -97,4 +97,8 @@ class User extends Authenticatable
         return $this->hasMany(CreditTranscation::class);
     }
 
+    public function bookings(){
+        return $this->hasMany(booking::class);
+    }
+
 }

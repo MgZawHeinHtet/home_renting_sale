@@ -67,17 +67,17 @@ class BookingController extends Controller
     public function step2(Request $request, $id)
     {
         $request->validate([
-            
+
             'first_name' => ['required'],
             'last_name' => ['required'],
             'email' => ['required', 'email'],
             'phone' => ['required', 'max:10', 'min:10']
         ]);
 
-        $phone = $request->phone_head.''.$request->phone;
+        $phone = $request->phone_head . '' . $request->phone;
 
-        $step1_data = $request->except('_token','phone_head','phone');
-        $step1_data['property_id'] = $id ;
+        $step1_data = $request->except('_token', 'phone_head', 'phone');
+        $step1_data['property_id'] = $id;
         $step1_data['phone'] = $phone;
         $request->session()->put('step1_data', $step1_data);
 
@@ -90,16 +90,16 @@ class BookingController extends Controller
         ]);
     }
 
-    public function step3(Request $request,$id)
-    {  
-        
+    public function step3(Request $request, $id)
+    {
+
         $get_data =  $request->session()->pull('step1_data');
         $get_data['message'] = $request->message;
-        
+
         $request->session()->put('step1_data', $get_data);
 
-        return view('booking.step3',[
-            'property'=>PropertyRent::find($id),
+        return view('booking.step3', [
+            'property' => PropertyRent::find($id),
             'check_in' => Carbon::parse($get_data['check_in']),
             'check_out' => Carbon::parse($get_data['check_out']),
             'guest' => $get_data['guest'],
@@ -107,25 +107,45 @@ class BookingController extends Controller
         ]);
     }
 
-    public function checkout(RentCheckoutRequest $request){
+    public function checkout(RentCheckoutRequest $request)
+    {
 
         $cleanData = $request->validated();
         $data = $request->session()->pull('step1_data');
-        
+
         $property = PropertyRent::find($data['property_id']);
-        
-        $data ['check_in'] =  Carbon::parse($data['check_in'])->format('Y-m-d');
-        $data ['check_out'] =  Carbon::parse($data['check_out'])->format('Y-m-d');
-        $data['user_id']= auth()->user()->id;
-        $data['booking_number'] = mt_rand(10000,99999);
-        $data['booking_price'] = $property->price * ($property->total_days/30);
+
+        $data['check_in'] =  Carbon::parse($data['check_in'])->format('Y-m-d');
+        $data['check_out'] =  Carbon::parse($data['check_out'])->format('Y-m-d');
+        $data['user_id'] = auth()->user()->id;
+        $data['booking_number'] = mt_rand(10000, 99999);
+        $data['booking_price'] = $property->price * ($data['total_days'] / 30);
         $data['payment'] = $cleanData['payment_type'];
-       
-        
-        if($cleanData['payment_type']==="no-payment"){
+
+
+        if ($cleanData['payment_type'] === "no-payment") {
             $data['status'] = 'confirm';
             booking::create($data);
             return redirect('');
         }
+    }
+
+    public function booking_list()
+    {
+        $cover_images = [];
+        $cover_images['yangon'] = asset('assets/yangon-bg.jpg');
+
+        $cancel_bookings = auth()->user()?->bookings?->load('property')->where('status','cancel')->all();
+
+        $confirm_bookings = auth()->user()?->bookings?->where('status', 'confirm')->all();
+        $first_booking = $confirm_bookings[0] ?? null;
+        $cover_img = $first_booking ? $cover_images[$first_booking->property->region] : '';
+
+        return view('booking.booking-list', [
+            'confirm_bookings' => $confirm_bookings,
+            'cover_img' => $cover_img,
+            'first_booking' => $first_booking,
+            'cancel_bookings'=>$cancel_bookings
+        ]);
     }
 }

@@ -73,13 +73,13 @@ if (input_box) {
 
 
 
-// .. After imports init TinyMCE ..
-window.addEventListener("DOMContentLoaded", () => {
-    tinymce.init({
-        selector: "textarea",
+// // .. After imports init TinyMCE ..
+// window.addEventListener("DOMContentLoaded", () => {
+//     tinymce.init({
+//         selector: "textarea",
 
-        /* TinyMCE configuration options */
-        skin: false,
-        content_css: false,
-    });
-});
+//         /* TinyMCE configuration options */
+//         skin: false,
+//         content_css: false,
+//     });
+// });

@@ -363,9 +363,11 @@
                             <div class="w-full bg-white rounded-md border-2 p-1  space-y-2">
                                 <input value="{{ old('check') }}" name="check" class="w-full border  p-2"
                                     id="input-id" type="text"
-                                    placeholder="Pls Select Check in | Check out date" />
+                                    placeholder="Pls Select Check in | Check out date"
+                                   
+                                    />
                                     <x-error name="check"></x-error>
-                                <input value="{{ old('guest') }}" name="guest" class="w-full border p-2 " max="{{ $property->people }}" placeholder="Enter amount of guests" type="number">
+                                <input  value="{{ old('guest') }}" name="guest" class="w-full border p-2 " max="{{ $property->people }}" placeholder="Enter amount of guests" type="number">
                                 <x-error name="guest"></x-error>
                             </div>
                             

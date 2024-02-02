@@ -4,7 +4,7 @@
             @auth
             <div class="">
                 @if (auth()->user()->role==="customer")
-                
+                <a href="/booking/list">Renting List</a>
                 <a class="text-white mx-3 " href="/profile"><i class="fa-solid fa-user mr-1"></i>  Profile</a>
                 @else
                 <a class="text-white mx-3 " href="/adminAgents">Agent Dashobard</a>

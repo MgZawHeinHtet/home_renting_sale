@@ -167,12 +167,12 @@ Route::middleware(AuthMiddleware::class)->group(function(){
     Route::post('/booking/checkout',[BookingController::class, 'checkout']);
 });
 
-
+Route::get('/booking/list',[BookingController::class, 'booking_list']);
 
 
 //to use with js fetch
 Route::get('/booking/{property:id}',function(PropertyRent $property){
-    return $property->booking()->get(['check_in','check_out']);
+    return $property->booking()->where('status','confirm')->get(['check_in','check_out']);
 });
 
 
