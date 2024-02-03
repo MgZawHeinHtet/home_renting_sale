@@ -1,6 +1,6 @@
 <x-layout>
     <div
-        class="md:px-[50px] px-[30px] mt-5 w-[100vw] flex xl:flex-row md:flex-col flex-row xl:gap-[50px] gap-[30px] sticky top-0 bg-white py-5 shadow-sm z-50">
+        class="md:px-[50px] px-[30px] mt-5 w-[100vw] flex xl:flex-row md:flex-col flex-row xl:gap-[50px] gap-[30px] sticky top-0 bg-white py-5 shadow-sm z-30">
 
 
         <div class="text-gray-800 flex gap-3 items-center border-b-2 xl:w-[35%] md:w-[100%] w-[90%]">

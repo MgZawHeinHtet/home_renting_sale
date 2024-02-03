@@ -234,7 +234,7 @@
                     </div>
                     <div class="text-[10px] flex flex-col flex-1 ">
                         <a
-                            class=" pb-[5px] text-[16px] font-[500] cursor-pointer hover:underline text-blue-500">{{ $property->agent->name }}</a>
+                            class=" pb-[5px] text-[16px] font-[500] cursor-pointer hover:underline text-blue-500">{{ $property->agent->company_name }}</a>
                         <a
                             class="flex justify-center items-center gap-[1px]  w-full h-[44px] border-[#0da50c] border-solid border-[1px] rounded-md">
                             <i
