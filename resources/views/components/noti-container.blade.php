@@ -1,4 +1,5 @@
-<div id="noti-container" class="hidden">
+<div id="noti-container" class="hidden z-30">
+    @auth
     @if ($notifications->count())
         <div class="w-7 h-7 bg-white absolute top-[70px] rotate-45 right-[380px]"></div>
 
@@ -30,6 +31,8 @@
         </div>
     </div>
     @endif
+        
+    @endauth
 
     
 </div>

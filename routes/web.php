@@ -22,6 +22,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfilescheduleController;
 use App\Http\Controllers\PropertySaveController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\RentPropertyImageController;
 use App\Http\Controllers\RentReviewController;
 use App\Http\Controllers\SalePropertyImageController;
@@ -165,6 +166,8 @@ Route::middleware(AuthMiddleware::class)->group(function(){
     Route::get('/booking/{property:id}/step2',[BookingController::class, 'step2']);
     Route::get('/booking/{property:id}/step3',[BookingController::class, 'step3']);
     Route::post('/booking/checkout',[BookingController::class, 'checkout']);
+    Route::get('/booking/success',[BookingController::class, 'success']);
+    Route::get('/booking/{booking:id}/show',[BookingController::class,'show']);
 });
 
 Route::get('/booking/list',[BookingController::class, 'booking_list']);
@@ -180,3 +183,5 @@ Route::get('/properties/{id}/review',[RentReviewController::class,'index']);
 
 Route::post('/properties/{id}/review',[RentReviewController::class,'store']);
 
+//rating the rent property 
+Route::post('properties/{property:id}/rating',[RatingController::class,'rate']);

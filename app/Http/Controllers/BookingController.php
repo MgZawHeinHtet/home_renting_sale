@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RentCheckoutRequest;
 use App\Models\booking;
+use App\Models\Notification;
 use App\Models\PropertyRent;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -126,7 +127,22 @@ class BookingController extends Controller
         if ($cleanData['payment_type'] === "no-payment") {
             $data['status'] = 'confirm';
             booking::create($data);
-            return redirect('');
+
+            //create noti for user
+            Notification::create([
+                'sender_id'=>$property->agent->id,
+                'recipent_id'=>auth()->user()->id,
+                'noti_type'=> 'renting-success'
+            ]);
+
+            //create noti for agent
+            Notification::create([
+                'sender_id'=>auth()->user()->id,
+                'recipent_id' => $property->agent->id,
+                'noti_type'=> 'renting-recive'
+            ]);
+
+            return redirect('/booking/success');
         }
     }
 
@@ -146,6 +162,17 @@ class BookingController extends Controller
             'cover_img' => $cover_img,
             'first_booking' => $first_booking,
             'cancel_bookings'=>$cancel_bookings
+        ]);
+    }
+
+    public function success(){
+        return view('booking.booking-success');
+    }
+
+    public function show(Booking $booking){
+        
+        return view('booking.show',[
+            'booking'=>$booking
         ]);
     }
 }

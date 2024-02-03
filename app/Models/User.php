@@ -101,4 +101,17 @@ class User extends Authenticatable
         return $this->hasMany(booking::class);
     }
 
+    public function ratedProducts()
+    {
+        return $this->belongsToMany(PropertyRent::class);
+    }
+
+    public function isRating($property)
+    {
+        return $this->ratedProducts->contains('id', $property->id);
+    }
+    public function userRatingOnProduct($id)
+    {
+        return $this->ratedProducts()->withPivot('rate')->where('property_rent_id', $id)->first()?->pivot->rate;
+    }
 }

@@ -58,3 +58,13 @@
 <span>Your requested schedule was rejected by</span>
 <span>{{ $sender }}</span>
 @endif
+
+@if($type === 'renting-success')
+<span>Your renting process was successed 😉🎉</span>
+@endif
+
+@if($type=='renting-recive')
+<span>Your property is renting by</span>
+<span>{{ $sender }}</span>
+@endif
+

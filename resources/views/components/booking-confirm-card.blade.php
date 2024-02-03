@@ -16,7 +16,8 @@
             <div
                 class="infoBox hidden absolute top-[40px] left-[-35px] transform -translate-x-1/2 shadow-md rounded-md mt-2 bg-white text-nowrap cursor-pointer text-[14px] z-50">
                 <p class="p-3 hover:bg-stone-200 rounded-md">Cancel Renting</p>
-                <p class="p-3 hover:bg-stone-200 rounded-md ">View Renting</p>
+                
+                <a  href="/booking/{{ $booking->id }}/show" class="p-3 block hover:bg-stone-200 rounded-md ">View Renting</a>
                 <p class="p-3 hover:bg-stone-200 rounded-md">Download Recepit</p>
             </div>
         </div>
