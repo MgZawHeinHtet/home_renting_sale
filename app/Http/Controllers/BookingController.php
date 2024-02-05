@@ -9,6 +9,7 @@ use App\Models\PropertyRent;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Number;
 
 class BookingController extends Controller
 {
@@ -116,16 +117,22 @@ class BookingController extends Controller
 
         $property = PropertyRent::find($data['property_id']);
 
+        $cancel_date = Carbon::parse($data['check_in'])->subDays(7);
+       
+
         $data['check_in'] =  Carbon::parse($data['check_in'])->format('Y-m-d');
         $data['check_out'] =  Carbon::parse($data['check_out'])->format('Y-m-d');
         $data['user_id'] = auth()->user()->id;
         $data['booking_number'] = mt_rand(10000, 99999);
         $data['booking_price'] = $property->price * ($data['total_days'] / 30);
         $data['payment'] = $cleanData['payment_type'];
+        $data['cancellable_date'] = $cancel_date;
+
 
 
         if ($cleanData['payment_type'] === "no-payment") {
             $data['status'] = 'confirm';
+            
             booking::create($data);
 
             //create noti for user
@@ -154,7 +161,7 @@ class BookingController extends Controller
         $cancel_bookings = auth()->user()?->bookings?->load('property')->where('status','cancel')->all();
 
         $confirm_bookings = auth()->user()?->bookings?->where('status', 'confirm')->all();
-        $first_booking = $confirm_bookings[0] ?? null;
+        $first_booking = $confirm_bookings[1] ?? null;
         $cover_img = $first_booking ? $cover_images[$first_booking->property->region] : '';
 
         return view('booking.booking-list', [
@@ -174,5 +181,63 @@ class BookingController extends Controller
         return view('booking.show',[
             'booking'=>$booking
         ]);
+    }
+
+    public function cancel_step1(booking $booking){
+       
+        return view('booking.cancel_step1',[
+            'booking'=>$booking
+        ]);
+    }
+
+    public function cancel_step2(booking $booking){
+
+        $data = Request()->validate([
+            'reason'=>['required']
+        ]);
+
+
+        return view('booking.cancel_step2',[
+            'booking'=>$booking,
+            'reason' => $data['reason']
+        ]);
+    }
+
+    public function cancel(booking $booking){
+        $reason = Request()->reason;
+        
+        //sending mail with reason
+
+        $booking->status = 'cancel';
+
+        $booking->update();
+
+         //create noti for user
+         Notification::create([
+            'sender_id'=>$booking->property->agent->id,
+            'recipent_id'=>auth()->user()->id,
+            'noti_type'=> 'booking_cancel_success'
+        ]);
+
+        //create noti for agent
+        Notification::create([
+            'sender_id'=>auth()->user()->id,
+            'recipent_id' => $booking->property->agent->id,
+            'noti_type'=> 'cancel_booking'
+        ]);
+
+
+        return redirect("/booking/$booking->id/cancel/success");
+    }
+
+    public function cancel_success_show(booking $booking){
+        return view('booking.cancel-success-show',[
+            'booking' => $booking
+        ]);
+    }
+
+    public function destory(booking $booking){
+        $booking->delete();
+        return back();
     }
 }

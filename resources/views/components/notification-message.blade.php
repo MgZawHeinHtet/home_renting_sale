@@ -68,3 +68,11 @@
 <span>{{ $sender }}</span>
 @endif
 
+@if($type === 'booking_cancel_success')
+<span>Successfully cancel your booking 😉🎉</span>
+@endif
+
+@if($type=='cancel_booking')
+<span>{{ $sender }} was cancelled booking 🤦‍♂️</span>
+@endif
+

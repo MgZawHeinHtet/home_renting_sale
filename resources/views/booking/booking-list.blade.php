@@ -9,14 +9,14 @@
 
             @if ($confirm_bookings)
                 <div class="my-10 ">
-                    <div class="relative z-30">
+                    <div class="relative ">
                         <img src="{{ $cover_img }}" class=" w-full h-[300px] object-cover  rounded-lg" />
                         <div class="absolute top-0 left-0 bg-black bg-opacity-40 w-full h-full rounded-lg"></div>
                         <div
                             class="absolute text-white text-center transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                             <h3 class=" font-medium text-3xl pb-3">Yangon</h3>
-                            <p class=" text-[16px] tracking-wide">{{ date('d M', strtotime($first_booking->check_in)) }}
-                                - {{ date('d M', strtotime($first_booking->check_out)) }}</p>
+                            <p class=" text-[16px] tracking-wide">{{ date('d M', strtotime($first_booking?->check_in)) }}
+                                - {{ date('d M', strtotime($first_booking?->check_out)) }}</p>
                         </div>
                     </div>
 

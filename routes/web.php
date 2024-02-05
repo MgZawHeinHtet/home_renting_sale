@@ -154,6 +154,9 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::get('/credit/record',[AgentDashboardController::class,'credit_record']);
     Route::get('/credit/{plan:id}/checkout',[CreditTranscationController::class,'checkout']);
     Route::post('/credit/{plan:id}/checkout',[CreditTranscationController::class,'send']);
+
+    //admin check transcation
+    Route::get('/transcation',[CreditTranscationController::class, 'transcation_recive']);
 });
 
 // contact us /schedules/{schedule:id}/accept
@@ -168,6 +171,11 @@ Route::middleware(AuthMiddleware::class)->group(function(){
     Route::post('/booking/checkout',[BookingController::class, 'checkout']);
     Route::get('/booking/success',[BookingController::class, 'success']);
     Route::get('/booking/{booking:id}/show',[BookingController::class,'show']);
+    Route::get('/booking/{booking:id}/cancel/step1',[BookingController::class, 'cancel_step1']);
+    Route::get('/booking/{booking:id}/cancel/step2',[BookingController::class, 'cancel_step2']);
+    Route::post('/booking/{booking:id}/cancel',[BookingController::class, 'cancel']);
+    Route::get('/booking/{booking:id}/cancel/success',[BookingController::class, 'cancel_success_show']);
+    Route::delete('/booking/{booking:id}',[BookingController::class, 'destory']);
 });
 
 Route::get('/booking/list',[BookingController::class, 'booking_list']);

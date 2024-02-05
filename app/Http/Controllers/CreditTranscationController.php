@@ -26,4 +26,8 @@ class CreditTranscationController extends Controller
         CreditTranscation::create($cleanData);
         return redirect('/adminAgents/credit/add');
     }
+
+    public function transcation_recive(){
+        return view('agent_dashboard.transcation-recive-table');
+    }
 }

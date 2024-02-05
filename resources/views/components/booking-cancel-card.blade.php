@@ -16,9 +16,14 @@
             class="infoButton px-4 py-1 rounded-md cursor-pointer fa-solid fa-ellipsis-vertical text-xl select-none hover:bg-stone-200"></i>
         <div
             class="infoBox hidden absolute top-[40px] left-[-35px] transform -translate-x-1/2 shadow-md rounded-md mt-2 bg-white text-nowrap cursor-pointer text-[14px] z-10">
-            <p class="p-3 hover:bg-stone-200 rounded-md">Rent Again</p>
-            <p class="p-3 hover:bg-stone-200 rounded-md ">Message the Property</p>
-            <p class="p-3 hover:bg-stone-200 rounded-md">Removing Renting</p>
+            <form action="/properties/{{ $booking->property_id }}/rent">
+                <button class="p-3 hover:bg-stone-200 rounded-md">Rent Again</button>
+            </form>
+            <form action="/booking/{{ $booking->id }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button class="p-3 hover:bg-stone-200 rounded-md">Removing Renting</button>
+            </form>
         </div>
     </div>
 </div>

@@ -119,7 +119,7 @@
 
                                 <div class="flex w-full text-center font-bold">
                                     <p class="flex-1">Free</p>
-                                    <p class="flex-1">US$26.73</p>
+                                   
                                     <p class="flex-1">NON_REFUNDABLE</p>
                                 </div>
 
@@ -128,17 +128,22 @@
 
                                     {{-- 33% Progress --}}
                                     <div class="flex flex-col justify-center rounded-l-full bg-green-600 "
-                                        style="width: 33%">
+                                        style="width: 50%">
                                     </div>
 
                                     {{-- Divider Bar --}}
                                     <div
-                                        class=" h-6 bg-gray-400 w-[1px] absolute top-1/2  transform -translate-x-1/2 -translate-y-1/2 left-[33%] z-10">
+                                        class=" h-6 bg-gray-400 w-[1px] absolute top-1/2  transform -translate-x-1/2 -translate-y-1/2 left-[50%] z-10">
                                     </div>
-                                    {{-- Divider Bar --}}
+
                                     <div
-                                        class=" h-6 bg-gray-400 w-[1px] absolute top-1/2  transform -translate-x-1/2 -translate-y-1/2 left-[66%] z-10">
+                                    class=" h-6 bg-gray-400 w-[1px] absolute top-1/2  transform -translate-x-1/2 -translate-y-1/2 left-[0%] z-10">
                                     </div>
+                                  
+                                    <div
+                                    class=" h-6 bg-gray-400 w-[1px] absolute top-1/2  transform -translate-x-1/2 -translate-y-1/2 left-[100%] z-10">
+                                    </div>
+                                 
                                     {{-- White Circle --}}
                                     <div
                                         class=" h-3 w-3 bg-white rounded-full absolute top-1/2  transform -translate-x-1/2 -translate-y-1/2 left-[calc(33%/2)] z-10">
@@ -155,21 +160,32 @@
 
                                     {{-- Bottom Label --}}
                                     <div
-                                        class="  absolute top-6 font-bold  transform -translate-x-1/2 -translate-y-1/2 left-[33%] z-10">
-                                        29 Oct
+                                        class="  absolute top-6 font-bold  transform -translate-x-1/2 -translate-y-1/2 left-[50%] z-10">
+                                        Until {{ date('d M',strtotime($booking->cancellable_date)) }}
                                     </div>
 
                                     {{-- Bottom Label --}}
                                     <div
-                                        class="  absolute top-6 font-bold  transform -translate-x-1/2 -translate-y-1/2 left-[66%] z-10">
-                                        2 Nov
+                                        class="  absolute top-6 font-bold  transform -translate-x-1/2 -translate-y-1/2 left-[0%] z-10">
+                                        {{ $booking->created_at->format('d M') }}
+                                        
+                                        Booked
                                     </div>
+
+                                    <div
+                                    class="  absolute top-6 font-bold  transform -translate-x-1/2 -translate-y-1/2 left-[99%] z-10">
+                                    {{ date('d M',strtotime($booking->check_in))  }} 
+                                </div>
+                                   
                                 </div>
                             </div>
-                            <button
-                                class="bg-blue-600  hover:bg-blue-700 text-white rounded-sm px-2 py-1 text-sm text-nowrap">
-                                Cancel your booking
-                            </button>
+                            <form action="/booking/{{ $booking->id }}/cancel/step1" method="GET">
+                            
+                                <button
+                                    class="bg-blue-600  hover:bg-blue-700 text-white rounded-sm px-2 py-1 text-sm text-nowrap">
+                                    Cancel your booking
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -211,7 +227,7 @@
                 </span>
 
                 <div class="p-4 rounded-lg mt-4">
-                    <p class="">Total Rating - 4/24</p>
+                    <p class="">Total Rating - {{ $booking->property->avg_rating }}/{{ $booking->property->ratedUsers->count() }}</p>
                 </div>
             </form>
         </div>

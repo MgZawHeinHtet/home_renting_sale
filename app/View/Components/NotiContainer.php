@@ -22,7 +22,7 @@ class NotiContainer extends Component
      */
     public function render(): View|Closure|string
     {
-        $notifications = auth()->user()?->notifications()?->where('is_read',false)->get() ;
+        $notifications = auth()->user()?->notifications()?->where('is_read',false)->latest()->get() ;
         return view('components.noti-container',[
             'notifications' => $notifications
         ]);
