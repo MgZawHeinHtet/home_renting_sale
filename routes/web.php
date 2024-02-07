@@ -157,6 +157,9 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
 
     //admin check transcation
     Route::get('/transcation',[CreditTranscationController::class, 'transcation_recive']);
+    Route::get('/transcation/{transcation:id}/check',[CreditTranscationController::class, 'check']);
+    Route::post('/transcation/{trancation:id}/correct',[CreditTranscationController::class, 'correct']);
+    Route::post('/transcation/{transcation:id}/wrong',[CreditTranscationController::class,'wrong']);
 });
 
 // contact us /schedules/{schedule:id}/accept
