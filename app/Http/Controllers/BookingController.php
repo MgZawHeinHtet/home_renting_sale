@@ -123,6 +123,7 @@ class BookingController extends Controller
         $data['check_in'] =  Carbon::parse($data['check_in'])->format('Y-m-d');
         $data['check_out'] =  Carbon::parse($data['check_out'])->format('Y-m-d');
         $data['user_id'] = auth()->user()->id;
+        $data['agent_id'] = $property->agent->id;
         $data['booking_number'] = mt_rand(10000, 99999);
         $data['booking_price'] = $property->price * ($data['total_days'] / 30);
         $data['payment'] = $cleanData['payment_type'];

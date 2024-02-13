@@ -4,10 +4,13 @@
     @endpush
     @stack('css')
     <div class="px-20 mx-auto">
+        @if ($property->map == "true")
+            
         <div
             class="overlay hidden w-screen h-screen  items-center justify-center fixed top-0 left-0 z-50 bg-black bg-opacity-50">
             <div class="shadow rounded w-[1000px] h-[600px] z-50" id="map"></div>
         </div>
+        @endif
 
 
         <section class="w-full flex flex-col lg:flex-row justify-between p-5 lg:p-7 gap-6 ">
@@ -32,7 +35,9 @@
                             </button>
                             @endif
                         </form>
+                        @if ($property->map == "true")
                         <button class="map-btn"><i class="fas fa-map text-2xl  text-yellow-600"></i></button>
+                        @endif
                     </div>
                 </div>
 

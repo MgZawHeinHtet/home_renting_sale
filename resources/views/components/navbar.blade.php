@@ -35,7 +35,7 @@
        <x-noti-container></x-noti-container>
         {{-- hidden for profile --}}
         <div id="profile-container"
-            class="hidden bg-white absolute rounded-lg px-6 py-6 space-y-3 bottom-[-210px] right-5 z-40 shadow-lg">
+            class="hidden bg-white absolute rounded-lg px-6 py-6 space-y-3 bottom-[-210px] right-5 z-50 shadow-lg">
             <a class="flex gap-3" href="/profile">
                 <p><i class="fa-regular fa-user"></i>
                     <p class="flex-1">Manage account</p>
@@ -82,9 +82,9 @@
         <div class="sm:hidden md:hidden hidden lg:flex">
             <ul class="flex  gap-10 ">
                 <li class="">
-                    <a
+                    <a href="/"
                         class="text-base py-6 hover:border-b-4  hover:border-b-yellow-600 tracking-wider text-white uppercase"><i
-                            class="fas fa-search mr-3"></i> Search</a>
+                            class="fas fa-house mr-3"></i> Home</a>
                 </li>
                 <li>
                     <a href="/properties/sale"

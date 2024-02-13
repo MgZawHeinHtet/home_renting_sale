@@ -23,7 +23,7 @@ class EnquiryBadge extends Component
     public function render(): View|Closure|string
     {
         return view('components.enquiry-badge',[
-            'total_enquiry' => Enquiry::where('is_read',false)->count()
+            'total_enquiry' => auth()->user()->enquries()->where('is_read',false)->count()
         ]);
     }
 }

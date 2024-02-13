@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminscheduleController;
+use App\Http\Controllers\AgentBookingController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\AgentDashboardController;
 use App\Http\Controllers\AgentenquiryController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\CreditPackageController;
 use App\Http\Controllers\CreditTranscationController;
 use App\Http\Controllers\DisplayPropertiesController;
 use App\Http\Controllers\EnquiryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\NewsCommentController;
@@ -54,9 +56,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [HomeController::class,'index']);
 
 // news front route 
 
@@ -114,6 +114,13 @@ Route::post('logout',[LogoutController::class,'logout']);
 Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('adminAgents')->group(function (){
     Route::get('',[AgentDashboardController::class,'index']);
 
+    // Buy allowd_post 
+    Route::post('allowPosts/buy',[AgentDashboardController::class, 'allowPosts_buy']);
+
+    //make featured to sale 
+    Route::post('propertySales/{property:id}/makeFeatured',[AgentPropertySaleController::class,'makeFeatured']);
+    Route::post('propertyRents/{property:id}/makeFeatured',[AgentPropertyRentController::class,'makeFeatured']);
+
     Route::get('post-ad',[AgentDashboardController::class,'post_ad_index']);
     Route::resource('post-ad-sale',AgentPropertySaleController::class);
     Route::resource('show-ad-sale',ShowPropertySaleController::class);
@@ -160,6 +167,9 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::get('/transcation/{transcation:id}/check',[CreditTranscationController::class, 'check']);
     Route::post('/transcation/{trancation:id}/correct',[CreditTranscationController::class, 'correct']);
     Route::post('/transcation/{transcation:id}/wrong',[CreditTranscationController::class,'wrong']);
+
+    // booking list 
+    Route::get('/booking',[AgentBookingController::class,'index']);
 });
 
 // contact us /schedules/{schedule:id}/accept

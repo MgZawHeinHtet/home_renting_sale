@@ -6,8 +6,9 @@
     <div class="border-t border-t-gray-600 flex justify-between pt-3">
         <div class="flex gap-2">
             <a class="p-1 bg-gray-50 bg-opacity-15 rounded block text-center" href="/adminAgents/images-upload/{{$property->id}}/rent"> <i class="fa-solid fa-image w-5 h-5 y text-gray-300"></i></a>
-            <form action="">
-                <button class="p-1 bg-gray-50 bg-opacity-15 rounded text-center"><i class="fas fa-star w-5 h-5  text-gray-300"></i></button>
+            <form action="/adminAgents/propertyRents/{{$property->id}}/makeFeatured" method="POST">
+                @csrf
+                <button {{ $property->is_featured ? 'disabled':'' }} class="p-1 {{ $property->is_featured ? 'bg-yellow-600 opacity-55': 'bg-opacity-15 ' }} bg-gray-50  rounded text-center"><i class="fas fa-star w-5 h-5  text-gray-300"></i></button>
             </form>
             <form action="/adminAgents/post-ad-rent/{{ $property->id }}" method="POST">
                 @csrf

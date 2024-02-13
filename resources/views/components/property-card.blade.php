@@ -1,7 +1,15 @@
 <div class="w-full border-2 shadow-md rounded relative pb-8 bg-white">
-    <div class="absolute z-30 bg-[#002349] px-4 py-2 left-4 top-4 text-white">
-        <button>Video</button>
+    <div class="absolute z-30  left-4 top-4 text-white">
+        @if ($property->map == 'true')
+            
+        <button class="bg-[#002349] px-2 py-2 text-white"><i class="fa-solid fa-map mr-2"></i>Map</button>
+        @endif
+        
+        @if ($property->is_featured)
+        <button class="bg-yellow-600 px-2 py-2 text-white"><i class="fas fa-star mr-2 "></i>Feature</button>  
+        @endif
     </div>
+    
     <div class>
         <div class="w-full h-[340px] ">
 
@@ -22,7 +30,7 @@
                 </div>
 
                 <button type="button"
-                    class="flex absolute top-0 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
+                    class="flex absolute top-0 left-0 z-20 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
                     data-carousel-prev>
                     <span
                         class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
@@ -35,7 +43,7 @@
                     </span>
                 </button>
                 <button type="button"
-                    class="flex absolute top-0 right-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
+                    class="flex absolute top-0 right-0 z-20 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none"
                     data-carousel-next>
                     <span
                         class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">

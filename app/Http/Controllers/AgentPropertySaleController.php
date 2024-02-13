@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PropertySaleFormRequest;
 use App\Models\PropertySale;
+use App\Models\User;
 use Illuminate\Http\Request;
 
     class AgentPropertySaleController extends Controller
@@ -29,12 +30,21 @@ use Illuminate\Http\Request;
      */
     public function store(PropertySaleFormRequest $request)
     {
+        $user = User::find(auth()->user()->id) ;
+
+        if($user->allowed_posts < 1){
+            return redirect('/adminAgents/credit/add');
+        }; 
         $property_number = 'S-'.rand(1000,9999);
         $cleanData = $request->validated();
-        $cleanData['agent_id'] = auth()->user()->id;
+        $cleanData['agent_id'] = $user->id;
         $cleanData['propertyNumber'] = $property_number;
         PropertySale::create($cleanData);
-        return back()->with('success','create successfully');
+
+        $user->allowed_posts -= 1;
+        $user->update();
+
+        return redirect('/adminAgents/show-ad-sale');
     }
 
     /**
@@ -67,5 +77,21 @@ use Illuminate\Http\Request;
     public function destroy(string $id)
     {
         //
+    }
+
+    public function makeFeatured(PropertySale $property){
+        $user = User::find(auth()->user()->id) ;
+
+        if($user->credit_points < 1){
+            return redirect('/adminAgents/credit/add');
+        }; 
+
+        $property->is_featured = true;
+        $property->update();
+
+        $user->credit_points -= 1;
+        $user->update();
+
+        return back()->with('success','create successfully');
     }
 }

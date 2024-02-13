@@ -17,27 +17,26 @@
             <button class="p-2 bg-yellow-700 text-white rounded-lg"><i class="fas fa-edit"></i> Edit Advertisement</button>
         </form>
         <button class="p-2 bg-blue-700 text-white rounded-lg"><i class="fas fa-search"></i> View Detail</button>
-        <button class="p-2 bg-orange-700 text-white rounded-lg"><i class="fa-solid fa-copy"></i> Make Copy</button>
-
+        <form class="" action="/adminAgents/show-ad-sale/{{ $property->id }}" method="POST">   
+            @csrf 
+            @method('DELETE')
+            <button class="p-2 bg-red-700 text-white rounded-lg"><i class="fa-solid fa-xmark"></i> Delete Advertisment</button>
+        </form>
     </div>
     <div class="mb-3 flex gap-1">
         <form action="/adminAgents/images-upload/{{ $property->id }}/sale">
             <button class="p-2 bg-orange-700 text-white rounded-lg"><i class="fa-solid fa-circle-plus"></i> Add Photos</button>
         </form>
 
-        <button class="p-2 bg-yellow-700 text-white rounded-lg"><i class="fa-solid fa-star"></i> To Make Featured Ad</button>
-        <button class="p-2 bg-blue-700 text-white rounded-lg"><i class="fa-solid fa-check"></i> Mark As Sold</button>
+        <form action="/adminAgents/propertySales/{{ $property->id }}/makeFeatured" method="POST">
+            @csrf
+            <button {{ $property->is_featured ? 'disabled' : '' }} class="p-2 {{ $property->is_featured ? ' opacity-55':'' }} bg-yellow-700 text-white rounded-lg"><i class="fa-solid fa-star"></i> To Make Featured Ad</button>
+       </form>
+        <button class="p-2 bg-blue-700 text-white rounded-lg"><i class="fa-solid fa-check "></i> Mark As Sold</button>
 
     </div>
     <div class="flex gap-1">
-        <form action="">
-
-            <button class="p-2 bg-green-700 text-white rounded-lg"><i class="fa-solid fa-image"></i> Edit/Delete/Replace</button>
-        </form>
-        <form class="" action="/adminAgents/show-ad-sale/{{ $property->id }}" method="POST">   
-            @csrf 
-            @method('DELETE')
-            <button class="p-2 bg-red-700 text-white rounded-lg"><i class="fa-solid fa-xmark"></i> Delete Advertisment</button>
-        </form>
+        
+       
     </div>
 </div>

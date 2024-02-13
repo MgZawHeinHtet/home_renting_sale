@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CreditPackage;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AgentDashboardController extends Controller
@@ -41,5 +42,17 @@ class AgentDashboardController extends Controller
         return view('agent_dashboard.credit_record',[
             'transcations' => $transcations
         ]);
+    }
+
+    public function allowPosts_buy(){
+        $user = User::find(auth()->user()->id);
+        if($user->credit_points < 5 ){
+            return redirect('/adminAgents/credit/add');
+        }
+
+        $user->allowed_posts += 10;
+        $user->credit_points -= 5;
+        $user->update();
+        return back();
     }
 }
