@@ -170,6 +170,9 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
 
     // booking list 
     Route::get('/booking',[AgentBookingController::class,'index']);
+
+    //subscriber
+    Route::get('/subscriber',[AgentDashboardController::class, 'subscriber']);
 });
 
 // contact us /schedules/{schedule:id}/accept
@@ -177,6 +180,9 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
 Route::get('/contact_us',[ContactusController::class,'index']);
 
 Route::middleware(AuthMiddleware::class)->group(function(){
+    //subscriber create 
+    Route::post('/subscribe',[HomeController::class,'subscribe']);
+
     Route::post('/check-date/{property:id}',[BookingController::class,'check_avaliable_date' ]);
     Route::get('/booking/{property:id}/step1',[BookingController::class, 'step1']);
     Route::get('/booking/{property:id}/step2',[BookingController::class, 'step2']);

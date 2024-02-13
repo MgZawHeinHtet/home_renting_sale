@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\Notification;
 use App\Models\PropertyRent;
 use App\Models\PropertySale;
+use App\Models\Subscribers;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -18,5 +20,16 @@ class HomeController extends Controller
             'sale_properties'=>$sale_properties,
             'newses'=>$newses
         ]);
+    }
+
+    public function subscribe(){
+        $cleanData = request()->validate([
+            'email' => ['required','email','unique:subscribers,email']
+        ]);
+        $cleanData['user_id'] = auth()->user()->id;
+        
+        Subscribers::create($cleanData);
+
+        return back();
     }
 }

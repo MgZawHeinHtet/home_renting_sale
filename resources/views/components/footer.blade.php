@@ -10,11 +10,16 @@
             </div>
             <div class="w-[50%]">
                 <div class="w-full mb-[10px]">
-                    <input type="email"
-                        class="shawdow-lg rounded-lg w-[70%] px-[10px] py-[10px] outline-none text-gray-700"
-                        placeholder="Enter email address">
-                    <button
-                        class="w-[20%] border-2 py-[10px] rounded-lg bg-[#002349] text-white px-[10px] ">Subscribe</button>
+                    <form action="{{ auth()->user() ? '/subscribe' :'/login' }}" method="{{ auth()->user() ? 'POST' : 'GET'}}">
+                        @csrf
+
+                        <input type="email" name="email"
+                            class="shawdow-lg rounded-lg w-[70%] px-[10px] py-[10px] outline-none text-gray-700"
+                            placeholder="Enter email address">
+                            <x-error name="email"></x-error>
+                        <button
+                            class="w-[20%] border-2 py-[10px] rounded-lg bg-[#002349] text-white px-[10px] ">{{ auth()->user() ? 'Subscribe' : 'Sign In' }}</button>
+                    </form>
                 </div>
                 <p>
                     By signing up, you agree to our <a href="" class="underline text-blue-700">Terms of

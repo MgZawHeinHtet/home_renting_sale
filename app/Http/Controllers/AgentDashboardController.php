@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\CreditPackage;
+use App\Models\Subscribers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use NunoMaduro\Collision\Adapters\Phpunit\Subscribers\Subscriber;
+use PhpParser\Node\Expr\FuncCall;
 
 class AgentDashboardController extends Controller
 {
@@ -54,5 +57,12 @@ class AgentDashboardController extends Controller
         $user->credit_points -= 5;
         $user->update();
         return back();
+    }
+
+    public function subscriber(){
+        $subscribers = Subscribers::latest()->paginate(12);
+        return view('agent_dashboard.subscriber',[
+            'subscribers'=>$subscribers
+        ]);
     }
 }
