@@ -52,6 +52,7 @@ class BookingController extends Controller
         $dateToCheck = explode(' ', $request->check);
         $start_date = Carbon::parse($dateToCheck[0]);
         $end_date =  Carbon::parse($dateToCheck[2]);
+        $cancel_date = Carbon::parse($start_date)->subDays(7);
 
         //number of date between check in check out
         $interval = $start_date->diff($end_date)->days;
@@ -60,6 +61,7 @@ class BookingController extends Controller
         return view('booking.step1', [
             'property' => $property,
             'check_in' => $start_date,
+            'cancel_date'=>$cancel_date,
             'check_out' => $end_date,
             'guest' => $request->guest,
             'total_days' => $interval
@@ -104,6 +106,7 @@ class BookingController extends Controller
             'property' => PropertyRent::find($id),
             'check_in' => Carbon::parse($get_data['check_in']),
             'check_out' => Carbon::parse($get_data['check_out']),
+            'cancel_date'=>Carbon::parse($get_data['check_in'])->subDays(7),
             'guest' => $get_data['guest'],
             'total_days' => $get_data['total_days']
         ]);

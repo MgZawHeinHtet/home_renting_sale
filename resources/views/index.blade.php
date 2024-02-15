@@ -1,7 +1,5 @@
 <x-layout>
 
-
-
     <div style="font-family: 'Inter', sans-serif;">
         <!-- navber start -->
 
@@ -40,8 +38,6 @@
             </div>
         </div>
 
-
-
         <!-- third section start -->
         <div class="xl:px-[160px] lg:px-[60px] md:px-[30px] px-[0] pb-10">
             <div
@@ -71,9 +67,6 @@
             </div>
         </div>
 
-
-
-
         <div class="w-full xl:px-[160px] lg:px-[60px] md:px-[30px] px-[0] pb-10 relative">
             <div class="w-full grid grid-cols-2 gap-4">
                 @foreach ($sale_properties as $property)
@@ -83,7 +76,8 @@
             </div>
             <div class="flex items-center justify-center pt-5 mb-4">
                 <form action="/properties/sale">
-                    <button class="border px-[20px] hover:scale-[1.05] py-[10px] rounded-lg bg-[#002349] text-white">Browse
+                    <button
+                        class="border px-[20px] hover:scale-[1.05] py-[10px] rounded-lg bg-[#002349] text-white">Browse
                         all properties</button>
                 </form>
             </div>
@@ -100,10 +94,9 @@
             <h1 class="text-center text-[43px] font-[600] pb-3">The latest
                 News</h1>
             <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1  gap-7">
-            @foreach ($newses as $news)
-                
-            <x-home-news-card :news="$news"></x-home-news-card>
-            @endforeach
+                @foreach ($newses as $news)
+                    <x-home-news-card :news="$news"></x-home-news-card>
+                @endforeach
             </div>
         </div>
         <!-- nine section end -->
@@ -187,6 +180,6 @@
                     </li>
                 </ul>
             </div>
-
+        </div>
 
 </x-layout>

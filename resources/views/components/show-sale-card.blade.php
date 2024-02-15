@@ -1,4 +1,10 @@
-<div class="border border-white p-5 rounded-lg">
+<div class="border border-white p-5 rounded-lg relative">
+    <div class="w-full h-full absolute top-0 right-0 bg-black bg-opacity-90 flex justify-center items-center flex-col p-4 text-center">
+        <i class="fa fa-eye-slash text-5xl text-white" aria-hidden="true"></i>
+
+        <p class="text-red-500 text-lg"> Property get reported and remove temporary from display list</p>
+        <p class="text-orange-500 capitalize">contact with admin to resolve this problem</p>
+    </div>
     <h4 class="text-white text-xl capitalize mb-4">{{ $property->title }}</h4>
     <p  class="capitalize text-yellow-600">{{ $property->township }} | {{ $property->region }}</p>
     <p class="text-white mb-4">{{ $property->price }}lakh (kyat) | {{ $property->type }}</p>

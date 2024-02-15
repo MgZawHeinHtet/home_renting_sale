@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class PropertySale extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     public function salePropertyImage(){
         return $this->hasMany(SalePropertyImage::class,'property_id');
@@ -20,7 +22,6 @@ class PropertySale extends Model
 
     public function scopeFilter($propertyQuery,$request){
         
-
         if($search_input = $request['search_input'] ?? null)
         {
             $propertyQuery->where(function($query) use ($search_input){

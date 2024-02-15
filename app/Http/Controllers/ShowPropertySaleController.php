@@ -14,7 +14,7 @@ class ShowPropertySaleController extends Controller
      */
     public function index()
     {
-        $properties = auth()->user()->propertySale;
+        $properties = auth()->user()->propertySale()->withTrashed()->get();
        
         return view('agent_dashboard.show-ad-sale',[
             'properties' => $properties

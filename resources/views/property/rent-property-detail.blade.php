@@ -271,8 +271,7 @@
                             </svg>
                                 @endfor
                                
-                             
-
+                            
                             </div>
                             <p class="pt-[12px]">. {{ $property->ratedUsers->count() }} ratings</p>
                         </div>
@@ -285,7 +284,7 @@
                     {{-- review card section  --}}
                     @foreach ($reviews as $review)
                         
-                    <x-rent-review-card :review="$review"></x-rent-review-card>
+                    <x-rent-review-card :property="$property->id" :review="$review"></x-rent-review-card>
                     @endforeach
                    
                     <!-- psganation -->

@@ -23,7 +23,7 @@ class ScheduleBadge extends Component
     public function render(): View|Closure|string
     {
         return view('components.schedule-badge',[
-            'count'=>Schedule::where('status','pending')->count()
+            'count'=>Schedule::where('status','pending')->where('agent_id',auth()->user()->id)->count()
         ]);
     }
 }

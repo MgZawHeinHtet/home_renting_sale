@@ -1,5 +1,5 @@
 <a href="/properties/{{ $property->id }}/sale" class="w-full relative overflow-hidden rounded-md cursor-pointer">
-    <img class="w-full h-full object-cover hover:scale-[1.1] transition-all"
+    <img class="w-full h-[420px] object-fill hover:scale-[1.1] transition-all"
         src="{{ $property?->salePropertyImage->count() ? $property?->salePropertyImage[0]->image : 'http://127.0.0.1:8000/assets/insteadImg.jpg' }}"
         alt="">
 

@@ -5,7 +5,6 @@
     @stack('css')
     <div class="px-20 mx-auto">
         @if ($property->map == "true")
-            
         <div
             class="overlay hidden w-screen h-screen  items-center justify-center fixed top-0 left-0 z-50 bg-black bg-opacity-50">
             <div class="shadow rounded w-[1000px] h-[600px] z-50" id="map"></div>
@@ -23,7 +22,7 @@
                             {{ $property->township }}, {{ $property->region }}
                         </p>
                     </div>
-                    <div class="space-x-3 flex items-center">
+                    <div class="space-x-4 flex items-center">
                         <form action="/properties/{{ $property->id }}/saveSale" method="POST">
                             @csrf
                             @if (!auth()->user()?->isSavedProperties($property) ?? null)
@@ -38,6 +37,9 @@
                         @if ($property->map == "true")
                         <button class="map-btn"><i class="fas fa-map text-2xl  text-yellow-600"></i></button>
                         @endif
+                        <form action="/properties/{{ $property->id }}/report" method="GET">
+                            <button><i class="fas fa-exclamation-triangle text-2xl text-orange-800"></i></button>
+                        </form>
                     </div>
                 </div>
 

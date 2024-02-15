@@ -41,6 +41,7 @@ return new class extends Migration
             $table->boolean('isSold')->default(0);
             $table->unsignedBigInteger('agent_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

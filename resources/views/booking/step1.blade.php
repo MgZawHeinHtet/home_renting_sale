@@ -18,7 +18,7 @@
                 <p class="font-light text-md"><span
                         class="font-semibold">Free cancellation</span>
                     until <a href="#" class="text-blue-600 text-[18px]">
-                        Apr 16, 2024</a></p>
+                        {{ date('M d,Y',strtotime($cancel_date)) }}</a></p>
                 <!-- icon -->
             </div>
         </div>

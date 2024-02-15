@@ -9,6 +9,7 @@ use App\Http\Controllers\AgentProifleController;
 use App\Http\Controllers\AgentPropertyRentController;
 use App\Http\Controllers\AgentPropertySaleController;
 use App\Http\Controllers\AgentscheduleController;
+use App\Http\Controllers\AmenitiesAndRuleController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\CreditPackageController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfilescheduleController;
+use App\Http\Controllers\PropertySaleController;
 use App\Http\Controllers\PropertySaveController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\RentPropertyImageController;
@@ -81,6 +83,10 @@ Route::prefix('properties')->group(function(){
     //sending enquiry
     Route::post('/{propery:id}/enquiry',[EnquiryController::class,'send']);
     Route::post('/{property:id}/schedule',[ScheduleController::class,'takeSchedule'])->middleware(AuthMiddleware::class);
+
+    // report property 
+    Route::get('/{property:id}/report',[PropertySaleController::class,'index_report'])->middleware(AuthMiddleware::class);
+    Route::post('/{property:id}/report/send',[PropertySaleController::class, 'report_send'])->middleware(AuthMiddleware::class);
 });
 
 //agent front route
@@ -173,6 +179,20 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
 
     //subscriber
     Route::get('/subscriber',[AgentDashboardController::class, 'subscriber']);
+
+    //amenites and rule
+    Route::get('/amenitiesAndRule',[AmenitiesAndRuleController::class,'index']);
+    Route::get('/amenitiesAndRule/create',[AmenitiesAndRuleController::class,'create']);
+    Route::post('/amenity/store',[AmenitiesAndRuleController::class, 'store_amenity']);
+    Route::post('/rule/store',[AmenitiesAndRuleController::class, 'store_rule']);
+    Route::delete('/amenities/{amenity:id}',[AmenitiesAndRuleController::class, 'destory_amenity']);
+    Route::delete('/rules/{rule:id}',[AmenitiesAndRuleController::class, 'destory_rule']);
+
+    //report list
+    Route::get('/reportList',[AgentPropertySaleController::class, 'report_list']);
+    Route::delete('/report_list/{report:id}',[AgentpropertySaleController::class,'soft_delete']);
+    Route::post('/report_list/{report:id}',[AgentpropertySaleController::class,'restore']);
+
 });
 
 // contact us /schedules/{schedule:id}/accept

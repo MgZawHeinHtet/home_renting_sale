@@ -11,11 +11,14 @@ class RentReviewController extends Controller
         return view('review');
     }
     public function store(Request $request,$id){
+        $request->validate([
+            'review'=>['required']
+        ]);
         RentReview::create([
             'description'=> $request->review,
             'user_id'=> auth()->user()->id,
             'property_id'=>$id
         ]);
-        return redirect('');
+        return back();
     }
 }

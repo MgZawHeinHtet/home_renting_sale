@@ -1,7 +1,14 @@
+@php
+$property = $schedule->property()->withTrashed()->first();
+@endphp
+@if ($property->trashed())
+    
+<p class="text-red-600">This property is reported and temporary remove from list.(recommended to cancel)</p>
+@endif
 <div class="w-full p-2 border rounded space-y-3">
     <div class="flex justify-between bg-gray-600 p-1 rounded">
-
-        <a href="/properties/{{ $schedule->property->id }}/sale" class="text-gray-200  rounded p-2">{{ $schedule->property->title }}</a>
+       
+        <a href="/properties/{{ $property->id }}/sale" class="text-gray-200  rounded p-2">{{ $property->title }}</a>
         @if ($schedule->status != 'pending')
             
         <span class="p-2 px-4 bg-yellow-500 text-white rounded">{{ $schedule->status }}ed</span>
@@ -15,7 +22,7 @@
     </div>
     <div class="grid grid-cols-4 gap-5 items-center">
         <div>
-            <img class="w-full object-fit h-36  rounded shadow" src="{{ $schedule->property->salePropertyImage[0]->image }}" alt="">
+            <img class="w-full object-fit h-36  rounded shadow" src="{{ $property->salePropertyImage[0]->image }}" alt="">
 
         </div>
         <div class="col-span-2">
@@ -26,7 +33,7 @@
                     </div>
                     <div>
                         <p class="text-lg text-gray-300">Type</p>
-                        <span class="text-sm text-gray-400">{{ $schedule->property->type }}</span>
+                        <span class="text-sm text-gray-400">{{ $property->type }}</span>
                     </div>
                 </div>
 
@@ -36,7 +43,7 @@
                     </div>
                     <div>
                         <p class="text-lg text-gray-300">l*w</p>
-                        <span class="text-sm text-gray-400">{{ $schedule->property->length }}' * {{ $schedule->property->width }}'</span>
+                        <span class="text-sm text-gray-400">{{ $property->length }}' * {{ $property->width }}'</span>
                     </div>
                 </div>
 
@@ -46,7 +53,7 @@
                     </div>
                     <div>
                         <p class="text-lg text-gray-300">Bed Rooms</p>
-                        <span class="text-sm text-gray-400">{{ $schedule->property->bedroom }} rooms</span>
+                        <span class="text-sm text-gray-400">{{ $property->bedroom }} rooms</span>
                     </div>
                 </div>
                 <div class="flex gap-3">
@@ -55,7 +62,7 @@
                     </div>
                     <div>
                         <p class="text-lg text-gray-300">Bath Rooms</p>
-                        <span class="text-sm text-gray-400">{{ $schedule->property->bathroom }} rooms</span>
+                        <span class="text-sm text-gray-400">{{ $property->bathroom }} rooms</span>
                     </div>
                 </div>
                 <div class="flex gap-3">
@@ -64,7 +71,7 @@
                     </div>
                     <div>
                         <p class="text-lg text-gray-300">Furnishing</p>
-                        <span class="text-sm text-gray-400">{{ $schedule->property->furnished }}</span>
+                        <span class="text-sm text-gray-400">{{ $property->furnished }}</span>
                     </div>
                 </div>
                 <div class="flex gap-3">
@@ -73,7 +80,7 @@
                     </div>
                     <div>
                         <p class="text-lg text-gray-300">Price</p>
-                        <span class="text-sm text-gray-400">{{ $schedule->property->price }}</span>
+                        <span class="text-sm text-gray-400">{{ $property->price }}</span>
                     </div>
                 </div>
                 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PropertySaleFormRequest;
 use App\Models\PropertySale;
+use App\Models\SalePropertyReport;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -93,5 +94,30 @@ use Illuminate\Http\Request;
         $user->update();
 
         return back()->with('success','create successfully');
+    }
+
+    public function report_list(){
+        $reports = SalePropertyReport::latest()->get();
+        return view('agent_dashboard.report-list',[
+            'reports'=>$reports
+        
+        ]);
+    }
+
+    public function soft_delete($id){
+        
+        $report = SalePropertyReport::find($id);
+        $report->is_response = true;
+        $report->property->delete();
+        $report->update();
+
+        return back();
+    }
+
+    public function restore($id){
+        
+        $report = SalePropertyReport::find($id);
+        $report->property()->withTrashed()->first()->restore();
+        return back();
     }
 }

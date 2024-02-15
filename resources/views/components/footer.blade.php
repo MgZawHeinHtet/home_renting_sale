@@ -29,11 +29,11 @@
         </div>
     </div>
 </div>
-<div class="w-full py-[30px] px-[150px] bg-[#F4F4F4]">
+<div class="w-full py-[30px] px-[150px] bg-home-900">
     <div class="w-full flex gap-[150px]">
         <div class="flex flex-col gap-4">
-            <p class="font-bold text-[18px] text-gray-600">HomeToGo</p>
-            <div class="flex flex-col gap-4 text-gray-500 ">
+            <p class="font-bold text-[18px] text-yellow-600">HomeToGo</p>
+            <div class="flex flex-col gap-4 text-gray-400 ">
                 <a href="" class="font-semibold text-[14px]">About us</a>
                 <a href="" class="font-semibold text-[14px]">Careers</a>
                 <a href="" class="font-semibold text-[14px]">Investors</a>
@@ -46,9 +46,9 @@
 
         </div>
         <div class="flex flex-col gap-4">
-            <p class="font-bold text-[18px] text-gray-600">Contact
+            <p class="font-bold text-[18px] text-yellow-600">Contact
             </p>
-            <div class="flex flex-col gap-4 text-gray-500 ">
+            <div class="flex flex-col gap-4 text-gray-400 ">
                 <a href="" class="font-semibold text-[14px]">Help Center and contact
                 </a>
                 <a href="" class="font-semibold text-[14px]">List your home</a>
@@ -61,9 +61,9 @@
 
         </div>
         <div class="flex flex-col gap-4">
-            <p class="font-bold text-[18px] text-gray-600">Legal policies
+            <p class="font-bold text-[18px] text-yellow-600">Legal policies
             </p>
-            <div class="flex flex-col gap-4 text-gray-500 ">
+            <div class="flex flex-col gap-4 text-gray-400 ">
                 <a href="" class="font-semibold text-[14px]">Terms of Service</a>
                 <a href="" class="font-semibold text-[14px]">Privacy Policy</a>
                 <a href="" class="font-semibold text-[14px]">Legal</a>
