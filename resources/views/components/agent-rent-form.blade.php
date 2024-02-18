@@ -123,7 +123,7 @@
             </div>
             <div class="space-y-2 col-span-2">
                 <label class="block text-white" for="">Description </label>
-                <textarea class="w-full bg-home-600 rounded" name="description" id="" cols="30" rows="10"> {{ old('description', $property?->description) }}</textarea>
+                <textarea id="tiny" class="w-full bg-home-600 rounded" name="description" id="" cols="30" rows="10"> {{ old('description', $property?->description) }}</textarea>
                 <x-error name="description"></x-error>
             </div>
 

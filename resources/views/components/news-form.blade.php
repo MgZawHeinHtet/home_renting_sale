@@ -27,9 +27,9 @@
                 <input name="photo" class="w-full rounded border border-yellow-600 bg-home-900 text-gray-300" type="file">
                 <x-error name="photo"></x-error>
 
-                @if($news?->photo){
+                @if($news?->photo)
                     
-                    <div>
+                    <div class="mt-2">
                         <img class="w-24 h-24 object-cover rounded" src="{{ $news->photo }}" alt="">
                     </div>
                 @endif
@@ -40,7 +40,7 @@
             <label for="" class="w-32 text-xl text-gray-300">Description</label>
             
             <div class="flex-1">
-                <textarea class="w-full h-72 rounded bg-home-900 border-yellow-600" name="description" id="" cols="30" rows="10">
+                <textarea class="w-full h-72 rounded bg-home-900 border-yellow-600" name="description" id="tiny" cols="30" rows="10">
                     {!! old('description',$news?->description) !!}
                 </textarea>
                 <x-error name="description"></x-error>

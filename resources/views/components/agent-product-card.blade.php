@@ -45,10 +45,21 @@
             </ul>
             <ul class="flex gap-4">
                 <li>
-                    <a class="uppercase" href="">View Detail</a>
+                    <a class="uppercase" href="/properties/{{ $property->id }}/sale">View Detail</a>
                 </li>
                 <li class="border-l px-2 border-x-home-600">
-                    <button class="uppercase"><i class="fa-solid fa-bookmark"></i> BookMark</button>
+                    
+                    <form action="/properties/{{ $property->id }}/saveSale" method="POST">
+                        @csrf
+                        @if (!auth()->user()?->isSavedProperties($property) ?? null)
+                            
+                        <button><i class="fa-regular fa-bookmark"></i> BookMark</button>
+                        @else
+                        <button>
+                            <i class="fa-solid fa-bookmark text-red-600"></i> BookMark
+                        </button>
+                        @endif
+                    </form>
                 </li>
                
 

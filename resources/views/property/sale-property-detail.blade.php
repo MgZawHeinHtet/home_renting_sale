@@ -1,19 +1,23 @@
 <x-layout>
+    
     @push('css')
         <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
     @endpush
     @stack('css')
     <div class="px-20 mx-auto">
+      
         @if ($property->map == "true")
         <div
             class="overlay hidden w-screen h-screen  items-center justify-center fixed top-0 left-0 z-50 bg-black bg-opacity-50">
             <div class="shadow rounded w-[1000px] h-[600px] z-50" id="map"></div>
         </div>
         @endif
-
+        
 
         <section class="w-full flex flex-col lg:flex-row justify-between p-5 lg:p-7 gap-6 ">
+         
             <div class="flex-1 ">
+                <x-alert></x-alert>
                 <div class="flex justify-between items-center">
                     <div>
                         <h1 class=" text-[26px] md:text-[28px] font-[500]  text-home-900">{{ $property->title }}</h1>
@@ -38,11 +42,11 @@
                         <button class="map-btn"><i class="fas fa-map text-2xl  text-yellow-600"></i></button>
                         @endif
                         <form action="/properties/{{ $property->id }}/report" method="GET">
-                            <button><i class="fas fa-exclamation-triangle text-2xl text-orange-800"></i></button>
+                            <button><i class="fas fa-exclamation-triangle text-2xl text-yellow-800"></i></button>
                         </form>
                     </div>
                 </div>
-
+                
                 <!-- Image -->
                 @php
                     $imageUrls = [];
@@ -110,7 +114,7 @@
                 </div>
                 <div class="flex flex-wrap justify-between gap-2  py-2">
                     <div class="flex justify-center items-center gap-2 text-[#002349] text-[14px] "><i
-                            class="fa-solid fa-bolt " aria-hidden="true"></i><span>Premium</span></div>
+                            class="fa-solid fa-bolt " aria-hidden="true"></i><span>Premium</span> <span class="text-blue-600  rounded-lg {{ $property->installment ? '':'hidden' }}"><i class="fas fa-check"></i> Bank Installment</span></div>
                     <p class=" flex-0  text-[14px] px-2 text-[#2e3238]">Posted Date :
                         {{ $property->created_at->format('d M Y') }}</p>
                 </div>
@@ -247,7 +251,7 @@
                             <i
                                 class="fa-solid fa-phone h-[42px] w-[44px] bg-[#0da50c] border-[#0da50c] border-solid border-[1px] flex justify-center items-center text-white text-[16px]"></i>
                             <span
-                                class="flex justify-center items-center flex-1 text-center text-[16px] font-[500] w-full h-full text-[#0da50c] hover:bg-[#0da50c] hover:text-white transition-all ease-in">Call</span>
+                                class="flex justify-center items-center flex-1 text-center text-[16px] font-[500] w-full h-full text-[#0da50c] hover:bg-[#0da50c] hover:text-white transition-all ease-in">{{ $property->phoneNumber }}</span>
                         </a>
                     </div>
                 </div>

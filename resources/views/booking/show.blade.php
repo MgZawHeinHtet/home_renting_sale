@@ -68,7 +68,7 @@
                                 <i class="fa-solid fa-star text-blue-500"></i>
                             </p>
                             <p class=""><button
-                                    class="open-btn text-white font-bold bg-blue-500 p-1 rounded ">Rating to property
+                                    class=" text-white font-bold bg-blue-500 p-1 rounded ">Rating to property
                                 </button>
                                 and take a chance to get discount</p>
                         </div>
@@ -92,9 +92,15 @@
                     </div>
                     <div class="flex-1 border-[1px] p-3 text-[14px] text-blue-500 font-bold">
                         <div class=" border-b-[1px] pb-3">
-                            <button class="review-open-btn pb-3">Write A Review</button>
-                            <p class="pb-3">Add space for more guest</p>
-                            <p class="pb-3">View policies</p>
+                            <button class="review-open-btn pb-3">Write A Review</button><br>
+                            <button class="open-btn inline-block">
+
+                                <p class="pb-3">Click here  rating Property</p>
+                            </button>
+                            <a href="/properties/{{ $booking->property->id }}/rent">
+                                <p class="pb-3">View policies</p>
+                            </a>
+                            
                         </div>
                         <div class=" border-b-[1px] py-3">
                             <p class="pb-3">View confirmation</p>

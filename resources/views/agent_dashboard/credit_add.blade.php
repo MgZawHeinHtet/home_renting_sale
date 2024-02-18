@@ -3,6 +3,7 @@
 
         <h4 class="text-gray-300 text-xl tracking-wide underline underline-offset-8 mb-10">Credit Point Add</h4>
         
+        <x-alert></x-alert>
         <div class="space-y-3 p-5 bg-home-900 rounded-lg">
             <p class="text-gray-300">- With only <span class="text-yellow-600">(5)</span> Credit Point, you can buy listing  <span class="text-yellow-600">10 chance</span> . </p>
             <p class="text-gray-300">- With only <span class="text-yellow-600">(1)</span> Credit Point, you can make Featured post for <span class="text-yellow-600">1 Week</span> . </p>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NewsFormRequest;
 use App\Models\News;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -100,10 +101,16 @@ class NewsController extends Controller
         $news = News::find($id);
         if($news->likeduser->contains('id',auth()->user()->id)){
             $news->likedUser()->detach(auth()->user()->id);
-
+           
         }else{
 
             $news->likedUser()->attach(auth()->user()->id);
+            Notification::create([
+                'recipent_id'=> 3,
+                'noti_type'=>'news-like',
+                'sender_id'=>auth()->user()->id,
+                'related_url'=> "/news/$news->id"
+            ]);
         }
         return back();
     }

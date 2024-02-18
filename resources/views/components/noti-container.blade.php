@@ -1,4 +1,4 @@
-<div id="noti-container" class="hidden z-30">
+<div id="noti-container" class="hidden z-50">
     @auth
     @if ($notifications->count())
         <div class="w-7 h-7 bg-white absolute top-[70px] rotate-45 right-[380px]"></div>
@@ -12,7 +12,7 @@
                                 <i class="fas fa-home text-xl"></i>
                             </div>
                             <div class="flex-1">
-                                <x-notification-message :type="$notification->noti_type" :sender="$notification->sender->name"></x-notification-message>
+                                <x-notification-message :type="$notification->noti_type" :sender="$notification->sender"></x-notification-message>
                                 <p class="text-gray-600 text-sm">{{ $notification->created_at->diffForHumans() }}</p>
                             </div>
                         </div>

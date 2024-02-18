@@ -10,7 +10,7 @@
             </svg>
             <form class="flex-1" action="/properties/{{ $type }}">
 
-                <input type="text" name="search_input" class="w-full border-0 outline-none md:text-[14px] text-[10px]"
+                <input value="{{ request('search_input') }}" type="text" name="search_input" class="w-full border-0 outline-none md:text-[14px] text-[10px]"
                     placeholder="Country, City, Address, Postal Code or ID">
             </form>
         </div>
@@ -38,26 +38,55 @@
                         class="border-[1px] px-3 py-1 shadow-lg border-[black] {{ $type === 'rent' ? 'bg-[#002349] text-white' : '' }} font-bold text-[13px] tracking-widest">RENT</button>
                 </form>
             </div>
+            
+            <form method="GET" class="xl:w-[65%] w-[100%] md:flex xl:gap-[40px] gap-[20px]  hidden" action="/properties/{{ $type }}">
+                <input type="hidden" name="search_input" value="{{ request('search_input') }}">
+                <div class>
+                    <input name="minPrice" type="number" placeholder="Min Price" value="{{ request('minPrice') }}"
+                        class="w-32 border-[1px] px-3 py-1 shadow-lg border-[black] font-bold text-[13px] tracking-widest placeholder:text-home-900">
+                </div>
+                <div class>
+                    <input name="maxPrice" type="number" placeholder="Max Price" value="{{ request('maxPrice') }}"
+                        class="w-32 border-[1px] px-3 py-1 shadow-lg border-[black] font-bold text-[13px] tracking-widest placeholder:text-home-900">
+                </div>
+                <div class>
+                    <input type="number" name="bath" placeholder="BATHS" value="{{ request('bath') }}"
+                        class="w-20 border-[1px] px-3 py-1 shadow-lg border-[black] font-bold text-[13px] tracking-widest placeholder:text-home-900" />
+                </div>
+                <div class>
+                    <input type="number" name="bed" placeholder="BEDS" value="{{ request('bed') }}"
+                        class="w-20 border-[1px] px-3 py-1 shadow-lg border-[black] font-bold text-[13px] tracking-widest placeholder:text-home-900" />
+                </div>
+                <div class>
+                    <select
+                        class="w-36 border-[1px] px-3 py-1 shadow-lg border-[black] font-bold text-[13px] tracking-widest placeholder:text-home-900"
+                        name="houseType" id="property-type">
 
-            <div class>
-                <button
-                    class="border-[1px] px-3 py-1 shadow-lg border-[black] font-bold text-[13px] tracking-widest">PRICE
-                    RANGE</button>
-            </div>
-            <div class>
-                <button
-                    class="border-[1px] px-3 py-1 shadow-lg border-[black] font-bold text-[13px] tracking-widest">BEDS
-                    & BATHS</button>
-            </div>
-            <div class>
-                <button
-                    class="border-[1px] px-3 py-1 shadow-lg border-[black] font-bold text-[13px] tracking-widest">HOME
-                    TYPE</button>
-            </div>
-            <div class>
-                <button
-                    class="border-[1px] px-3 py-1 shadow-lg border-[black] font-bold text-[13px] tracking-widest">FILTER</button>
-            </div>
+                        <option value="" selected>House Type</option>
+                        <option class="capitalize" value="apartment">
+                            apartment
+                        </option>
+                        <option class="capitalize" value="mini condo">mini
+                            condo
+                        </option>
+                        <option class="capitalize" value="condo">condo
+                        </option>
+                        <option class="capitalize" value="house">house
+                        </option>
+                        <option class="capitalize" value="land">land
+                        </option>
+                        <option class="capitalize" value="shop,office">
+                            shop,office</option>
+                        <option class="capitalize" value="industrial zone">
+                            industrial zone</option>
+                        <option class="capitalize" value="hotel,resturant & other business">hotel,resturant & other
+                            business
+                        </option>
+
+                    </select>
+                </div>
+                <button type="submit"></button>
+            </form>
         </div>
     </div>
     {{-- mobile --}}

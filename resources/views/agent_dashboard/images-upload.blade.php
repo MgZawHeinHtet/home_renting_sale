@@ -1,6 +1,7 @@
 <x-agent-dashboard-layout>
     <h4 class="text-white text-xl tracking-wide underline underline-offset-8 mb-10">Photo Upload for <span
             class="text-yellow-600">{{ $property->title }}</span></h4>
+    <x-alert></x-alert>
     <p class="p-3 text-center bg-home-900 rounded text-white mb-10 tracking-wide">If your advertisement with photo,it
         will be more interesting.
     </p>

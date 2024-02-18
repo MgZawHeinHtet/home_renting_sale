@@ -297,7 +297,7 @@
             <label class="w-[30%] text-white font-slate-800 tracking-wide text-right"
                 for="">Description</label>
             <div class="flex-1 space-y-2">
-                <textarea name="description" id="" cols="20" rows="8"
+                <textarea name="description" id="tiny" cols="20" rows="8"
                     class="w-full border-l-4 border-l-yellow-600 outline-none">{{ old('description', $property?->description) }}</textarea>
                 <x-error name="description"></x-error>
             </div>

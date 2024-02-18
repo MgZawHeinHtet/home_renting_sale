@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PropertyRentFormRequest;
 use App\Models\Amenity;
 use App\Models\PropertyRent;
+use App\Models\PropertySale;
 use App\Models\rule;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -101,6 +102,10 @@ class AgentPropertyRentController extends Controller
         $user->credit_points -= 1;
         $user->update();
 
-        return back()->with('success','create successfully');
+        return back()->with('make-featured','Make Featured Post successfully(property will show in home page)');
+    }
+
+    public function makeSold(PropertySale $property){
+        dd('hit');
     }
 }

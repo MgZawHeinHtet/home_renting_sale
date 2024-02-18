@@ -1,10 +1,13 @@
 <div class="border border-white p-5 rounded-lg relative">
+    @if ($property->trashed())
+        
     <div class="w-full h-full absolute top-0 right-0 bg-black bg-opacity-90 flex justify-center items-center flex-col p-4 text-center">
         <i class="fa fa-eye-slash text-5xl text-white" aria-hidden="true"></i>
 
         <p class="text-red-500 text-lg"> Property get reported and remove temporary from display list</p>
         <p class="text-orange-500 capitalize">contact with admin to resolve this problem</p>
     </div>
+    @endif
     <h4 class="text-white text-xl capitalize mb-4">{{ $property->title }}</h4>
     <p  class="capitalize text-yellow-600">{{ $property->township }} | {{ $property->region }}</p>
     <p class="text-white mb-4">{{ $property->price }}lakh (kyat) | {{ $property->type }}</p>
@@ -38,7 +41,10 @@
             @csrf
             <button {{ $property->is_featured ? 'disabled' : '' }} class="p-2 {{ $property->is_featured ? ' opacity-55':'' }} bg-yellow-700 text-white rounded-lg"><i class="fa-solid fa-star"></i> To Make Featured Ad</button>
        </form>
-        <button class="p-2 bg-blue-700 text-white rounded-lg"><i class="fa-solid fa-check "></i> Mark As Sold</button>
+       <form action="/adminAgents/properties/{{ $property->id }}/sold" method="POST">
+          @csrf
+           <button class="p-2 bg-blue-700 text-white rounded-lg"><i class="fa-solid fa-check "></i> Mark As Sold</button>
+       </form>
 
     </div>
     <div class="flex gap-1">

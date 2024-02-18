@@ -25,7 +25,7 @@
             </div>
         @else
             <div>
-                <a class="text-white" href="">Join</a>
+                <a class="text-white" href="">Sign up</a>
                 <span class="mx-1 text-white">/</span>
                 <a class="text-white" href="/login">Login</a>
             </div>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('recipent_id');
             $table->string('noti_type');
             $table->boolean('is_read')->default(0);
-            $table->string('related_url')->nullable();
+            $table->string('related_url')->default('#');
             $table->timestamps();
         });
     }

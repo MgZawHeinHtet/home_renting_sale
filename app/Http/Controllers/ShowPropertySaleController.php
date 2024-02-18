@@ -14,7 +14,7 @@ class ShowPropertySaleController extends Controller
      */
     public function index()
     {
-        $properties = auth()->user()->propertySale()->withTrashed()->get();
+        $properties = auth()->user()->propertySale()->latest()->withTrashed()->get();
        
         return view('agent_dashboard.show-ad-sale',[
             'properties' => $properties
@@ -65,7 +65,7 @@ class ShowPropertySaleController extends Controller
         $cleanData = $request->validated();
         
         $property->update($cleanData);
-        return redirect('/adminAgents/show-ad-sale');
+        return redirect('/adminAgents/show-ad-sale')->with('post-edit','Update Successfully 🎆');
     }
 
     /**
@@ -74,7 +74,7 @@ class ShowPropertySaleController extends Controller
     public function destroy(string $id)
     {
         $property = PropertySale::findOrFail($id);
-        $property->delete();
-        return back()->with('success','delete successfully');
+        $property->forceDelete();
+        return back()->with('post-delete','Delete successfully 💥');
     }
 }

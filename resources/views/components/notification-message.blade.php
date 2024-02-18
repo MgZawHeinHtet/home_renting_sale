@@ -49,14 +49,24 @@
 @endif
  --}}
 
+ 
+
  @if($type === 'schedule-accept')
 <span>Your requested schedule was accepted by</span>
-<span>{{ $sender }}</span>
+<span>{{ $sender->name }}</span>
+@endif
+
+@if($type === 'schedule_request')
+<span>{{ $sender->name }} was requested to meet </span>
+@endif
+
+@if($type === 'enquiry-request')
+<span>Someone was requested enquriy </span>
 @endif
 
 @if($type === 'schedule-reject')
 <span>Your requested schedule was rejected by</span>
-<span>{{ $sender }}</span>
+<span>{{ $sender->name }}</span>
 @endif
 
 @if($type === 'renting-success')
@@ -65,7 +75,7 @@
 
 @if($type=='renting-recive')
 <span>Your property is renting by</span>
-<span>{{ $sender }}</span>
+<span>{{ $sender->name }}</span>
 @endif
 
 @if($type === 'booking_cancel_success')
@@ -73,6 +83,18 @@
 @endif
 
 @if($type=='cancel_booking')
-<span>{{ $sender }} was cancelled booking 🤦‍♂️</span>
+<span>{{ $sender->name }} was cancelled booking 🤦‍♂️</span>
 @endif
 
+
+@if($type=='property-post')
+<span>{{ $sender->company_name}} was create new property.</span>
+@endif
+
+@if($type=='news-like')
+<span>{{ $sender->name}} was liked on news</span>
+@endif
+
+@if($type=='news-comment')
+<span>{{ $sender->name}} was written comment on news</span>
+@endif

@@ -13,7 +13,8 @@ class DisplayPropertiesController extends Controller
         $curr_route = url()->current();
         $is_sale = str_contains($curr_route,'sale');
         $is_rent = str_contains($curr_route,'rent');
-        $requests = request(['type','search_input']);
+        $requests = request(['type','search_input','maxPrice','minPrice','bath','bed','houseType']);
+       
         if($is_sale){
             $type = 'sale';
             $properties = PropertySale::with(['agent','salePropertyImage'])->filter($requests)->orderBy('is_featured','desc')->latest()->paginate(9)->withQueryString();

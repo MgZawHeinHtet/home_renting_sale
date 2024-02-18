@@ -33,11 +33,11 @@ class SalePropertyImageController extends Controller
                 'image' => $image_url
             ]);
         }
-        return back();
+        return back()->with('post-img','Images uploaded successfully ✅');
     }
 
     public function destory(SalePropertyImage $image){
         $image->delete();
-        return back();
+        return back()->with('delete-img','Delete Image Successfully 💥');
     }
 }

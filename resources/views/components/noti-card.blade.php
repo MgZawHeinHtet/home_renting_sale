@@ -1,9 +1,12 @@
 <div
-    class="py-6 px-10 border-l-4 border-l-gray-500 border-b border-b-gray-700 {{ !$notification->is_read ? 'bg-slate-700' : '' }}">
+    class="py-6 px-10 border-l-4 border-l-gray-500 border-b border-b-gray-600 {{ !$notification->is_read ? 'bg-slate-700' : '' }}">
     <div class="flex gap-2 items-center justify-between">
         <div class="flex gap-x-3 items-center">
-            <p class="font-bold text-base tracking-wide mb-1 text-slate-400"><x-notification-message
-                    type="{{ $notification->noti_type }}" :sender="$notification->sender->name"></x-notification-message></p>
+            <a href="{{ $notification->related_url }}">
+                <p class="font-bold text-base tracking-wide mb-1 text-slate-400"><x-notification-message
+                    type="{{ $notification->noti_type }}" :sender="$notification->sender"></x-notification-message></p>
+            </a>
+          
 
             <span
                 class="{{ $notification->is_read ? 'hidden' : '' }} ml-2  w-3 h-3 inline-block rounded-full bg-yellow-600"></span>

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class AgentBookingController extends Controller
 {
     public function index(){
-        $bookings = booking::where('agent_id',auth()->user()->id)->paginate(12);
+        $bookings = booking::where('agent_id',auth()->user()->id)->latest()->paginate(12);
       
         return view('agent_dashboard.booking',[
             'bookings'=>$bookings

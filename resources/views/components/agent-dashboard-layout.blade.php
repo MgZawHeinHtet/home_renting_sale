@@ -13,7 +13,12 @@
 </head>
 
 <body class="font-serif bg-home-600">
-
+    <li class="absolute top-0 z-30 right-10">
+        <a href="/adminAgents/noti"
+            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <x-noti-badge></x-noti-badge>                        
+        </a>
+    </li>
 
     <button data-drawer-target="sidebar-multi-level-sidebar" data-drawer-toggle="sidebar-multi-level-sidebar"
         aria-controls="sidebar-multi-level-sidebar" type="button"
@@ -42,7 +47,7 @@
                     </div>
                 </li> 
                 <li>
-                    <a href="#"
+                    <a href="/adminAgents"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -117,6 +122,7 @@
                        
                     </ul>
                 </li>
+               
                 <li>
                     <a href="/adminAgents/credit"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -274,7 +280,7 @@
         </div>
     </aside>
 
-    <div class="p-10 pt-14 sm:ml-64 bg-home-600">
+    <div class="p-8 pt-12 sm:ml-64 bg-home-600">
        {{ $slot }}
     </div>
 

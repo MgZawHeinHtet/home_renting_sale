@@ -13,21 +13,31 @@
                     <div class="space-y-3">
                         <h2 class="text-2xl tracking-wide text-home-900 font-semibold">{{ $agent->company_name }}<span><i class="fas fa-crown text-yellow-600"></i></span></h2>
                         <p class="text-sm font-thin"><i class="fa-solid fa-phone"></i> {{ $agent->phone }}</p>
+                        @if ($agent->facebook_link)
+                            
+                        <p class="text-sm font-thin"><i class="fa-brands fa-facebook-f"></i> {{ $agent->facebook_link }}</p>
+                        @endif
                         <p><i class="fa-solid fa-location-dot"></i> {{ $agent->address }} </p>
                         @if ($agent->isVerified)
                             
                         <p class="px-4 py-2 bg-home-900 inline-block text-white rounded">Verified Agency <img
                                 class="inline-block w-6 h-6" src="{{ asset('assets/verified.png') }}" alt="">
                         </p>
+                        
                         @endif
+                        <p class="w-[600px]">
+                            
+                             {{ $agent->description }}
+                        </p>
                     </div>
+                    
                 </div>
             </div>
             <div class="space-y-3">
                 <p class="text-lg"><span class="w-16 inline-block capitalize"><i
                             class="fa-solid fa-house text-yellow-600"></i> rent</span>| Total Ads : {{ $agent->propertySale->count() }}</p>
                 <p class="text-lg"><span class="w-16 inline-block capitalize"><i
-                            class="fa-solid fa-shop text-yellow-600"></i> Sell</span>| Total Ads : 34</p>
+                            class="fa-solid fa-shop text-yellow-600"></i> Sell</span>| Total Ads : {{ $agent->propertySale->count() }}</p>
                 <button class="bg-home-900 text-white w-full text-center py-3 outline outline-yellow-600 rounded">View
                     Location<i class="fa-solid fa-map ml-2 text-yellow-600"></i></button>
             </div>

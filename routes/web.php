@@ -5,6 +5,7 @@ use App\Http\Controllers\AgentBookingController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\AgentDashboardController;
 use App\Http\Controllers\AgentenquiryController;
+use App\Http\Controllers\AgentNotiController;
 use App\Http\Controllers\AgentProifleController;
 use App\Http\Controllers\AgentPropertyRentController;
 use App\Http\Controllers\AgentPropertySaleController;
@@ -120,12 +121,19 @@ Route::post('logout',[LogoutController::class,'logout']);
 Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('adminAgents')->group(function (){
     Route::get('',[AgentDashboardController::class,'index']);
 
+    //noti
+
+    Route::get('noti',[AgentNotiController::class,'index']);
+     // make sold out 
+     Route::post('properties/{property:id}/sold',[AgentPropertySaleController::class,'makeSold']);
+
     // Buy allowd_post 
     Route::post('allowPosts/buy',[AgentDashboardController::class, 'allowPosts_buy']);
 
     //make featured to sale 
     Route::post('propertySales/{property:id}/makeFeatured',[AgentPropertySaleController::class,'makeFeatured']);
     Route::post('propertyRents/{property:id}/makeFeatured',[AgentPropertyRentController::class,'makeFeatured']);
+
 
     Route::get('post-ad',[AgentDashboardController::class,'post_ad_index']);
     Route::resource('post-ad-sale',AgentPropertySaleController::class);

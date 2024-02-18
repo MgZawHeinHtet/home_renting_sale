@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PropertySaleFormRequest;
+use App\Models\Notification;
 use App\Models\PropertySale;
 use App\Models\SalePropertyReport;
+use App\Models\Subscribers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -40,12 +42,14 @@ use Illuminate\Http\Request;
         $cleanData = $request->validated();
         $cleanData['agent_id'] = $user->id;
         $cleanData['propertyNumber'] = $property_number;
-        PropertySale::create($cleanData);
+        $property = PropertySale::create($cleanData);
 
         $user->allowed_posts -= 1;
         $user->update();
 
-        return redirect('/adminAgents/show-ad-sale');
+        Subscribers::sendNotification('property-post',"/properties/$property->id/sale");
+
+        return redirect('/adminAgents/show-ad-sale')->with('post-success','Your Proeprty was successfully created 🎉');
     }
 
     /**
@@ -84,7 +88,7 @@ use Illuminate\Http\Request;
         $user = User::find(auth()->user()->id) ;
 
         if($user->credit_points < 1){
-            return redirect('/adminAgents/credit/add');
+            return redirect('/adminAgents/credit/add')->with('low-credit','Insufficient amount of credit points🤦‍♂️');
         }; 
 
         $property->is_featured = true;
@@ -93,7 +97,7 @@ use Illuminate\Http\Request;
         $user->credit_points -= 1;
         $user->update();
 
-        return back()->with('success','create successfully');
+        return back()->with('make-featured','Make Featured Post successfully(property will show in home page)');
     }
 
     public function report_list(){
@@ -118,6 +122,12 @@ use Illuminate\Http\Request;
         
         $report = SalePropertyReport::find($id);
         $report->property()->withTrashed()->first()->restore();
+        return back();
+    }
+
+    public function makeSold(PropertySale $property){
+        $property->isSold = true;
+        $property->update();
         return back();
     }
 }

@@ -137,20 +137,22 @@ class BookingController extends Controller
         if ($cleanData['payment_type'] === "no-payment") {
             $data['status'] = 'confirm';
             
-            booking::create($data);
+            $booking = booking::create($data);
 
             //create noti for user
             Notification::create([
                 'sender_id'=>$property->agent->id,
                 'recipent_id'=>auth()->user()->id,
-                'noti_type'=> 'renting-success'
+                'noti_type'=> 'renting-success',
+                'related_url'=>"/booking/$booking->id/show"
             ]);
 
             //create noti for agent
             Notification::create([
                 'sender_id'=>auth()->user()->id,
                 'recipent_id' => $property->agent->id,
-                'noti_type'=> 'renting-recive'
+                'noti_type'=> 'renting-recive',
+                'related_url'=> 'adminAgents/booking'
             ]);
 
             return redirect('/booking/success');

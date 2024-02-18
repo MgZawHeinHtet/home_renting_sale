@@ -12,4 +12,8 @@ class booking extends Model
     public function property(){
         return $this->belongsTo(PropertyRent::class,'property_id');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

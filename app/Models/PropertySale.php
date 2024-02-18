@@ -21,7 +21,7 @@ class PropertySale extends Model
     }
 
     public function scopeFilter($propertyQuery,$request){
-        
+       
         if($search_input = $request['search_input'] ?? null)
         {
             $propertyQuery->where(function($query) use ($search_input){
@@ -29,6 +29,26 @@ class PropertySale extends Model
                 ->orWhere('region','LIKE','%'.$search_input."%")
                 ->orWhere('township','LIKE','%'.$search_input."%");
             });
+        } 
+
+        if($houseType  =  $request['houseType'] ?? null){
+            $propertyQuery->where('type',$houseType);
+        }
+
+        if($bath  =  $request['bath'] ?? null){
+            $propertyQuery->where('bathroom',$bath);
+        }
+
+        if($bed  =  $request['bed'] ?? null){
+            $propertyQuery->where('bedroom',$bed);
+        }
+
+        if(($max = $request['maxPrice']?? null) && ($min = $request['minPrice']??null)){
+            $propertyQuery->whereBetween('price',[$min,$max]);
+        }else if($max = $request['maxPrice']?? null){
+            $propertyQuery->where('price','<=',$max);
+        }else if($min = $request['minPrice']??null){
+            $propertyQuery->where('price','>=',$min);
         }
     }
 

@@ -27,7 +27,7 @@ class CreditTranscationController extends Controller
         $cleanData['transcation_number'] = Str::random(5) . mt_rand('1000','9999');
 
         CreditTranscation::create($cleanData);
-        return redirect('/adminAgents/credit/add');
+        return redirect('/adminAgents/credit/add')->with('buy-credit','Process Success and waiting to check 😉');
     }
 
     public function transcation_recive(){
