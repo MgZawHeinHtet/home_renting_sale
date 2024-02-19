@@ -12,13 +12,14 @@ class AgentController extends Controller
      */
     public function index()
     {
+        $request = request('search_input');
         return view('agents.index',[
-            'agents'=>User::where('role','agent')->paginate(5),
+            'agents'=>User::where('role','agent')->filter($request)->orderBy('isVerified','desc')->paginate(5),
             'total_agents'=>User::where('role','agent')->count()
         ]);
     }
 
-    /**
+    /**a
      * Show the form for creating a new resource.
      */
     public function create()

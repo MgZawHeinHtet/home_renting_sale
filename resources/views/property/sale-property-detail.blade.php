@@ -214,7 +214,7 @@
                     </div>
                     <div class=" flex flex-col gap-3">
                         <label for="message" class=" text-sm font-medium">Message</label>
-                        <textarea name="message"
+                        <textarea name="message" rows="6"
                             class=" p-2 bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:outline-0 h-100"
                             placeholder="Enter Your Message"></textarea>
                         <x-error name="message"></x-error>

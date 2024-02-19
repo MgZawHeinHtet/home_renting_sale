@@ -11,6 +11,7 @@ use App\Http\Controllers\AgentPropertyRentController;
 use App\Http\Controllers\AgentPropertySaleController;
 use App\Http\Controllers\AgentscheduleController;
 use App\Http\Controllers\AmenitiesAndRuleController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\CreditPackageController;
@@ -115,6 +116,14 @@ Route::post('/login',[LoginController::class,'login']);
 
 Route::get('/login',[LoginController::class, 'index']);
 
+Route::get('/userSignup',[AuthController::class, 'customer_signup']);
+
+Route::post('/userSignup',[AuthController::class, 'create_customer']);
+
+Route::get('/agentSignup',[AuthController::class,'agent_signup']);
+
+Route::post('/agentSignup',[AuthController::class,'create_agent']);
+
 Route::post('logout',[LogoutController::class,'logout']);
 
 //admin dashboard agent route
@@ -123,7 +132,7 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
 
     //noti
 
-    Route::get('noti',[AgentNotiController::class,'index']);
+    Route::get('noti',[AgentNotiController::class,'index']); 
      // make sold out 
      Route::post('properties/{property:id}/sold',[AgentPropertySaleController::class,'makeSold']);
 
@@ -147,7 +156,7 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::get('/schedules',[AgentscheduleController::class,'index']);
     Route::patch('/schedules/{schedule:id}/accept',[AgentscheduleController::class, 'accept']);
     Route::patch('/schedules/{schedule:id}/reject',[AgentscheduleController::class, 'reject']);
-
+    Route::delete('/schedules/{schedule:id}',[AgentscheduleController::class, 'destory']);
     //FOR RENT
     Route::resource('post-ad-rent',AgentPropertyRentController::class);
     Route::get('images-upload/{property:id}/rent',[RentPropertyImageController::class,'index']);
@@ -184,6 +193,8 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
 
     // booking list 
     Route::get('/booking',[AgentBookingController::class,'index']);
+
+   
 
     //subscriber
     Route::get('/subscriber',[AgentDashboardController::class, 'subscriber']);
@@ -223,6 +234,8 @@ Route::middleware(AuthMiddleware::class)->group(function(){
     Route::post('/booking/{booking:id}/cancel',[BookingController::class, 'cancel']);
     Route::get('/booking/{booking:id}/cancel/success',[BookingController::class, 'cancel_success_show']);
     Route::delete('/booking/{booking:id}',[BookingController::class, 'destory']);
+     //downlaod pdf
+     Route::post('/booking/{booking:id}/download',[BookingController::class, 'download']);
 });
 
 Route::get('/booking/list',[BookingController::class, 'booking_list']);
@@ -240,3 +253,5 @@ Route::post('/properties/{id}/review',[RentReviewController::class,'store']);
 
 //rating the rent property 
 Route::post('properties/{property:id}/rating',[RatingController::class,'rate']);
+
+Route::get('/calculator',[HomeController::class, 'calculator_index']);

@@ -114,4 +114,18 @@ class User extends Authenticatable
     {
         return $this->ratedProducts()->withPivot('rate')->where('property_rent_id', $id)->first()?->pivot->rate;
     }
+
+    public function scopeFilter($propertyQuery,$request){
+       
+        if($search_input = $request ?? null)
+        {
+           
+            $propertyQuery->where(function($query) use ($search_input){
+                $query->where('company_name','LIKE','%'.$search_input."%")
+                ->orWhere('name','LIKE','%'.$search_input."%");
+
+            });
+        } 
+    }
 }
+

@@ -15,7 +15,8 @@
                 class="infoButton px-4 py-1 rounded-md cursor-pointer fa-solid fa-ellipsis-vertical text-xl select-none hover:bg-stone-200"></i>
             <div
                 class="infoBox hidden absolute top-[40px] left-[-35px] transform -translate-x-1/2 shadow-md rounded-md mt-2 bg-white text-nowrap cursor-pointer text-[14px] z-50">
-                @if (date('Y-m-d') > date('Y-m-d', strtotime($booking->cancellable_date)))
+             
+                @if (!(date('Y-m-d') > date('Y-m-d', strtotime($booking->cancellable_date))))
                 <form action="/booking/{{ $booking->id }}/cancel/step1">
                     <button class="p-3 hover:bg-stone-200 rounded-md">Cancel Renting</button>
                 </form>
@@ -23,7 +24,7 @@
                 
                 
                 <a  href="/booking/{{ $booking->id }}/show" class="p-3 block hover:bg-stone-200 rounded-md ">View Renting</a>
-                <p class="p-3 hover:bg-stone-200 rounded-md">Download Recepit</p>
+                <form method="POST" action="/booking/{{ $booking->id }}/download" class="p-3 hover:bg-stone-200 rounded-md">@csrf<button>Download Confirmation</button></form>
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@ use App\Http\Requests\RentCheckoutRequest;
 use App\Models\booking;
 use App\Models\Notification;
 use App\Models\PropertyRent;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -245,5 +246,12 @@ class BookingController extends Controller
     public function destory(booking $booking){
         $booking->delete();
         return back();
+    }
+
+    public function download(booking $booking){
+       
+        $pdf = Pdf::loadView('cash',['booking'=> $booking]);
+        
+        return $pdf->download('cash.pdf');
     }
 }

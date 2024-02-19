@@ -8,9 +8,10 @@
             <p class="opacity-90"><i class="fa-solid fa-fax text-yellow-600"></i> Agency | Total Ads : {{ $agent->propertySale->count() }}</p>
             <address class="opacity-90">{{ $agent->address }}</address>
         </div>
-    
+        @if($agent->isVerified)
         <div class="absolute top-0 right-0">
-            <p class="px-6 py-2 bg-yellow-600 text-white rounded"><i class="fa-solid fa-crown mr-2"></i> premium</p>
+            <p class="px-6 py-2 bg-yellow-600 text-white rounded"><i class="fa-solid fa-crown mr-2"></i> Verified</p>
         </div>
+        @endif
     </div>
 </a>

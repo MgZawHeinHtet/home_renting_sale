@@ -126,7 +126,9 @@
                     <th scope="col" class="px-6 py-3">
                         Status
                     </th>
-                  
+                    <th scope="col" class="px-6 py-3">
+                        Action
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -176,7 +178,12 @@
                         <td class="px-6 py-4 capitalize">
                             {{ $booking->status }}
                         </td>
-                       
+                       <td class="px-6 py-4 capitalize">
+                            <form method="POST" action="/booking/{{ $booking->id }}/download">
+                                @csrf
+                                <button class="p-2 border rounded text-green-600 border-green-600"><i class="fas fa-download"></i> confirmation</button> 
+                            </form>
+                       </td>
                     </tr>
                 @endforeach
                 @else

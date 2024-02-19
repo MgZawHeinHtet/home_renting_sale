@@ -104,7 +104,11 @@
                         </div>
                         <div class=" border-b-[1px] py-3">
                             <p class="pb-3">View confirmation</p>
-                            <p class="pb-3">Print confirmation</p>
+                            <form action="/booking/{{ $booking->id }}/download" method="POST">
+                                @csrf
+                                <button class="pb-3">Print confirmation</button>
+                            </form>
+                          
                         </div>
                     </div>
                 </div>

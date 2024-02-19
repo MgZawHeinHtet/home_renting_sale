@@ -1,4 +1,9 @@
 <x-layout>
+
+    <div
+        class="hidden parent-container w-screen h-screen bg-black bg-opacity-55 z-50 fixed top-0 right-0  justify-center items-center">
+        <iframe class="rounded w-[800px]" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d119362.00169830266!2d97.0337141!3d20.788757099999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2smm!4v1708267180389!5m2!1sen!2smm" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
     {{-- agent detail  --}}
     <section class="px-28 py-5">
         <div class="flex border-b border-b-home-600 items-center justify-between">
@@ -6,39 +11,40 @@
                 {{-- comapny logo and quote  --}}
                 <div class="flex py-10 items-center gap-10">
                     <div class="w-40 h-40 rounded-full  outline outline-home-900 flex items-center justify-center">
-                        <img class="w-36 h-36 rounded-full object-cover"
-                            src="{{ $agent->company_logo }}"
+                        <img class="w-36 h-36 rounded-full object-cover" src="{{ $agent->company_logo }}"
                             alt="">
                     </div>
                     <div class="space-y-3">
-                        <h2 class="text-2xl tracking-wide text-home-900 font-semibold">{{ $agent->company_name }}<span><i class="fas fa-crown text-yellow-600"></i></span></h2>
+                        <h2 class="text-2xl tracking-wide text-home-900 font-semibold">
+                            {{ $agent->company_name }}<span><i class="fas fa-crown text-yellow-600"></i></span></h2>
                         <p class="text-sm font-thin"><i class="fa-solid fa-phone"></i> {{ $agent->phone }}</p>
                         @if ($agent->facebook_link)
-                            
-                        <p class="text-sm font-thin"><i class="fa-brands fa-facebook-f"></i> {{ $agent->facebook_link }}</p>
+                            <p class="text-sm font-thin"><i class="fa-brands fa-facebook-f"></i>
+                                {{ $agent->facebook_link }}</p>
                         @endif
                         <p><i class="fa-solid fa-location-dot"></i> {{ $agent->address }} </p>
                         @if ($agent->isVerified)
-                            
-                        <p class="px-4 py-2 bg-home-900 inline-block text-white rounded">Verified Agency <img
-                                class="inline-block w-6 h-6" src="{{ asset('assets/verified.png') }}" alt="">
-                        </p>
-                        
+                            <p class="px-4 py-2 bg-home-900 inline-block text-white rounded">Verified Agency <img
+                                    class="inline-block w-6 h-6" src="{{ asset('assets/verified.png') }}"
+                                    alt="">
+                            </p>
                         @endif
                         <p class="w-[600px]">
-                            
-                             {{ $agent->description }}
+
+                            {{ $agent->description }}
                         </p>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="space-y-3">
                 <p class="text-lg"><span class="w-16 inline-block capitalize"><i
-                            class="fa-solid fa-house text-yellow-600"></i> rent</span>| Total Ads : {{ $agent->propertySale->count() }}</p>
+                            class="fa-solid fa-house text-yellow-600"></i> rent</span>| Total Ads :
+                    {{ $agent->propertySale->count() }}</p>
                 <p class="text-lg"><span class="w-16 inline-block capitalize"><i
-                            class="fa-solid fa-shop text-yellow-600"></i> Sell</span>| Total Ads : {{ $agent->propertySale->count() }}</p>
-                <button class="bg-home-900 text-white w-full text-center py-3 outline outline-yellow-600 rounded">View
+                            class="fa-solid fa-shop text-yellow-600"></i> Sell</span>| Total Ads :
+                    {{ $agent->propertySale->count() }}</p>
+                <button class="location-btn bg-home-900 text-white w-full text-center py-3 outline outline-yellow-600 rounded">View
                     Location<i class="fa-solid fa-map ml-2 text-yellow-600"></i></button>
             </div>
         </div>
@@ -128,13 +134,12 @@
                 <div class="space-y-10">
                     {{-- single card --}}
                     @foreach ($properties as $property)
-                        
-                    <x-agent-product-card :logo="$agent->company_logo" :property="$property"></x-agent-product-card>
+                        <x-agent-product-card :logo="$agent->company_logo" :property="$property"></x-agent-product-card>
                     @endforeach
                     {{ $properties->links() }}
                 </div>
             </div>
-            
+
             {{-- right side  --}}
             <div>
                 <div class="p-3 py-4 shadow-lg space-y-3">
@@ -148,7 +153,8 @@
                         <input class="border rounded w-full px-2 py-3" type="text" placeholder="name@gmail.com">
                     </div>
                     <div>
-                        <label class="block" for="">Phone available<span class="text-yellow-600">*</span></label>
+                        <label class="block" for="">Phone available<span
+                                class="text-yellow-600">*</span></label>
                         <input class="border rounded w-full px-2 py-3" type="text" placeholder="eg.332434324">
                     </div>
                     <div>
@@ -170,3 +176,23 @@
 
     </section>
 </x-layout>
+
+
+@section('javascript')
+    <script>
+        const container = document.querySelector('.parent-container') ;
+        const locationBtn = document.querySelector('.location-btn');
+        
+        container.addEventListener('click', function(){
+            this.classList.remove('flex');
+            this.classList.add('hidden');
+        });
+        locationBtn.addEventListener('click',function(){
+            container.classList.remove('hidden');
+            container.classList.add('flex');
+        })
+        
+    </script>
+@endsection
+
+@yield('javascript')

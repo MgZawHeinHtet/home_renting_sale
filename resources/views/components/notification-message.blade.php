@@ -98,3 +98,11 @@
 @if($type=='news-comment')
 <span>{{ $sender->name}} was written comment on news</span>
 @endif
+
+@if($type=='transcation-success')
+<span>Transcation was success</span>
+@endif
+
+@if($type=='transcation-send')
+<span>{{ $sender->name }} send transcation</span>
+@endif

@@ -130,63 +130,76 @@
                 @if ($schedules->count())
                     
                 @foreach ($schedules as $schedule)
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="px-6"
-                            <span class="font-bold">
-                                {{ $schedule->id }}
-                            </span>
-                        </td>
-                        <th scope="row"
-                            class="px-4 py-4 font-medium text-gray-900 whitespace-normal dark:text-white capitalize">
-                            
-                            {{ $schedule->name }}
-                        </th>
-                        <td class="px-4 py-4">
-                          
-                                {{ $schedule->email }}
-                            
-                        </td>
-                        <td class="px-6 py-4 ">
-                           {{ $schedule->message }}
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="capitalize">
-                                {{ $schedule->viewType }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-                           {{ $schedule->date}}
-                        </td>
-                        <td class="px-6 py-4">
-                             {{ date("h:i a", strtotime($schedule->time)) }}
-                        </td>
-                        <td class="px-6 py-4">
-                            <a href="/properties/{{ $schedule->property->id }}/sale">
-                                {{ $schedule->property->title}}
-                            </a>
-                            
-                        </td>
-                        <td class="px-6 py-4 capitalize">
-                            {{ $schedule->status }}
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="flex items-center">
-                                <form action="/adminAgents/schedules/{{ $schedule->id }}/accept" method="POST">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button 
-                                        class="font-medium mr-3 text-green-600 dark:text-green-500 hover:underline">Accept</button>
-                                </form>
-                                <form action="/adminAgents/schedules/{{ $schedule->id }}/reject" method="POST">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="font-medium text-red-500 hover:underline">Reject</button>
-                                </form>
-                            </div>
+                 @if (!$schedule->property()->withTrashed()->first()->trashed())
+                     
+                 <tr
+                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                     <td class="px-6"
+                         <span class="font-bold">
+                             {{ $schedule->id }}
+                         </span>
+                     </td>
+                     <th scope="row"
+                         class="px-4 py-4 font-medium text-gray-900 whitespace-normal dark:text-white capitalize">
+                         
+                         {{ $schedule->name }}
+                     </th>
+                     <td class="px-4 py-4">
+                       
+                             {{ $schedule->email }}
+                         
+                     </td>
+                     <td class="px-6 py-4 ">
+                        {{ $schedule->message }}
+                     </td>
+                     <td class="px-6 py-4">
+                         <span class="capitalize">
+                             {{ $schedule->viewType }}
+                         </span>
+                     </td>
+                     <td class="px-6 py-4">
+                        {{ $schedule->date}}
+                     </td>
+                     <td class="px-6 py-4">
+                          {{ date("h:i a", strtotime($schedule->time)) }}
+                     </td>
+                     <td class="px-6 py-4">
+                         <a href="/properties/{{ $schedule->property->id }}/sale">
+                             {{ $schedule->property->title}}
+                         </a>
+                         
+                     </td>
+                     <td class="px-6 py-4 capitalize">
+                         {{ $schedule->status }}
+                     </td>
+                     <td class="px-6 py-4">
+                         <div class="flex items-center">
+                            @if ($schedule->status =='pending')
+                                
+                            <form action="/adminAgents/schedules/{{ $schedule->id }}/accept" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button 
+                                    class="p-2 border border-green-600 font-medium mr-3 rounded-lg text-green-600 dark:text-green-500 hover:underline">Accept</button>
+                            </form>
+                            <form action="/adminAgents/schedules/{{ $schedule->id }}/reject" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" class="font-medium text-red-500 border border-red-600 p-2 rounded-lg hover:underline">Reject</button>
+                            </form>
+                            @else
+                            <form action="/adminAgents/schedules/{{ $schedule->id }}" method="POST">
+                                @csrf 
+                                @method('DELETE')
+                                <button class="px-6 font-medium text-red-500 border border-red-600 p-2 rounded-lg hover:underline">Delete</button>
+                            </form>
+                            @endif
+                             
+                         </div>
 
-                        </td>
-                    </tr>
+                     </td>
+                 </tr>
+                 @endif
                 @endforeach
                 @else
                     <tr class="w-full h-[600px]">

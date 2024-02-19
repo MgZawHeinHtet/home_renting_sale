@@ -22,7 +22,7 @@ $property = $schedule->property()->withTrashed()->first();
     </div>
     <div class="grid grid-cols-4 gap-5 items-center">
         <div>
-            <img class="w-full object-fit h-36  rounded shadow" src="{{ $property->salePropertyImage[0]->image }}" alt="">
+            <img class="w-full object-fit h-36  rounded shadow" src="{{ $property?->salePropertyImage[0]->image ?? null  }}" alt="">
 
         </div>
         <div class="col-span-2">

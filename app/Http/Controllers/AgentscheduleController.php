@@ -43,5 +43,8 @@ class AgentscheduleController extends Controller
 
         return back();
     }
-
+    public function destory(Schedule $schedule){
+        $schedule->delete();
+        return back();
+    }
 }

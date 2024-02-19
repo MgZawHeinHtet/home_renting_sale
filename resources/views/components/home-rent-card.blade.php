@@ -6,7 +6,7 @@
         </div>
 
         <div class="w-[100%]">
-            <img src="{{ $property->rentPropertyImage[0]->image }}"
+            <img class="h-64" src="{{ $property?->rentPropertyImage->count() ? $property?->rentPropertyImage[0]->image : 'http://127.0.0.1:8000/assets/insteadImg.jpg' }}"
                 alt="">
         </div>
         <div

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PackageCheckoutFormRequest;
 use App\Models\CreditPackage;
 use App\Models\CreditTranscation;
+use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -27,6 +29,12 @@ class CreditTranscationController extends Controller
         $cleanData['transcation_number'] = Str::random(5) . mt_rand('1000','9999');
 
         CreditTranscation::create($cleanData);
+        Notification::create([
+            'recipent_id'=> 3,
+            'noti_type'=>'transcation-send',
+            'sender_id'=>auth()->user()->id,
+            'related_url'=> "/adminAgents/transcation"
+        ]);
         return redirect('/adminAgents/credit/add')->with('buy-credit','Process Success and waiting to check 😉');
     }
 
@@ -52,8 +60,23 @@ class CreditTranscationController extends Controller
 
         // if correct add credit point to user
         $user = $transcation->user;
+
+        if($user->creditTranscation->count()>=3){
+            $agent = User::find($user->id);
+            $agent->isVerified = true;
+            $agent->update();
+        }
         $user->credit_points += $transcation->creditPackage->point;
         $user->update();
+
+
+        Notification::create([
+            'recipent_id'=> $user->id,
+            'noti_type'=>'transcation-success',
+            'sender_id'=>auth()->user()->id,
+            'related_url'=> "/adminAgents/credit"
+        ]);
+       
 
         return back();
 

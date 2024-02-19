@@ -1,11 +1,11 @@
 <header>
     <nav class="w-full py-3 px-10 bg-home-900 flex items-center justify-end relative">
-
+        
         @auth
             <div class="flex items-center gap-5">
                 @if (auth()->user()->role === 'customer')
                     <div>
-                       <x-noti-badge></x-noti-badge>
+                        <x-noti-badge></x-noti-badge>
                     </div>
                     <div><a class="text-white tracking-wide py-4 px-2 hover:bg-gray-600 rounded" href="">List Your
                             Property</a></div>
@@ -24,6 +24,9 @@
                 @endif
             </div>
         @else
+        <p class="text-white mr-3 tracking-wide"><i class="fa-solid fa-phone mr-1"></i> + 95268694224</p>
+        <p class="text-white mr-5 tracking-wide"><i class="fa fa-envelope mr-1" aria-hidden="true"></i> sale@gmail.com
+        </p>
             <div>
                 <a class="text-white" href="">Sign up</a>
                 <span class="mx-1 text-white">/</span>
@@ -32,10 +35,10 @@
         @endauth
 
         {{-- hidden for noti  --}}
-       <x-noti-container></x-noti-container>
+        <x-noti-container></x-noti-container>
         {{-- hidden for profile --}}
         <div id="profile-container"
-            class="hidden bg-white absolute rounded-lg px-6 py-6 space-y-3 bottom-[-210px] right-5 z-50 shadow-lg">
+            class="hidden bg-white absolute rounded-lg px-6 py-6 space-y-3 bottom-[-230px] right-5 z-50 shadow-lg">
             <a class="flex gap-3" href="/profile">
                 <p><i class="fa-regular fa-user"></i>
                     <p class="flex-1">Manage account</p>
@@ -57,6 +60,12 @@
             <a class="flex gap-3" href="/profile/schedules">
                 <p><i class="fa fa-calendar" aria-hidden="true"></i>
                     <p class="flex-1">Schedule Request Lists</p>
+                </p>
+            </a>
+
+            <a class="flex gap-3" href="/calculator">
+                <p><i class="fa-solid fa-calculator"></i>
+                    <p class="flex-1"> Interest Calculator</p>
                 </p>
             </a>
 
@@ -101,6 +110,7 @@
                         class="text-base py-6 hover:border-b-4 hover:border-b-yellow-600 tracking-wider text-white uppercase">
                         Agents</a>
                 </li>
+
                 <li>
                     <a href="/contact_us"
                         class="border border-yellow-600 text-base hover:text-white-600 hover:bg-yellow-600 py-4 px-6 tracking-wider text-white uppercase rounded transition-all duration-300">Contact
@@ -118,8 +128,8 @@
         const profileContainer = document.getElementById('profile-container');
         const noitContainer = document.getElementById('noti-container')
         const notiBtn = document.getElementById('noti-btn');
-        
-        notiBtn.addEventListener('click', function(){
+
+        notiBtn.addEventListener('click', function() {
             noitContainer.classList.toggle('hidden');
         })
 
