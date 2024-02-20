@@ -119,6 +119,8 @@ Route::post('/login',[LoginController::class,'login']);
 
 Route::get('/login',[LoginController::class, 'index']);
 
+Route::get('/auth/choice',[AuthController::class,'auth_choice']);
+
 Route::get('/userSignup',[AuthController::class, 'customer_signup']);
 
 Route::post('/userSignup',[AuthController::class, 'create_customer']);

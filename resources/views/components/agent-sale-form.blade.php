@@ -261,8 +261,9 @@
             <label class="w-[30%] text-white font-slate-800 tracking-wide text-right" for="">Region
                 ,State</label>
             <div class="flex-1 space-y-2">
-                <select class="p-2 w-full border-l-4 border-l-yellow-600 outline-none" name="region" id="">
-                    <option value="yangon">Yangon Region</option>
+                <select class="region p-2 w-full border-l-4 border-l-yellow-600 outline-none" name="region"
+                    id="">
+                    <option value="">Please select region</option>
                 </select>
                 <x-error name="region"></x-error>
             </div>
@@ -272,12 +273,10 @@
             <label class="w-[30%] text-white font-slate-800 tracking-wide text-right" for="">Township</label>
 
             <div class="flex-1 space-y-2">
-                <select name="township" class="p-2 w-full border-l-4 border-l-yellow-600 outline-none" name=""
+                <select name="township" class="p-2 township w-full border-l-4 border-l-yellow-600 outline-none" name=""
                     id="">
-                    <option value="yangon">Yangon Region</option>
-                    <option value="mandalay">sdaf Region</option>
-                    <option value="jsdakfds">er Region</option>
-                    <option value="yansadfon">sdag Region</option>
+                    <option value="">Please select township</option>
+
                 </select>
                 <x-error name="township"></x-error>
             </div>
@@ -350,6 +349,8 @@
         const lengthForm = document.querySelector('.lengthForm');
         const mapRadio = document.querySelectorAll('.showMap');
         const mapForm = document.querySelector('.mapForm');
+        const region = document.querySelector('.region');
+        const township = document.querySelector('.township')
 
 
         //if type change
@@ -451,7 +452,56 @@
 
         const oldMap = '{{ old('map', $property?->map) }}';
 
-        if (oldMap) showOrHideForMap(oldMap)
+        if (oldMap) showOrHideForMap(oldMap);
+
+        var config = {
+            cUrl: 'https://api.countrystatecity.in/v1/countries',
+            ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
+        }
+
+        fetch(`${config.cUrl}/mm/states`, {
+                headers: {
+                    "X-CSCAPI-KEY": config.ckey
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                
+
+                data.forEach(state => {
+                    region.innerHTML += `<option data-iso2="${state.iso2}" value="${ state.name }"> ${state.name}</option>`
+
+                })
+            })
+
+        region.addEventListener('change', function(e) {
+            e.preventDefault();
+            const component =  e.target.options[e.target.selectedIndex];
+           
+            const selectedRegion =  e.target.options[e.target.selectedIndex].dataset.iso2
+;
+           
+          
+            detachCity(selectedRegion)
+
+        })
+
+        function detachCity(region) {
+            fetch(`${config.cUrl}/mm/states/${region}/cities`, {
+                    headers: {
+                        "X-CSCAPI-KEY": config.ckey
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    township.innerHTML = ""
+
+                    data.forEach(state => {
+                    township.innerHTML += `<option  value="${ state.name }"> ${state.name}</option>`
+
+                })
+                })
+        }
     </script>
 @endsection
 

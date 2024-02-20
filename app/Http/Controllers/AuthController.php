@@ -52,4 +52,11 @@ class AuthController extends Controller
         Auth::attempt($credentials);
         return redirect('/')->with('login-success','You have successfully registered & logged in!');
     }
+
+    public function auth_choice(){
+        $agents = User::where('role','agent')->get();
+        return view('authentication.choice',[
+            'agents'=>$agents
+        ]);
+    }
 }

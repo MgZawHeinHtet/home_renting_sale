@@ -28,7 +28,7 @@
         <p class="text-white mr-5 tracking-wide"><i class="fa fa-envelope mr-1" aria-hidden="true"></i> sale@gmail.com
         </p>
             <div>
-                <a class="text-white" href="">Sign up</a>
+                <a class="text-white" href="/auth/choice">Sign up</a>
                 <span class="mx-1 text-white">/</span>
                 <a class="text-white" href="/login">Login</a>
             </div>

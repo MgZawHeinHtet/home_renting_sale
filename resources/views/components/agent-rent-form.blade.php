@@ -19,17 +19,16 @@
             </div>
             <div class="space-y-2">
                 <label class="block text-white" for="">region,State</label>
-                <select name="region" class="p-2 w-full  bg-home-600 rounded" id="">
+                <select name="region" class="p-2 w-full region  bg-home-600 rounded" id="">
                     <option value="">Pls select one</option>
-                    <option value="yangon">Yangon</option>
                 </select>
                 <x-error name="region"></x-error>
             </div>
             <div class="space-y-2">
                 <label class="block text-white" for="">township</label>
-                <select name="township" class="p-2 w-full  bg-home-600 rounded" id="">
+                <select name="township" class="p-2 w-full township  bg-home-600 rounded" id="">
                     <option value="" selected>Pls select one</option>
-                    <option value="hmawbi">Hmawbi</option>
+
                 </select>
                 <x-error name="township"></x-error>
             </div>
@@ -123,7 +122,8 @@
             </div>
             <div class="space-y-2 col-span-2">
                 <label class="block text-white" for="">Description </label>
-                <textarea id="tiny" class="w-full bg-home-600 rounded" name="description" id="" cols="30" rows="10"> {{ old('description', $property?->description) }}</textarea>
+                <textarea id="tiny" class="w-full bg-home-600 rounded" name="description" id="" cols="30"
+                    rows="10"> {{ old('description', $property?->description) }}</textarea>
                 <x-error name="description"></x-error>
             </div>
 
@@ -196,3 +196,60 @@
     class="fixed bottom-10 animate-bounce right-10 w-20 h-20 shadow text-white rounded-full bg-yellow-600">Submit</button>
 </form>
 </div>
+
+@section('javascript')
+    <script>
+        const region = document.querySelector('.region');
+        const township = document.querySelector('.township')
+        var config = {
+            cUrl: 'https://api.countrystatecity.in/v1/countries',
+            ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
+        }
+
+        fetch(`${config.cUrl}/mm/states`, {
+                headers: {
+                    "X-CSCAPI-KEY": config.ckey
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+
+
+                data.forEach(state => {
+                    region.innerHTML +=
+                        `<option data-iso2="${state.iso2}" value="${ state.name }"> ${state.name}</option>`
+
+                })
+            })
+
+        region.addEventListener('change', function(e) {
+            e.preventDefault();
+            const component = e.target.options[e.target.selectedIndex];
+
+            const selectedRegion = e.target.options[e.target.selectedIndex].dataset.iso2;
+
+
+            detachCity(selectedRegion)
+
+        })
+
+        function detachCity(region) {
+            fetch(`${config.cUrl}/mm/states/${region}/cities`, {
+                    headers: {
+                        "X-CSCAPI-KEY": config.ckey
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    township.innerHTML = ""
+
+                    data.forEach(state => {
+                        township.innerHTML += `<option  value="${ state.name }"> ${state.name}</option>`
+
+                    })
+                })
+        }
+    </script>
+@endsection
+
+@yield('javascript')
