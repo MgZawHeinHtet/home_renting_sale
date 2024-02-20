@@ -22,7 +22,7 @@
                     </svg>
                 </button>
                 <!-- Dropdown menu -->
-                <form action="/dashboard/products" onchange="submit()">
+                <form action="/adminAgents/booking" onchange="submit()">
                     <div id="dropdownRadio"
                         class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                         data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top"
@@ -81,9 +81,9 @@
                             clip-rule="evenodd"></path>
                     </svg>
                 </div>
-                <form action="/dashboard/products">
+                <form action="/adminAgents/booking">
                     @csrf
-                    <input name="type" value="{{ request('type') }}" type="text" id="table-search"
+                    <input name="search_input" value="{{ request('search_input') }}" type="text" id="table-search"
                         class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Search for items">
                 </form>
@@ -126,6 +126,7 @@
                     <th scope="col" class="px-6 py-3">
                         Status
                     </th>
+                   
                     <th scope="col" class="px-6 py-3">
                         Action
                     </th>
@@ -178,6 +179,7 @@
                         <td class="px-6 py-4 capitalize">
                             {{ $booking->status }}
                         </td>
+                       
                        <td class="px-6 py-4 capitalize">
                             <form method="POST" action="/booking/{{ $booking->id }}/download">
                                 @csrf
