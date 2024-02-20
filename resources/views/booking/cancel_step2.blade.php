@@ -34,7 +34,7 @@
                     </div>
                     <div class="flex justify-between pb-3 font-bold">
                         <p class=""> You will be charged</p>
-                        <p class="">US$0</p>
+                        <p class="">Kyats 0</p>
                     </div>
                 </div>
               
@@ -69,7 +69,7 @@
                     </div>
                     <div class="flex justify-between pb-3 font-bold">
                         <p class=""> You will be charged</p>
-                        <p class="">US$0</p>
+                        <p class="">Kyats 0</p>
                     </div>
                 </div>
                 <div class="p-3 my-5 border-[1px] rounded-md">

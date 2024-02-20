@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
     <style>
         * {
             margin: 0;
@@ -165,21 +166,21 @@
             <p>Thanks {{ $booking->first_name . ' ' . $booking->last_name }}!your renting in
                 {{ $booking->property->region }} is confirmed</p>
             <div class="sec-d-1">
-                <span>&#10003;</span>
-
+                
+                <span>-</span>
                 <span>{{ $booking->property->agent->company_name }} is expectiong you on {{ date('d M',strtotime($booking->check_in)) }}</span>
             </div>
             <div class="sec-d-1">
-                <span>&#10003;</span>
+                <span>-</span>
                 <span>Your payment will be handled by {{ $booking->property->agent->company_name }}.The payment section below has more details</span>
             </div>
             <div class="sec-d-1">
-                <span>&#10003;</span>
+                <span>-</span>
                 <span>Price per month - {{ $booking->property->price }} kyats</span>
             </div>
 
             <div class="sec-d-1">
-                <span>&#10003;</span>
+                <span>-</span>
                 <span>Price for {{ $booking->total_days }} days - {{ $booking->booking_price }} kyats</span>
             </div>
           

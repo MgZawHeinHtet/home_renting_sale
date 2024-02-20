@@ -110,7 +110,11 @@
                         class="text-base py-6 hover:border-b-4 hover:border-b-yellow-600 tracking-wider text-white uppercase">
                         Agents</a>
                 </li>
-
+                <li>
+                    <a href="/faq"
+                        class="text-base py-6 hover:border-b-4 hover:border-b-yellow-600 tracking-wider text-white uppercase">
+                        FAQ</a>
+                </li>
                 <li>
                     <a href="/contact_us"
                         class="border border-yellow-600 text-base hover:text-white-600 hover:bg-yellow-600 py-4 px-6 tracking-wider text-white uppercase rounded transition-all duration-300">Contact

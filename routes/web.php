@@ -5,6 +5,7 @@ use App\Http\Controllers\AgentBookingController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\AgentDashboardController;
 use App\Http\Controllers\AgentenquiryController;
+use App\Http\Controllers\AgentFaqController;
 use App\Http\Controllers\AgentNotiController;
 use App\Http\Controllers\AgentProifleController;
 use App\Http\Controllers\AgentPropertyRentController;
@@ -61,6 +62,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class,'index']);
+
+Route::get('/faq',[HomeController::class, 'faq']);
 
 // news front route 
 
@@ -194,8 +197,6 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     // booking list 
     Route::get('/booking',[AgentBookingController::class,'index']);
 
-   
-
     //subscriber
     Route::get('/subscriber',[AgentDashboardController::class, 'subscriber']);
 
@@ -211,6 +212,14 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::get('/reportList',[AgentPropertySaleController::class, 'report_list']);
     Route::delete('/report_list/{report:id}',[AgentpropertySaleController::class,'soft_delete']);
     Route::post('/report_list/{report:id}',[AgentpropertySaleController::class,'restore']);
+
+    //faq
+    Route::get('faq',[AgentFaqController::class,'index']);
+    Route::get('faq/create',[AgentFaqController::class, 'create']);
+    Route::post('faq',[AgentFaqController::class, 'store']);
+    Route::get('faq/{faq:id}/edit',[AgentFaqController::class, 'edit']);
+    Route::patch('faq/{faq:id}',[AgentFaqController::class, 'upload']);
+    Route::delete('faq/{faq:id}',[AgentFaqController::class, 'destory']);
 
 });
 

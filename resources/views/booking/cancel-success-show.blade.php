@@ -24,16 +24,16 @@
                         <p class="">
                             <i class=" fa-solid fa-check text-green-600 mr-2"></i>
                         </p>
-                        <p>If you have any questions about this booking, you can contact Hotel Shwe Eain Taw directly at
-                            <span class="font-bold ">+9595121224</span> for more info.
+                        <p>If you have any questions about this booking, you can contact {{ $booking->property->agent->company_name }} directly at
+                            <span class="font-bold ">{{ $booking->property->agent->phone }}</span> for more info.
                         </p>
                     </li>
                     <li class="py-3 flex">
                         <p class="">
                             <i class=" fa-solid fa-check text-green-600 mr-2"></i>
                         </p>
-                        <p>If you have any questions about this booking, you can contact Hotel Shwe Eain Taw directly at
-                            <span class="font-bold ">+9595121224</span> for more info.
+                        <p>If you have any questions about this booking, you can contact {{ $booking->property->agent->company_name }} directly at
+                            <span class="font-bold ">{{  $booking->property->agent->phone }}</span> for more info.
                         </p>
                     </li>
                 </ul>
@@ -53,7 +53,7 @@
                 <div class="p-3">
                     <div class="flex gap-2">
                         <div class="">
-                            <img src="https://www.shweproperty.com/property-img/f258e7cc3872a19ec1f87ccb5e3c340893554783i7u7u5y1i5p35547s5174ff5c37670b5f6cf46f5aa0f6c4f9"
+                            <img src="{{ $booking->property->rentPropertyImage->count() ? $booking->property->rentPropertyImage[0]->image : '' }}"
                                 class=" w-16 h-14" alt="">
                         </div>
                         <div class="">
