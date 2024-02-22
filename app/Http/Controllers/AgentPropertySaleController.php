@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PropertySaleFormRequest;
+use App\Mail\ReportMail;
 use App\Models\Notification;
 use App\Models\PropertySale;
 use App\Models\SalePropertyReport;
 use App\Models\Subscribers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
     class AgentPropertySaleController extends Controller
 {
@@ -129,5 +131,16 @@ use Illuminate\Http\Request;
         $property->isSold = true;
         $property->update();
         return back();
+    }
+
+    public function send_mail(SalePropertyReport $report){
+        $report->is_response = true;
+        $report->update();
+        $user = $report->user;
+        $name=$user->name;
+        $email = $user->email;
+        $property = $report->property->title;
+        Mail::to($user->email)->send(new ReportMail($email,$name,$property));
+        return back()->with('mail_success','Send email successfully✅');
     }
 }

@@ -211,6 +211,7 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::delete('/rules/{rule:id}',[AmenitiesAndRuleController::class, 'destory_rule']);
 
     //report list
+    Route::post('report_list/{report:id}/mail',[AgentPropertySaleController::class, 'send_mail']);
     Route::get('/reportList',[AgentPropertySaleController::class, 'report_list']);
     Route::delete('/report_list/{report:id}',[AgentpropertySaleController::class,'soft_delete']);
     Route::post('/report_list/{report:id}',[AgentpropertySaleController::class,'restore']);
@@ -266,3 +267,5 @@ Route::post('/properties/{id}/review',[RentReviewController::class,'store']);
 Route::post('properties/{property:id}/rating',[RatingController::class,'rate']);
 
 Route::get('/calculator',[HomeController::class, 'calculator_index']);
+
+Route::post("/contact/mail",[ContactusController::class,'send']);

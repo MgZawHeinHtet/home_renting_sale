@@ -24,7 +24,7 @@
                             class=" w-full px-[30px] py-2 text-sm text-gray-700  relative rounded-md">
                             <div class="w-full flex items-center gap-3">
                                 <input type="radio" value="no-payment" class="w-[20px] h-[20px]" id="radio" name="payment_type">
-                                <label for="radio" class="font-semibold text-lg">Cash On Delivery</label>
+                                <label for="radio" class="font-semibold text-lg">No payment method</label>
                             </div>
                             <p
                                 class="w-full text-start px-[25px] mt-3">Starting
@@ -36,18 +36,8 @@
                             class="w-full">
                             <div
                                 class="w-[90%] bg-[#F5F4F3] mx-auto mb-[40px] px-[20px] py-[10px] rounded-md">
-                                <p>Lorem ipsum dolor sit amet consectetur
-                                    adipisicing elit. Laboriosam quo
-                                    dignissimos nam reiciendis
-                                    exercitationem error, tempore deleniti,
-                                    quis aut corporis odit amet assumenda
-                                    debitis excepturi quidem alias sequi
-                                    voluptatum libero.m20</p>
-                                <p>Lorem ipsum dolor sit, amet consectetur
-                                    adipisicing elit. Ut veniam asperiores
-                                    molestias exercitationem soluta, ducimus
-                                    veritatis laborum rerum expedita.
-                                    Ad?</p>
+                                <p>you will be pay when you stay</p>
+                                
                             </div>
                         </div>
                     </div>

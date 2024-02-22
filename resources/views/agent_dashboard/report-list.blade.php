@@ -1,6 +1,8 @@
 <x-agent-dashboard-layout>
+    <div class="w-[1000px] ">
+        <x-alert></x-alert>
+    </div>
     <h4 class="text-xl text-gray-300 tracking-wide underline underline-offset-8">Report list</h4>
-   
     <div class="mt-5 space-y-2">
         <div class="w-[1000px] px-2 p-4 flex gap-2">
             <div class="w-[4%]"></div>
@@ -20,7 +22,7 @@
             $property = $report->property()->withTrashed()->first();
            
         @endphp
-        <div class="bg-home-900 shadow-lg p-4 px-2 rounded-lg w-[1000px] relative flex items-center gap-2">
+        <div class="{{ $report->is_response ? 'bg-home-900':'bg-gray-600' }}  shadow-lg p-4 px-2 rounded-lg w-[1000px] relative flex items-center gap-2">
             <div class="w-[4%] px-3">
                 @if ($report->is_response)
                     
@@ -42,7 +44,11 @@
                 <a href="/properties/{{ $property->id }}/sale" class="text-blue-300 underline underline-offset-8">For {{ $property->title }}</a>
             </div>
             <div class="flex gap-2">
+                <form action="/adminAgents/report_list/{{ $report->id }}/mail" method="POST">
+                @csrf
+            
                 <button class="bg-orange-700 px-3 text-gray-300 py-2 rounded"><i class="fas fa-exclamation-triangle"></i> warning</button>
+            </form>
                
                 @if (!$property->trashed())
                 <form method="POST" action="/adminAgents/report_list/{{ $report->id }}">

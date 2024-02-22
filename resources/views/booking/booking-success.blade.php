@@ -12,9 +12,9 @@
                 </p>
             </div>
             <div class="flex z-10">
-                    <a href="/invoice/" class="rounded w-40 text-center py-2 px-2 shadow mr-3">View Renting</a>
+                    <a href="/booking/list" class="rounded w-40 text-center py-2 px-2 shadow mr-3">View Renting</a>
             
-                <form action="/shop" method="GET">
+                <form action="/properties/rent" method="GET">
                     <button class="rounded py-2 px-2 bg-home-600 uppercase text-white">continue Renting</button>
                 </form>
             </div>

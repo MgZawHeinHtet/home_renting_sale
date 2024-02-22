@@ -51,11 +51,11 @@
                 </div>
                 <div class>
                     <input type="number" name="bath" placeholder="BATHS" value="{{ request('bath') }}"
-                        class="w-20 border-[1px] px-3 py-1 shadow-lg border-[black] font-bold text-[13px] tracking-widest placeholder:text-home-900" />
+                        class="w-24 border-[1px] px-3 py-1 shadow-lg border-[black] font-bold text-[13px] tracking-widest placeholder:text-home-900" />
                 </div>
                 <div class>
                     <input type="number" name="bed" placeholder="BEDS" value="{{ request('bed') }}"
-                        class="w-20 border-[1px] px-3 py-1 shadow-lg border-[black] font-bold text-[13px] tracking-widest placeholder:text-home-900" />
+                        class="w-24 border-[1px] px-3 py-1 shadow-lg border-[black] font-bold text-[13px] tracking-widest placeholder:text-home-900" />
                 </div>
                 <div class>
                     <select

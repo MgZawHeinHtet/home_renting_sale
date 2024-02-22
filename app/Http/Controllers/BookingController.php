@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RentCheckoutRequest;
+use App\Mail\CancelMail;
 use App\Models\booking;
 use App\Models\Notification;
 use App\Models\PropertyRent;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Number;
 
@@ -218,6 +220,8 @@ class BookingController extends Controller
         $booking->status = 'cancel';
 
         $booking->update();
+
+        Mail::to($booking->email)->send(new CancelMail($booking));
 
          //create noti for user
          Notification::create([

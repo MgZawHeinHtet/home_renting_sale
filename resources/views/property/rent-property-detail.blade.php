@@ -29,7 +29,7 @@
                             <div class="flex overflow-x-scroll w-full gap-5 mt-2 no-scrollbar">
                                 @foreach ($property?->rentPropertyImage as $key => $img)
                                     <button type="button"
-                                        class="flex-grow-0 flex-shrink-0 w-[120px]  h-[70px] rounded-md border-2 border-white"
+                                        class="flex-grow-0 flex-shrink-0 w-[120px] overflow-hidden  h-[70px] rounded-md border-2 border-white"
                                         aria-current="false" aria-label="Slide {{ $key + 1 }}"
                                         data-carousel-slide-to="{{ $key }}">
                                         <img class="object-cover rounded-md" src="{{ $img->image }}" alt>
