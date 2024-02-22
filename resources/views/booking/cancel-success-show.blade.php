@@ -65,11 +65,11 @@
                     <ul class="py-2">
                         <li class="py-2">
                             <p class="text-stone-400">Check-in</p>
-                            <p class="line-through decoration-green-500 decoration-2">{{ date('D d M Y'),strtotime($booking->check_in) }}</p>
+                            <p class="line-through decoration-green-500 decoration-2">{{ date('D d M Y',strtotime($booking->check_in)) }}</p>
                         </li>
                         <li class="py-2">
                             <p class="text-stone-400">Check-out</p>
-                            <p class="line-through decoration-green-500 decoration-2">{{ date('D d M Y'),strtotime($booking->check_out) }}</p>
+                            <p class="line-through decoration-green-500 decoration-2">{{ date('D d M Y',strtotime($booking->check_out)) }}</p>
                         </li>
                         <li class="py-2">
                             <p class="text-stone-400">Stay Details</p>
