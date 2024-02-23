@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\PropertyRent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,8 @@ class RentPropertyImageFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'property_id'=>PropertyRent::factory(),
+            'image'=>fake()->imageUrl()
         ];
     }
 }

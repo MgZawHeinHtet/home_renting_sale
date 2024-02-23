@@ -51,11 +51,11 @@ class HomeController extends Controller
         }
         $key = count($faqs_arr)>1;
 
-        $halved = array_chunk($faqs_arr, ceil(count($faqs_arr) / 2));
+        $halved = $faqs->count() ? array_chunk($faqs_arr, ceil(count($faqs_arr) / 2)) : [];
 
         return view('faq', [
 
-            'first_items' => $halved[0],
+            'first_items' => $faqs->count()?$halved[0] : [],
             'second_items' => $key ? $halved[1] : []
 
         ]);

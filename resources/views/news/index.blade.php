@@ -1,29 +1,36 @@
 <x-layout>
-    
+  
     <section class="sm:px-5 lg:container-space my-5 space-y-5">
         {{-- breaking news  --}}
+        @if ($latest_today_news->count())
+            
         <div class="flex items-center">
             <span class="w-40 text-center py-3 bg-home-600 text-white block">Breaking News</span>
             <marquee class="text-lg" behavior="" direction="">Lorem ipsum dolor sit amet consectetur, adipisicing
                 elit. Iusto consequatur nesciunt enim, quam ipsa magnam porro deserunt facilis aperiam sapiente
                 perferendis ex, nobis aliquid esse magni quibusdam corrupti deleniti maxime.</marquee>
         </div>
+        @endif
 
         {{-- news hero section  --}}
         <div class="grid grid-cols-4 grid-rows-2 gap-3 overflow-hidden">
+            @if($popular_news)
             <div class="sm:col-span-4 lg:col-span-2 row-span-2 ">
                
                 <div class="w-full shadow-inner rounded relative before:w-full before:h-32   before:block before:absolute before:bottom-0 before:bg-gradient-to-t before:from-black  before:to-transparent overflow-hidden before:z-50">
-                    <img class="transition-all duration-700  hover:scale-105 w-full h-full  object-cover rounded" src="{{ $popular_news->photo }}" alt="">
+                    <img class="transition-all duration-700  hover:scale-105 w-full h-full  object-cover rounded" src="{{ $popular_news?->photo ?? null }}" alt="">
                     <div class="absolute left-5 bottom-5 z-50">
                         <h6 class="text-yellow-500">Most Views</h6> 
                         {{-- title  --}}
-                        <a href="/news/{{ $popular_news->id }}">
-                            <p class="text-white text-lg font-bold ">{{ $popular_news->title }}</p>
+                        <a href="/news/{{ $popular_news?->id }}">
+                            <p class="text-white text-lg font-bold ">{{ $popular_news?->title }}</p>
                         </a>
                     </div>
                 </div>
             </div>
+            @endif
+
+            @if($latest_today_news->count())
             <div class="sm:col-span-2 lg:col-span-1">
                 <div class="w-full shadow-inner rounded relative before:w-full before:h-32   before:block before:absolute before:bottom-0 before:bg-gradient-to-t before:from-black  before:to-transparent overflow-hidden before:z-50">
                     <img class="transition-all duration-700  hover:scale-105 w-full h-full  object-cover rounded" src="{{ $latest_today_news[0]->photo }}" alt="">
@@ -36,6 +43,8 @@
                     </div>
                 </div>
             </div>
+           
+
             <div class="sm:hidden lg:block">
                 <div class="w-full shadow-inner rounded relative before:w-full before:h-32   before:block before:absolute before:bottom-0 before:bg-gradient-to-t before:from-black  before:to-transparent overflow-hidden before:z-50">
                     <img class="transition-all duration-700  hover:scale-105 w-full h-full  object-cover rounded" src="{{ $latest_today_news[1]->photo }}" alt="">
@@ -60,9 +69,9 @@
                     </div>
                 </div>
             </div>
-
+            @endif
         </div>
-
+        
         {{-- news filter bar --}}
         <div class="flex items-center justify-between sticky top-0 py-4 z-50 bg-white lg:shadow-sm">
             <h6 class="font-semibold text-lg tracking-tight text-home-900">All News</h6>

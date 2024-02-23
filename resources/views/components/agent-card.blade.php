@@ -1,9 +1,9 @@
 <a class="block" href="/agents/{{ $agent->id }}">
     <div class="p-6 py-10 border flex items-center gap-10 relative rounded">
-        <div class="w-28 h-28 border-home-600 border-2 p-2 lg:rounded-full overflow-hidden">
-            <img class="w-full h-full lg:rounded-full object-cover" src="{{ $agent->company_logo }}" alt="">
+        <div class="w-28 h-28 border-home-600 border-2 p-2 rounded-full overflow-hidden">
+            <img class="w-full h-full rounded-full object-cover" src="{{ $agent->company_logo }}" alt="">
         </div>
-        <div class="space-y-3 ">
+        <div class="space-y-3 flex-1">
             <h4 class="text-xl tracking-wide font-normal">{{ $agent->company_name }}</h4>
             <p class="opacity-90"><i class="fa-solid fa-fax text-yellow-600"></i> Agency | Total Ads : {{ $agent->propertySale->count() }}</p>
             <address class="opacity-90">{{ $agent->address }}</address>

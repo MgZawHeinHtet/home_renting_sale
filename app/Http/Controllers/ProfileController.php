@@ -24,7 +24,7 @@ class ProfileController extends Controller
         $cleanData = $request->validated();
 
         if (request()->profile_img) {
-          
+            
             $user->profile_img = '/storage/' . request('profile_img')->store('/profile');
         }
 

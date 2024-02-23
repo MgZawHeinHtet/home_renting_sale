@@ -7,7 +7,9 @@ namespace Database\Seeders;
 use App\Models\Amenity;
 use App\Models\CreditPackage;
 use App\Models\News;
+use App\Models\PropertyRent;
 use App\Models\PropertySale;
+use App\Models\RentPropertyImage;
 use App\Models\rule;
 use App\Models\SalePropertyImage;
 use App\Models\User;
@@ -78,15 +80,18 @@ class DatabaseSeeder extends Seeder
             'price'=>120000
         ]);
 
-        News::factory(20)->create();
+       
         
         User::factory(10)->has(
             PropertySale::factory(10)->has(
                 SalePropertyImage::factory()->count(4)
             )
-        )->create();
 
-        Amenity::factory(14)->create();
-        rule::factory(5)->create();
+           
+        )->has(PropertyRent::factory(10)->has(
+            RentPropertyImage::factory()->count(4)
+        ))->create();
+
+    
     }
 }

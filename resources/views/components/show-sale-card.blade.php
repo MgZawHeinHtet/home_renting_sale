@@ -25,7 +25,10 @@
             @csrf
             <button class="p-2 bg-yellow-700 text-white rounded-lg"><i class="fas fa-edit"></i> Edit Advertisement</button>
         </form>
-        <button class="p-2 bg-blue-700 text-white rounded-lg"><i class="fas fa-search"></i> View Detail</button>
+        <form action="/properties/{{ $property->id }}/sale">
+            @csrf
+            <button class="p-2 bg-blue-700 text-white rounded-lg"><i class="fas fa-search"></i> View Detail</button>
+        </form>
         <form class="" action="/adminAgents/show-ad-sale/{{ $property->id }}" method="POST">   
             @csrf 
             @method('DELETE')

@@ -59,7 +59,7 @@
                     <!-- Main image -->
                     <div id="fullWidthImages" class="flex transition-transform duration-300 ease-in-out">
                         @foreach ($imageUrls as $index => $image)
-                            <img  src="{{ $image }}" alt="Full Width Image" class=" flex-shrink-0 w-full h-[550px] object-cover"
+                            <img  src="{{ $image }}" alt="Full Width Image" class=" flex-shrink-0 w-full h-[450px] object-center object-cover"
                                 data-index="{{ $index }}">
                         @endforeach
                     </div>
@@ -119,7 +119,7 @@
                         {{ $property->created_at->format('d M Y') }}</p>
                 </div>
 
-                <div class="my-4">
+                <div class="my-6">
                     {!! $property->description !!}
                 </div>
 

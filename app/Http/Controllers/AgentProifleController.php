@@ -23,6 +23,7 @@ class AgentProifleController extends Controller
         if(request()->company_logo){
            
              $image_url = '/storage/' . request('company_logo')->store('/agent-image');
+           
              $user->company_logo = $image_url;
              $user->update();
         }

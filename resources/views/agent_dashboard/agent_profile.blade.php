@@ -23,6 +23,7 @@
                 <div class="mt-5 ">
                     <img src="{{ $user?->company_logo }}" alt="NO PHOTO UPLOAD" class="w-28 h-28 rounded border border-dashed p-1 object-cover">
                 </div>
+                <x-error name="company_logo"></x-error>
             </div>
             <div>
                 <label class="block text-gray-300 mb-2"  for="">Main Phone</label>
@@ -34,21 +35,23 @@
                 <div>
                     <label class="block text-gray-300 mb-2" for="">2nd Contact No(Optional)</label>
                     <input value="{{ old('phone2',$user?->phone2) }}" name="phone2" class="rounded w-full bg-home-900 outline-none text-white" type="text" placeholder="-">
-                     
+                    <x-error name="phone2"></x-error>
                 </div>
                 <div>
                     <label class="block text-gray-300 mb-2" for="">3rd Contact No(Optional)</label>
                     <input value="{{ old('phone3',$user?->phone3) }}" name="phone3" class="rounded w-full bg-home-900 outline-none text-white" type="text" placeholder="-">
+                    <x-error name="phone3"></x-error>
                 </div>
                 <div>
                     <label class="block text-gray-300 mb-2" for="">4rd Contact No(Optional)</label>
                     <input value="{{ old('phone4',$user?->phone4) }}" name="phone4" class="rounded w-full bg-home-900 outline-none text-white" type="text" placeholder="-">
+                    <x-error name="phone4"></x-error>
                 </div>
             </div>
             <div>
                 <label class="block text-gray-300 mb-2" for=""> Map Location(Latitude and Logitude)</label>
                 <input value="{{ old('location_map',$user?->location_map) }}" name="location_map" class="rounded w-full bg-home-900 outline-none text-white" type="text" placeholder="-">
-              
+                <x-error name="location_map"></x-error>
             </div>
             <div>
                 <label class="block text-gray-300 mb-2" for="">Address</label>
