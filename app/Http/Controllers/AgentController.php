@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PropertyRent;
+use App\Models\PropertySale;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -41,12 +43,26 @@ class AgentController extends Controller
     public function show(string $id)
     {
         $agent = User::find($id);
-        $properties = $agent->propertySale()->paginate(7);
 
+        $curr_route = url()->current();
+        $is_sale = str_contains($curr_route,'sale');
+        $is_rent = str_contains($curr_route,'rent');
+        $requests = request(['type','search_input','maxPrice','minPrice','bath','bed','houseType','region','township']);
+    
+        if($is_sale){
+            $type = 'sale';
+            $properties = PropertySale::with(['agent','salePropertyImage'])->where('agent_id',$id)->filter($requests)->orderBy('is_featured','desc')->latest()->paginate(7)->withQueryString();
+            
+        }else if($is_rent){
+            $type = 'rent';
+            $properties = PropertyRent::with(['agent'])->where('agent_id',$id)->filter($requests)->orderBy('is_featured','desc')->latest()->paginate(7)->withQueryString();
+        }
+    
         
         return view('agents.show',[ 
             'agent'=>$agent,
-            'properties'=>$properties
+            'properties'=>$properties,
+            'type'=>$type
         ]);
     }
 

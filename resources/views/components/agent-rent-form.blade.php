@@ -138,9 +138,12 @@
                         <div>
                             <input value="<i class='{{ $amenity->icon }} mr-1'></i>{{ $amenity->title }}"
                                 type="checkbox" name="amenities[]" @if (isset($oldAmenities))
+                            @if (!is_string($oldAmenities))
+                                
                             @foreach ($oldAmenities as $oldAmenity)
                                 {{ $oldAmenity === "<i class='$amenity->icon mr-1'></i>$amenity->title" ? 'checked' : '' }}
                             @endforeach
+                            @endif
                     @endif
 
                     >
@@ -161,9 +164,11 @@
                     <div>
                         <input value="<i class='{{ $rule->icon }}  mr-1'></i>{{ $rule->title }}" type="checkbox"
                             name="house_rules[]" @if (isset($oldRules))
+                            @if (!is_string($oldRules))
                         @foreach ($oldRules as $oldRule)
                             {{ $oldRule === "<i class='$rule->icon  mr-1'></i>$rule->title" ? 'checked' : '' }}
                         @endforeach
+                        @endif
                 @endif
                 <label for="">{{ $rule->title }}</label>
             </div>

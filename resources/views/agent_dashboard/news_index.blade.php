@@ -20,6 +20,9 @@
                     <th scope="col" class="px-6 py-3">
                         Title
                     </th>
+                    <th scope="col" class="px-6 py-3">
+                        Pre Description
+                    </th>
                     <th scope="col" class=" px-6 py-3">
                         Description
                     </th>
@@ -54,10 +57,13 @@
                         <th scope="row"
                             class="px-4 py-4 font-medium text-gray-900 whitespace-normal dark:text-white flex items-center ">
                             <img class="w-10 h-10 rounded-full" src="{{ $news->photo }}" alt="">
-                            <span class="ml-2">{{ $news->title }}</span>
+                            <span class="ml-2">{{ Str::limit($news->title,30) }}</span>
                         </th>
                         <td class="px-6 py-4  w-72">
-                            {!! Str::limit($news->description,60) !!}
+                            {{ $news->pre_description }}
+                        </td>
+                        <td class="px-6 py-4  w-72">
+                            {!! Str::limit($news->description,200) !!}
                         </td>
                         
                         <td class="px-6 py-4 ">

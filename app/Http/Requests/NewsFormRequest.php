@@ -31,6 +31,7 @@ class NewsFormRequest extends FormRequest
         return [
             'title'=>['required'],
             'photo'=>[!$this->isUpdate ? '' : 'required'],
+            'pre_description'=>['required'],
             'description'=>['required'],
             'isPosted'=>['required']
         ];

@@ -97,7 +97,9 @@ Route::prefix('properties')->group(function(){
 //agent front route
 Route::prefix('agents')->group(function(){
     Route::get('',[AgentController::class, 'index']);
-    Route::get('/{agent:id}',[AgentController::class, 'show']);
+    Route::get('/{agent:id}/sale',[AgentController::class, 'show']);
+    Route::get('/{agent:id}/rent',[AgentController::class, 'show']);
+
 });
 
 Route::middleware(AuthMiddleware::class)->prefix('profile')->group(function(){
@@ -269,3 +271,9 @@ Route::post('properties/{property:id}/rating',[RatingController::class,'rate']);
 Route::get('/calculator',[HomeController::class, 'calculator_index']);
 
 Route::post("/contact/mail",[ContactusController::class,'send']);
+
+Route::post("/agent/{agent:id}/enquiry",[ContactusController::class,'send_enquiry'])->middleware(AuthMiddleware::class);
+
+Route::get('/test',function(){
+    return view('test');
+});

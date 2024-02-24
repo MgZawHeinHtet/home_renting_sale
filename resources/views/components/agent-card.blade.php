@@ -1,4 +1,4 @@
-<a class="block" href="/agents/{{ $agent->id }}">
+<a class="block" href="/agents/{{ $agent->id }}/sale">
     <div class="p-6 py-10 border flex items-center gap-10 relative rounded">
         <div class="w-28 h-28 border-home-600 border-2 p-2 rounded-full overflow-hidden">
             <img class="w-full h-full rounded-full object-cover" src="{{ $agent->company_logo }}" alt="">

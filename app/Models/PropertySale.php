@@ -24,6 +24,7 @@ class PropertySale extends Model
        
         if($search_input = $request['search_input'] ?? null)
         {
+            
             $propertyQuery->where(function($query) use ($search_input){
                 $query->where('title','LIKE','%'.$search_input."%")
                 ->orWhere('region','LIKE','%'.$search_input."%")
@@ -41,6 +42,13 @@ class PropertySale extends Model
 
         if($bed  =  $request['bed'] ?? null){
             $propertyQuery->where('bedroom',$bed);
+        }
+
+        if($region  =  $request['region'] ?? null){
+            $propertyQuery->where('region',$region);
+        }
+        if($township  =  $request['township'] ?? null){
+            $propertyQuery->where('township',$township);
         }
 
         if(($max = $request['maxPrice']?? null) && ($min = $request['minPrice']??null)){

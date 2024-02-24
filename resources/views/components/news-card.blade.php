@@ -12,8 +12,8 @@
         <div>
             
         </div>
-        <a href="/news/{{ $news->id }}" class="block font-bold text-lg mb-5 hover:underline underline-offset-8 hover:decoration-home-600">{{ $news->title }}</a>
-        <p class="line-clamp-3 opacity-80 mb-4">{{ $news->description }}</p>
+        <a href="/news/{{ $news->id }}" class="block line-clamp-2 font-bold text-lg mb-5 hover:underline underline-offset-8 hover:decoration-home-600">{{ $news->title }}</a>
+        <p class="line-clamp-3 opacity-80 mb-4">{{ $news->pre_description }}</p>
         <footer>
             <p class=""><i class="fa-regular fa-clock mr-2"></i> {{ $news->created_at->diffForHumans() }}</p>
         </footer>

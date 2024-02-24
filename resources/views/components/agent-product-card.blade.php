@@ -1,13 +1,20 @@
 <div class="flex gap-5 items-center hover:shadow-lg transition-all duration-500">
     <div class="relative w-[300px]">
+        @if ($type == 'sale')
+            
         <img class="w-full h-[200px] object-cover rounded"
             src="{{ $property->salePropertyImage->count() ? $property->salePropertyImage[0]->image : asset('assets/insteadImg.jpg') }}"
             alt="">
+        @else
+            <img class="w-full h-[200px] object-cover rounded"
+            src="{{ $property->rentPropertyImage->count() ? $property->rentPropertyImage[0]->image : asset('assets/insteadImg.jpg') }}"
+            alt="">
+        @endif
         <img class="absolute inline-block w-16 h-16 bottom-0 right-0"
             src="{{ $logo }}"
             alt="">
     </div>
-    <div class="flex-grow">
+    <div class="flex-1">
         <div class="space-y-2">
             <h2 class="line-clamp-1 text-lg font-bold text-home-900">{{ $property->title }}</h2>
             <p class="text-base text-slate-600"><span>{{ $property->region }}</span> | <span>{{ $property->township }}</span></p>
@@ -20,6 +27,8 @@
                         {{ $property->type }}</span>
                 </li>
                 <li>
+                    @if ($type=='sale')
+                        
                     @if ($property->areaType === "l*w")
                     <span class="border-r border-r-home-600 pr-4 ">
                         <span class="">{{ $property->length }}' x {{ $property->width }}'</span> 
@@ -27,6 +36,11 @@
                     @else
                     <span class="border-r border-r-home-600 pr-4 ">
                         <span class="font-bold">{{ $property->area }}</span> {{ $property->areaUnit }}
+                    </span>
+                    @endif
+                    @else
+                    <span class="border-r border-r-home-600 pr-4 ">
+                        <span class="font-bold">{{ $property->area }}</span> {{ $property->area_unit }}
                     </span>
                     @endif
                 </li>
@@ -45,7 +59,7 @@
             </ul>
             <ul class="flex gap-4">
                 <li>
-                    <a class="uppercase" href="/properties/{{ $property->id }}/sale">View Detail</a>
+                    <a class="uppercase" href="/properties/{{ $property->id }}/{{ $type }}">View Detail</a>
                 </li>
                 <li class="border-l px-2 border-x-home-600">
                     

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PackageCheckoutFormRequest;
+use App\Mail\TranscationMail;
 use App\Models\CreditPackage;
 use App\Models\CreditTranscation;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 
@@ -61,13 +63,20 @@ class CreditTranscationController extends Controller
         // if correct add credit point to user
         $user = $transcation->user;
 
+        $cleanData = [];
+        $cleanData['email'] = $user->email;
+        $cleanData['name'] =$user->name;
+
+
         if($user->creditTranscation->count()>=3){
             $agent = User::find($user->id);
             $agent->isVerified = true;
             $agent->update();
         }
+
         $user->credit_points += $transcation->creditPackage->point;
         $user->update();
+        Mail::to($user->email)->send(new TranscationMail($cleanData));
 
 
         Notification::create([

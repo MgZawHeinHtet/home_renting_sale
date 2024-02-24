@@ -54,52 +54,33 @@
             <form class="flex justify-evenly" action="">
 
                 <select class="w-40 border capitalize border-home-900 p-4 rounded " name="" id="">
-                    <option value="sell/rent">sell/rent</option>
+                    <option value="">sell/rent</option>
                     <option value="rent">rent</option>
                     <option value="rent">sell</option>
                 </select>
 
-                <select class="w-40 border capitalize border-home-900 p-4 rounded " name="" id="">
-                    <option value="any property">any property</option>
+                <select name="houseType" class="w-40 border capitalize border-home-900 p-4 rounded " name="" id="">
+                    <option value="">any property</option>
                     <option value="apartment">apartment</option>
                     <option value="condo">condo</option>
                     <option value="private house">private house</option>
                     <option value="shop,office">shop,office</option>
                 </select>
 
-                <select class="w-40 border capitalize border-home-900 p-4 rounded " name="" id="">
-                    <option value="any division">any division</option>
-                    <option value="apartment">apartment</option>
-                    <option value="condo">condo</option>
-                    <option value="private house">private house</option>
-                    <option value="shop,office">shop,office</option>
-                </select>
+                <input value="{{ request('region') }}" name="region" placeholder="any region " class="w-40 border capitalize placeholder:text-black border-home-900 p-4 rounded " name="" id="">
+                   
+                
 
-                <select class="w-40 border capitalize border-home-900 p-4 rounded " name="" id="">
-                    <option value="any township">any township</option>
-                    <option value="apartment">apartment</option>
-                    <option value="condo">condo</option>
-                    <option value="private house">private house</option>
-                    <option value="shop,office">shop,office</option>
-                </select>
+                <input value="{{ request('township') }}" placeholder="Any Township" name="township" class="w-40 placeholder:text-home-900 border capitalize border-home-900 p-4 rounded " name="" id="">
+                    
 
-                <select class="w-40 border capitalize border-home-900 p-4 rounded " name="" id="">
-                    <option value="0">price (from)</option>
-                    <option value="apartment">apartment</option>
-                    <option value="condo">condo</option>
-                    <option value="private house">private house</option>
-                    <option value="shop,office">shop,office</option>
-                </select>
+                <input value="{{ request('minPrice') }}" name="minPrice" placeholder="Minimun Price" class="placeholder:text-home-900 w-40 border capitalize border-home-900 p-4 rounded " name="" id="">
+                    
 
-                <select class="w-40 border capitalize border-home-900 p-4 rounded" name="" id="">
-                    <option value="0">price (to)</option>
-                    <option value="apartment">apartment</option>
-                    <option value="condo">condo</option>
-                    <option value="private house">private house</option>
-                    <option value="shop,office">shop,office</option>
-                </select>
+                <input value="{{ request('maxPrice') }}" name="maxPrice" placeholder="Maximun Price" class="w-40 placeholder:text-home-900 border capitalize border-home-900 p-4 rounded" name="" id="">
+                    
 
-                <input class="w-40 border-home-900 border p-4 rounded" type="text" placeholder="Property Id">
+                <input value="{{ request('search_input') }}" name="search_input" class="w-40 border-home-900 border p-4 rounded" type="text" placeholder="Property Id">
 
                 <button class="w-40 text-white text-center py-3 bg-yellow-600 rounded uppercase">search</button>
 
@@ -113,8 +94,8 @@
                 {{-- filter bar  --}}
                 <div class="flex justify-between items-center py-8 mb-5">
                     <div>
-                        <a class="text-xl tracking-wide underline-offset-8  underline decoration-yellow-600">Sale</a> |
-                        <a class="text-xl tracking-wide underline-offset-8 under ">Rent</a>
+                        <a href="/agents/{{ $agent->id }}/sale" class="text-xl tracking-wide underline-offset-8   {{ $type=='sale'? "underline decoration-yellow-600" : '' }}">Sale</a> |
+                        <a href="/agents/{{ $agent->id }}/rent" class="text-xl tracking-wide underline-offset-8 {{ $type=='rent'? "underline decoration-yellow-600" : '' }} ">Rent</a>
 
                     </div>
                     <div>
@@ -134,7 +115,7 @@
                 <div class="space-y-10">
                     {{-- single card --}}
                     @foreach ($properties as $property)
-                        <x-agent-product-card :logo="$agent->company_logo" :property="$property"></x-agent-product-card>
+                        <x-agent-product-card :type="$type" :logo="$agent->company_logo" :property="$property"></x-agent-product-card>
                     @endforeach
                     {{ $properties->links() }}
                 </div>
@@ -142,35 +123,40 @@
 
             {{-- right side  --}}
             <div>
-                <div class="p-3 py-4 shadow-lg space-y-3">
-                    <p class="py-3 border-y  border-y-home-900 text-home-900 font-semibold text-xl ">Send Enquiry</p>
-                    <div>
-                        <label class="block" for="">Name<span class="text-yellow-600">*</span></label>
-                        <input class="border rounded w-full px-2 py-3" type="text" placeholder="type your name">
+                <x-alert></x-alert>
+                <form action="/agent/{{ $agent->id }}/enquiry" method="POST">
+                    @csrf
+
+                    <div class="p-3 py-4 shadow-lg space-y-3">
+                        <p class="py-3 border-y  border-y-home-900 text-home-900 font-semibold text-xl ">Send Enquiry</p>
+                        <div>
+                            <label class="block" for="">Name<span class="text-yellow-600">*</span></label>
+                            <input name="name" class="border rounded w-full px-2 py-3" type="text" placeholder="type your name">
+                        </div>
+                        <div>
+                            <label class="block" for="">Email<span class="text-yellow-600">*</span></label>
+                            <input name="email" class="border rounded w-full px-2 py-3" type="text" placeholder="name@gmail.com">
+                        </div>
+                        <div>
+                            <label class="block" for="">Phone available<span
+                                    class="text-yellow-600">*</span></label>
+                            <input name="phone" class="border rounded w-full px-2 py-3" type="text" placeholder="eg.332434324">
+                        </div>
+                        <div>
+                            <label class="block" for="">Message<span class="text-yellow-600">*</span></label>
+                            <textarea name="description" class="border w-full" name="" id="" cols="20" rows="5"></textarea>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <input class="h-7 w-7 bg-home-900" type="checkbox">
+                            <label class="block text-slate-500 " for="">
+                                Please send me latest news,updates & special offers
+                            </label>
+                        </div>
+                        <div>
+                            <button class="w-full py-3 bg-home-600 rounded text-white">Submit</button>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block" for="">Email<span class="text-yellow-600">*</span></label>
-                        <input class="border rounded w-full px-2 py-3" type="text" placeholder="name@gmail.com">
-                    </div>
-                    <div>
-                        <label class="block" for="">Phone available<span
-                                class="text-yellow-600">*</span></label>
-                        <input class="border rounded w-full px-2 py-3" type="text" placeholder="eg.332434324">
-                    </div>
-                    <div>
-                        <label class="block" for="">Message<span class="text-yellow-600">*</span></label>
-                        <textarea class="border w-full" name="" id="" cols="20" rows="5"></textarea>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <input class="h-7 w-7 bg-home-900" type="checkbox">
-                        <label class="block text-slate-500 " for="">
-                            Please send me latest news,updates & special offers
-                        </label>
-                    </div>
-                    <div>
-                        <button class="w-full py-3 bg-home-600 rounded text-white">Submit</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
 

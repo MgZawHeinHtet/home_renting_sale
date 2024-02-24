@@ -1,9 +1,6 @@
 <x-layout>
     
-    @push('css')
-        <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
-    @endpush
-    @stack('css')
+   
     <div class="px-20 mx-auto">
       
         @if ($property->map == "true")
@@ -299,9 +296,7 @@
 
 @section('javascript')
    
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-        <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+      
   
     <script>
         const fullWidthImages = document.getElementById("fullWidthImages");
@@ -310,43 +305,6 @@
         const nextButton = document.getElementById("nextButton");
         const overlay = document.querySelector('.overlay');
         const mapBtn = document.querySelector('.map-btn');
-
-        const is_map = {{ $property->map }};
-
-
-        //for map 
-        if (is_map) {
-
-            var map = L.map('map').setView([{{ $property->location }}], 13);
-
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-            }).addTo(map);
-
-            const marker = L.marker([{{ $property->location }}]).addTo(map);
-
-            map.on('click', function(e) {
-               
-                const {
-                    lat,
-                    lng
-                } = e.latlng;
-
-                L.Routing.control({
-                        waypoints: [L.latLng({{ $property->location }}), L.latLng(lat, lng)],
-                    })
-                    .on('routesfound', function(e) {
-                        e.routes[0].coordinates.forEach((coor, index) => {
-                            console.log(coor.lat);
-                            setTimeout(() => {
-                                marker.setLatLng([coor.lat, coor.lng]);
-                            }, 100 * index);
-                        });
-                    })
-                    .addTo(map);
-            });
-        }
 
         document.getElementById("smallImages").scrollLeft = 0;
 

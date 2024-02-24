@@ -35,8 +35,6 @@
                                         <img class="object-cover rounded-md" src="{{ $img->image }}" alt>
                                     </button>
                                 @endforeach
-
-
                             </div>
                             <!-- Slider controls -->
                             <button type="button"
@@ -150,10 +148,9 @@
                                 {{ $property->area . ' ' . $property->area_unit }}
                             </div>
                         </div>
-
-
-
                     </div>
+                    @if (!is_string($property->amenities))
+                        
                     <div class="border-t-2 pt-[20px] pb-[30px] grid grid-cols-4">
                         <div class="font-bold text-gray-600">AMENITIES</div>
                         <div class="grid grid-cols-3 col-span-3 gap-y-3">
@@ -164,8 +161,10 @@
                             @endforeach
 
                         </div>
-
                     </div>
+                    @endif
+
+
                     <div class="border-t-2 pt-[20px] w-full pb-[30px] grid grid-cols-4">
                         <div class="font-bold text-gray-600 text-sm ">SAFETY AND HYGIENE MEASURES</div>
                         <div class=" flex items-center gap-1 col-span-3">
@@ -223,6 +222,8 @@
                         </div>
 
                     </div>
+                    @if (!is_string($property->house_rules))
+
                     <div class="border-t-2 pt-[20px] w-full pb-[30px] grid grid-cols-4">
                         <div class="font-bold text-gray-600">HOUSE RULES</div>
                         <div class="col-span-3 grid grid-cols-3 gap-y-3">
@@ -232,10 +233,8 @@
                                 </div>
                             @endforeach
                         </div>
-
-
-
                     </div>
+                    @endif
                     <div class="border-t-2 pt-[20px] w-full pb-[30px] grid grid-cols-4">
                         <div class="font-bold text-gray-600">HOST</div>
                         <div class="col-span-3">

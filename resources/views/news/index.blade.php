@@ -6,9 +6,7 @@
             
         <div class="flex items-center">
             <span class="w-40 text-center py-3 bg-home-600 text-white block">Breaking News</span>
-            <marquee class="text-lg" behavior="" direction="">Lorem ipsum dolor sit amet consectetur, adipisicing
-                elit. Iusto consequatur nesciunt enim, quam ipsa magnam porro deserunt facilis aperiam sapiente
-                perferendis ex, nobis aliquid esse magni quibusdam corrupti deleniti maxime.</marquee>
+            <marquee class="text-lg" behavior="" direction="">{!! $popular_news->pre_description !!}</marquee>
         </div>
         @endif
 
@@ -17,7 +15,7 @@
             @if($popular_news)
             <div class="sm:col-span-4 lg:col-span-2 row-span-2 ">
                
-                <div class="w-full shadow-inner rounded relative before:w-full before:h-32   before:block before:absolute before:bottom-0 before:bg-gradient-to-t before:from-black  before:to-transparent overflow-hidden before:z-50">
+                <div class="w-full h-[585px] shadow-inner rounded relative before:w-full before:h-32   before:block before:absolute before:bottom-0 before:bg-gradient-to-t before:from-black  before:to-transparent overflow-hidden before:z-50">
                     <img class="transition-all duration-700  hover:scale-105 w-full h-full  object-cover rounded" src="{{ $popular_news?->photo ?? null }}" alt="">
                     <div class="absolute left-5 bottom-5 z-50">
                         <h6 class="text-yellow-500">Most Views</h6> 
@@ -30,9 +28,9 @@
             </div>
             @endif
 
-            @if($latest_today_news->count())
+            @if($latest_today_news->count() > 2)
             <div class="sm:col-span-2 lg:col-span-1">
-                <div class="w-full shadow-inner rounded relative before:w-full before:h-32   before:block before:absolute before:bottom-0 before:bg-gradient-to-t before:from-black  before:to-transparent overflow-hidden before:z-50">
+                <div class="w-full h-full shadow-inner rounded relative before:w-full before:h-32   before:block before:absolute before:bottom-0 before:bg-gradient-to-t before:from-black  before:to-transparent overflow-hidden before:z-50">
                     <img class="transition-all duration-700  hover:scale-105 w-full h-full  object-cover rounded" src="{{ $latest_today_news[0]->photo }}" alt="">
                     <div class="absolute left-5 bottom-5 z-50">
                         <h6 class="text-yellow-500">Latest News</h6> 
@@ -46,7 +44,7 @@
            
 
             <div class="sm:hidden lg:block">
-                <div class="w-full shadow-inner rounded relative before:w-full before:h-32   before:block before:absolute before:bottom-0 before:bg-gradient-to-t before:from-black  before:to-transparent overflow-hidden before:z-50">
+                <div class="w-full shadow-inner h-full rounded relative before:w-full before:h-32   before:block before:absolute before:bottom-0 before:bg-gradient-to-t before:from-black  before:to-transparent overflow-hidden before:z-50">
                     <img class="transition-all duration-700  hover:scale-105 w-full h-full  object-cover rounded" src="{{ $latest_today_news[1]->photo }}" alt="">
                     <div class="absolute left-5 bottom-5 z-50">
                         <h6 class="text-yellow-500">Latest News</h6> 

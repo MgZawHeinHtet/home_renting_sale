@@ -36,6 +36,16 @@
             </div>
             
         </div>
+        <div class="flex items-center">
+            <label for="" class="w-32 text-xl text-gray-300">Pre Description</label>
+            <div class="flex-1">
+
+                <input name="pre_description" value="{{ old('pre_description',$news?->pre_description) }}" class="w-full rounded border-yellow-600 bg-home-900 text-gray-300" type="text">
+                
+                    <x-error name="pre_description"></x-error>
+               
+            </div>
+        </div>
         <div class="flex">
             <label for="" class="w-32 text-xl text-gray-300">Description</label>
             
