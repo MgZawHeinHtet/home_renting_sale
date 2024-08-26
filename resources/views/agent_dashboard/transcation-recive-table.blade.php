@@ -1,7 +1,7 @@
 <x-agent-dashboard-layout>
 
     <div class="flex justify-between items-center text-normal font-normal capitalize ">
-        <h2 class="text-3xl text-slate-400 font-bold mb-5">Trancation Recive Managment</h2>
+        <h2 class="text-3xl text-slate-400 font-bold mb-5">Transaction Recive Managment</h2>
 
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -102,13 +102,13 @@
                         Id
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Transcation Number
+                        Transaction Number
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Username
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Transcation Price
+                        Transaction Price
                     </th>
                     <th scope="col" class=" px-6 py-3">
                         Package

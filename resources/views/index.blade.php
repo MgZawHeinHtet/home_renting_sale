@@ -22,15 +22,18 @@
                 <p class="xl:w-full lg:w-[400px] relative z-10 text-[21px] font-[400] text-white pb-[60px]">Discover
                     more
                     than 1,000+ property showcases.</p>
-                <button
-                    class="relative z-10 first-btn flex bg-[#002349] rounded justify-center items-center px-[25px] py-[20px] gap-3 text-white">
-                    <p class="text-[17px] font-[600]">Post a property</p>
-                    <svg class="first-btn-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15"
-                        viewBox="0 0 16 16">
-                        <path fill="currentColor"
-                            d="M3.707 13.707L12 5.414V9a1 1 0 0 0 2 0V3a1.002 1.002 0 0 0-1-1v-.001H7a1 1 0 0 0 0 2h3.586l-8.293 8.293a.997.997 0 0 0 0 1.414a.999.999 0 0 0 1.414 0z" />
-                    </svg>
-                </button>
+                    <form action="/agentSignup">
+
+                        <button
+                            class="relative z-10 first-btn flex bg-[#002349] rounded justify-center items-center px-[25px] py-[20px] gap-3 text-white">
+                            <p class="text-[17px] font-[600]">Post a property</p>
+                            <svg class="first-btn-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15"
+                                viewBox="0 0 16 16">
+                                <path fill="currentColor"
+                                    d="M3.707 13.707L12 5.414V9a1 1 0 0 0 2 0V3a1.002 1.002 0 0 0-1-1v-.001H7a1 1 0 0 0 0 2h3.586l-8.293 8.293a.997.997 0 0 0 0 1.414a.999.999 0 0 0 1.414 0z" />
+                            </svg>
+                        </button>
+                    </form>
             </div>
             <div class="absolute bottom-0 w-full">
                 <img src="https://assets-global.website-files.com/650adcad05bc07eb4bae8d2a/650aecc6785676a1148c1157_wave-haikei%20(3).svg"
@@ -179,6 +182,21 @@
                         </a>
                     </li>
                 </ul>
+            </div>
+        </div>
+
+
+        <div class="px-2 py-10">
+
+            <div class="w-full flex px-[160px] items-center gap-10">
+                <div class="w-[60%] pt-[80px]">
+                    <p class="font-bold text-4xl mb-[30px] w-[90%]">Do you want to know about our teams?</p>
+                    <p class="w-[80%]">In any industry where the people behind a company are as important as the company itself, you’re likely to find a kind of expanded “about” page that includes information on individual employees.</p>
+                    <a href="/about_us" class="inline-block bg-[#002349] px-3 py-2 rounded-md mt-[40px] text-white">View Detail</a>
+                </div>
+                <div class="w-[40%]">
+                    <img class="w-[90%] " src="{{ asset('assets/team_page.svg') }}" alt="">
+                </div>
             </div>
         </div>
 

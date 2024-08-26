@@ -13,7 +13,7 @@
         <div class="w-[100vw] p-5">
             <div class="w-100vw mb-3">
             <div class="w-full bg-[#002349] text-white flex justify-between px-[20px] py-[10px] items-center">
-                <p class="text-xl font-bold">Renting System</p>
+                <p class="text-xl font-bold">Real Estate Management System</p>
                 <div class="">
                     <p>Confirmation number: <span>{{ $booking->booking_number }}</span></p>
                 </div>

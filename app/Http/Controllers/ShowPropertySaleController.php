@@ -77,4 +77,13 @@ class ShowPropertySaleController extends Controller
         $property->forceDelete();
         return back()->with('post-delete','Delete successfully 💥');
     }
+
+    public function transcation(PropertySale $property){
+        $transcations = $property->transcations;
+        
+        return view('agent_dashboard.sale-transcation',[
+            'property'=>$property,
+            'transcations'=>$transcations
+        ]);
+    }
 }

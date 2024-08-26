@@ -60,4 +60,8 @@ class HomeController extends Controller
 
         ]);
     }
+
+    public function about_us(){
+        return view('about-us');
+    }
 }

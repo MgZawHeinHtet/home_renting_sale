@@ -11,7 +11,7 @@
                     src="https://d28pk2nlhhgcne.cloudfront.net/assets/app/uploads/sites/3/2021/08/homebyme-homepage-gallery-9.jpg"
                     alt>
                 <p
-                    class="absolute z-30 bottom-[50%] left-[200px]  text-4xl text-white">Content
+                    class="absolute z-30 bottom-[50%] left-[200px]  text-4xl text-white">Contact
                     Us</p>
             </div>
         </div>
@@ -57,7 +57,7 @@
                                     type="email" class="w-full outline-none"
                                     required="required"
                                     name="email"
-                                    value="{{ auth()->user()->email }}"
+                                    value="{{ auth()->user()?->email }}"
                                     placeholder="Email"></div>
                         </div>
                         <div class="mb-3">

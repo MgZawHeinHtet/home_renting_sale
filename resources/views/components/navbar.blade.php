@@ -81,11 +81,10 @@
         </div>
     </nav>
     <nav
-        class="py-3 sm:px-5 md:container-space lg:px-10 bg-home-600 flex justify-between items-center hover:border-b-2 hover:border-b-yellow-200">
+        class="py-5 sm:px-5 md:container-space lg:px-10 bg-home-600 flex justify-between items-center ">
         <div>
             <h4 class="text-2xl font-semibold font-serif tracking-tighter text-white capitalize">
-                Home rental and Selling
-                <span class="block text-sm font-thin text-slate-50 opacity-90">Management System</span>
+                 Real Estate Management System
             </h4>
         </div>
         <div class="sm:hidden md:hidden hidden lg:flex">

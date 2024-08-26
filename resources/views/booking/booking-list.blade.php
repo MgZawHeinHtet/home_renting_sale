@@ -10,7 +10,7 @@
             @if ($confirm_bookings)
                 <div class="my-10 ">
                     <div class="relative ">
-                        <img src="{{ $cover_img }}" class=" w-full h-[300px] object-cover  rounded-lg" />
+                        <img src="{{ asset('assets/yangon-bg.jpg') }}" class=" w-full h-[300px] object-cover  rounded-lg" />
                         <div class="absolute top-0 left-0 bg-black bg-opacity-40 w-full h-full rounded-lg"></div>
                         <div
                             class="absolute text-white text-center transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">

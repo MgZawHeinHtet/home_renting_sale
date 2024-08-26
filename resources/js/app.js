@@ -52,25 +52,27 @@ if (input_box) {
     const current_uri = window.location.href;
 
     const id = current_uri.split("/")[4];
-    
-    let a = await getUnavaliableDates(id);
+    async function test(){
+        let a = await getUnavaliableDates(id);
   
-    const options = {
-        disabledDates:a,
-        clearButton: true,
-        topbarPosition: "bottom",
-
-        minNights: 30,
-        autoClose: false,
-
-        onDayClick: function () {
-            console.log("Day clicked!");
-        },
-        onSelectRange: function () {},
-    };
-    var hdpkr = new HotelDatepicker(input_box, options);
+        const options = {
+            disabledDates:a,
+            clearButton: true,
+            topbarPosition: "bottom",
+    
+            minNights: 30,
+            autoClose: false,
+    
+            onDayClick: function () {
+                console.log("Day clicked!");
+            },
+            onSelectRange: function () {},
+        };
+        var hdpkr = new HotelDatepicker(input_box, options);
+    }
+    
+   test()
 }
-
 
 
 // .. After imports init TinyMCE ..

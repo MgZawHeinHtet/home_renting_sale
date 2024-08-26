@@ -10,7 +10,7 @@
 </head>
 <body class="font-serif overflow-x-hidden bg-home-600">
     <aside class="w-96 h-screen bg-home-900 px-14 py-28 space-y-14 fixed top-0 left-0 z-40 transition-transform -translate-x-full sm:translate-x-0">
-        <a href="/" class="text-2xl font-semibold capitalize text-white font-serif">Home rental-selling <br><span class="text-base tracking-tight">Management System</span></a>
+        <a href="/" class="text-2xl font-semibold capitalize text-white font-serif">Real Estate <br><span class="text-base tracking-tight">Management System</span></a>
         <ul class="space-y-2 font-medium">
             <p class="text-white text-sm mb-4 tracking-wider font-semibold uppercase">Presonal Setting</p>
             <li>
@@ -30,6 +30,11 @@
             <li>
                 <a class="font-bold text-base text-gray-400" href="/profile/schedules">
                     Schedule Request Lists
+                </a>
+            </li>
+            <li>
+                <a class="font-bold text-base text-gray-400" href="/profile/possessed">
+                    Possessed Properties
                 </a>
             </li>
            

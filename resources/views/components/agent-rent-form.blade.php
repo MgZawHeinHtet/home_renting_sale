@@ -211,6 +211,9 @@
             ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
         }
 
+        let old_region = '{{ $property?->region }}';
+
+let old_township = '{{ $property?->township }}';
         fetch(`${config.cUrl}/mm/states`, {
                 headers: {
                     "X-CSCAPI-KEY": config.ckey
@@ -222,12 +225,12 @@
 
                 data.forEach(state => {
                     region.innerHTML +=
-                        `<option data-iso2="${state.iso2}" value="${ state.name }"> ${state.name}</option>`
+                        `<option ${ old_region == state.name ? 'selected' : '' } data-iso2="${state.iso2}" value="${ state.name }"> ${state.name}</option>`
 
                 })
             })
 
-        region.addEventListener('change', function(e) {
+        region.addEventListener('click', function(e) {
             e.preventDefault();
             const component = e.target.options[e.target.selectedIndex];
 
@@ -249,7 +252,7 @@
                     township.innerHTML = ""
 
                     data.forEach(state => {
-                        township.innerHTML += `<option  value="${ state.name }"> ${state.name}</option>`
+                        township.innerHTML += `<option ${ old_township == state.name ? 'selected' : '' }  value="${ state.name }"> ${state.name}</option>`
 
                     })
                 })

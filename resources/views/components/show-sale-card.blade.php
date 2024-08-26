@@ -1,3 +1,6 @@
+
+
+
 <div class="border border-white p-5 rounded-lg relative">
     @if ($property->trashed())
         
@@ -9,8 +12,20 @@
     </div>
     @endif
     <h4 class="text-white text-xl capitalize mb-4">{{ $property->title }}</h4>
-    <p  class="capitalize text-yellow-600">{{ $property->township }} | {{ $property->region }}</p>
-    <p class="text-white mb-4">{{ $property->price }}lakh (kyat) | {{ $property->type }}</p>
+    <div class="flex items-start justify-between">
+        <div>
+
+            <p  class="capitalize text-yellow-600">{{ $property->township }} | {{ $property->region }}</p>
+            <p class="text-white mb-4">{{ $property->price }}lakh (kyat) | {{ $property->type }}</p>
+        </div>
+        @if ($property->isSold)
+            
+        <div >
+           
+            <p class="px-6 py-2 rounded-lg text-white bg-red-600">Sold Out</p>
+        </div>
+        @endif
+    </div>
 
     {{-- //conditional image  --}}
     <img class="w-full h-[250px] object-cover rounded-lg" src="{{ $property->salePropertyImage->count() ? $property->salePropertyImage()->first()->image : asset('assets/insteadImg.jpg') }}" alt="">
@@ -40,13 +55,13 @@
             <button class="p-2 bg-orange-700 text-white rounded-lg"><i class="fa-solid fa-circle-plus"></i> Add Photos</button>
         </form>
 
-        <form action="/adminAgents/propertySales/{{ $property->id }}/makeFeatured" method="POST">
-            @csrf
-            <button {{ $property->is_featured ? 'disabled' : '' }} class="p-2 {{ $property->is_featured ? ' opacity-55':'' }} bg-yellow-700 text-white rounded-lg"><i class="fa-solid fa-star"></i> To Make Featured Ad</button>
-       </form>
-       <form action="/adminAgents/properties/{{ $property->id }}/sold" method="POST">
-          @csrf
-           <button class="p-2 bg-blue-700 text-white rounded-lg"><i class="fa-solid fa-check "></i> Mark As Sold</button>
+       
+            <button data-btn="{{ $property->id }}" {{ $property->is_featured ? 'disabled' : '' }} class="p-2 {{ $property->is_featured ? ' opacity-55':'' }} open-modal bg-yellow-700 text-white rounded-lg"><i class="fa-solid fa-star"></i> To Make Featured Ad</button>
+       
+       <form action="/adminAgents/sales/{{ $property->id }}/checkList" method="GET">
+        
+           <button class="p-2 bg-blue-700 text-white rounded-lg"><i class="fa-solid fa-dollar-sign"></i>
+            Check Transcation <span class="text-red-600 p-1 w-10 h-10 rounded-full bg-white">{{ $property->transcations()->where('status','pending')->get()->count() }}</span></button>
        </form>
 
     </div>

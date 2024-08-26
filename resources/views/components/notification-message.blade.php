@@ -106,3 +106,11 @@
 @if($type=='transcation-send')
 <span>{{ $sender->name }} send transcation</span>
 @endif
+
+@if($type =='buy-success')
+<span>Your buying property from {{ $sender->name }} was successed.</span>
+@endif
+
+@if($type =='send-sale-transcation')
+<span>{{ $sender->name }} was send transcation to buy property.</span>
+@endif

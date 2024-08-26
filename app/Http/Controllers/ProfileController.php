@@ -65,4 +65,11 @@ class ProfileController extends Controller
 
         
     }
+
+    public function possessedProperties(){
+        $properties = auth()->user()->ownProperties;
+        return view('profile.possessed-properties',[
+            'properties'=>$properties
+        ]);
+    }
 }

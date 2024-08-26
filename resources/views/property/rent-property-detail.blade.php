@@ -149,7 +149,7 @@
                             </div>
                         </div>
                     </div>
-                    @if (!is_string($property->amenities))
+                   
                         
                     <div class="border-t-2 pt-[20px] pb-[30px] grid grid-cols-4">
                         <div class="font-bold text-gray-600">AMENITIES</div>
@@ -162,7 +162,7 @@
 
                         </div>
                     </div>
-                    @endif
+                  
 
 
                     <div class="border-t-2 pt-[20px] w-full pb-[30px] grid grid-cols-4">
@@ -222,7 +222,8 @@
                         </div>
 
                     </div>
-                    @if (!is_string($property->house_rules))
+                   
+                  
 
                     <div class="border-t-2 pt-[20px] w-full pb-[30px] grid grid-cols-4">
                         <div class="font-bold text-gray-600">HOUSE RULES</div>
@@ -234,7 +235,7 @@
                             @endforeach
                         </div>
                     </div>
-                    @endif
+                  
                     <div class="border-t-2 pt-[20px] w-full pb-[30px] grid grid-cols-4">
                         <div class="font-bold text-gray-600">HOST</div>
                         <div class="col-span-3">
@@ -400,6 +401,11 @@
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/t-datepicker@1.0.4/public/theme/js/t-datepicker.min.js"></script>
     <script>
+
+
+
+
+        
         var map = L.map('map').setView([{{ $property->map }}], 13);
 
         var titleLayer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {

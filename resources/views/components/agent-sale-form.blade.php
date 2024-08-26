@@ -226,10 +226,10 @@
                 <select class="p-2 w-full border-l-4 border-l-yellow-600 outline-none" name="bedroom" id="">
                     <option value="">not included</option>
                     <option value="1"
-                        {{ old('bedroom', $property?->bedroom) === $i . ' rooms' ? 'selected' : '' }}>1 room</option>
+                        {{ old('bedroom', $property?->bedroom) == $i  ? 'selected' : '' }}>1 room</option>
                     @for ($i = 2; $i <= 20; $i++)
                         <option value="{{ $i }}"
-                            {{ old('bedroom', $property?->bedroom) === $i . ' rooms' ? 'selected' : '' }}>
+                            {{ old('bedroom', $property?->bedroom) == $i  ? 'selected' : '' }}>
                             {{ $i }} rooms</option>
                     @endfor
                 </select>
@@ -245,10 +245,10 @@
                     id="">
                     <option value="">not included</option>
                     <option value="1"
-                        {{ old('bathroom', $property?->bathroom) === $i . ' rooms' ? 'selected' : '' }}>1 room</option>
+                        {{ old('bathroom', $property?->bathroom) == $i  ? 'selected' : '' }}>1 room</option>
                     @for ($i = 2; $i <= 20; $i++)
                         <option value="{{ $i }}"
-                            {{ old('bathroom', $property?->bathroom) === $i . ' rooms' ? 'selected' : '' }}>
+                            {{ old('bathroom', $property?->bathroom) == $i  ? 'selected' : '' }}>
                             {{ $i }} rooms</option>
                     @endfor
                 </select>
@@ -459,6 +459,10 @@
             ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
         }
 
+        let old_region = '{{ $property?->region }}';
+
+        let old_township = '{{ $property?->township }}';
+
         fetch(`${config.cUrl}/mm/states`, {
                 headers: {
                     "X-CSCAPI-KEY": config.ckey
@@ -469,12 +473,12 @@
                 
 
                 data.forEach(state => {
-                    region.innerHTML += `<option data-iso2="${state.iso2}" value="${ state.name }"> ${state.name}</option>`
+                    region.innerHTML += `<option  ${ old_region == state.name ? 'selected' : '' } data-iso2="${state.iso2}" value="${ state.name }"> ${state.name}</option>`
 
                 })
             })
 
-        region.addEventListener('change', function(e) {
+        region.addEventListener('click', function(e) {
             e.preventDefault();
             const component =  e.target.options[e.target.selectedIndex];
            
@@ -485,6 +489,11 @@
             detachCity(selectedRegion)
 
         })
+
+
+     
+
+        
 
         function detachCity(region) {
             fetch(`${config.cUrl}/mm/states/${region}/cities`, {
@@ -497,7 +506,7 @@
                     township.innerHTML = ""
 
                     data.forEach(state => {
-                    township.innerHTML += `<option  value="${ state.name }"> ${state.name}</option>`
+                    township.innerHTML += `<option ${old_township == state.name ? 'selected' : ''}  value="${ state.name }"> ${state.name}</option>`
 
                 })
                 })

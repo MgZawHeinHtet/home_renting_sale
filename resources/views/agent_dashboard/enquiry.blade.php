@@ -2,7 +2,7 @@
     <div class="grid grid-cols-3 gap-5">
         @foreach ($enquries as $enqury)
               {{-- enquriy card --}}
-        <div class="border border-yellow-600 p-5 rounded space-y-5 h-[400px] {{ !$enqury->is_read ? 'bg-slate-600 bg-opacity-50':'' }}">
+        <div class="border border-yellow-600 p-5 rounded space-y-5  {{ !$enqury->is_read ? 'bg-slate-600 bg-opacity-50':'' }}">
            
             <div class="h-[50%] overflow-y-scroll  no-scrollbar ">
                 <p class="text-white p-2 bg-slate-600 rounded inline-block"><span>{{ $enqury->name }}</span> |  <span>{{ $enqury->email }}</span></p>

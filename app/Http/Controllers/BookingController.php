@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RentCheckoutRequest;
 use App\Mail\CancelMail;
+use App\Mail\cancelMessageMail;
 use App\Models\booking;
 use App\Models\Notification;
 use App\Models\PropertyRent;
@@ -171,11 +172,9 @@ class BookingController extends Controller
 
         $confirm_bookings = auth()->user()?->bookings?->where('status', 'confirm')->all();
         $first_booking = $confirm_bookings[1] ?? null;
-        $cover_img = $first_booking ? $cover_images[$first_booking->property->region] : '';
 
         return view('booking.booking-list', [
             'confirm_bookings' => $confirm_bookings,
-            'cover_img' => $cover_img,
             'first_booking' => $first_booking,
             'cancel_bookings'=>$cancel_bookings
         ]);
@@ -220,6 +219,15 @@ class BookingController extends Controller
         $booking->status = 'cancel';
 
         $booking->update();
+
+        $cleanData = [];
+
+        $cleanData['email'] = auth()->user()->email;
+        $cleanData['name'] = auth()->user()->name;
+        $cleanData['message'] = $reason;
+
+
+        Mail::to($booking->property->agent->email)->send(new cancelMessageMail($cleanData));
 
         Mail::to($booking->email)->send(new CancelMail($booking));
 

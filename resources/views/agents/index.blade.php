@@ -5,7 +5,7 @@
             <h2 class="sm:text-4xl lg:text-5xl text-white sm:text-center sm:w-auto lg:w-[900px] tracking-wider leading-snug capitalize">Our local experts agency will guide you on  your journey</h2>
 
             <div class="absolute bottom-[-35px]">
-                <form class="sm:w-[400px] lg:w-[900px] py-5 bg-white flex rounded shadow-lg" action="/agents/sale">
+                <form class="sm:w-[400px] lg:w-[900px] py-5 bg-white flex rounded shadow-lg" action="/agents">
                     <button class="px-4"><i class="fa-solid fa-magnifying-glass text-2xl text-home-600"></i></button><input class="flex-grow outline-none placeholder:text-xl text-xl text-slate-500" type="text" placeholder="Company name or Agency name" name="search_input">
                 </form>
             </div>

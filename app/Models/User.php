@@ -127,5 +127,10 @@ class User extends Authenticatable
             });
         } 
     }
+
+    public function ownProperties(){
+        return $this->hasMany(PropertySale::class,'owner_id');
+    }
+    
 }
 

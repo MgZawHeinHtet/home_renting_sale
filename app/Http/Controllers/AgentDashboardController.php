@@ -30,12 +30,14 @@ class AgentDashboardController extends Controller
         for ($i = 0; $i < 7; $i++) {
             $date_arr->push(date('M d', strtotime("-{$i} days")));
 
+            
             $full_date_arrs->push([
                 'year' => date("Y", strtotime("-$i days")),
                 'month' => date("m", strtotime("-$i days")),
                 'day' => date("d", strtotime("-$i days")),
             ]);
         }
+        
 
         foreach ($full_date_arrs->sortBy('day') as $full_date_arr) {
 
@@ -52,6 +54,8 @@ class AgentDashboardController extends Controller
                 ->whereDay('created_at', $full_date_arr['day'])
                 ->sum('transcation_price');
         }
+
+       
 
         return view('agent_dashboard.index',[
             'labels' => $date_arr,

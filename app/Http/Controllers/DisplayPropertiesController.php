@@ -17,7 +17,7 @@ class DisplayPropertiesController extends Controller
        
         if($is_sale){
             $type = 'sale';
-            $properties = PropertySale::with(['agent','salePropertyImage'])->filter($requests)->orderBy('is_featured','desc')->latest()->paginate(9)->withQueryString();
+            $properties = PropertySale::with(['agent','salePropertyImage'])->where('isSold',false)->filter($requests)->orderBy('is_featured','desc')->latest()->paginate(9)->withQueryString();
             
         }else if($is_rent){
             $type = 'rent';

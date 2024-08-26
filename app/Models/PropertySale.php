@@ -67,4 +67,10 @@ class PropertySale extends Model
     public function savedUsers(){
         return $this->belongsToMany(User::class);
     }
+
+    public function transcations(){
+        return $this->hasMany(CashProperty::class,'property_id');
+    }
+
+   
 }

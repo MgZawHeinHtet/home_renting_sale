@@ -14,6 +14,7 @@ use App\Http\Controllers\AgentscheduleController;
 use App\Http\Controllers\AmenitiesAndRuleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\CashPropertyController;
 use App\Http\Controllers\ContactusController;
 use App\Http\Controllers\CreditPackageController;
 use App\Http\Controllers\CreditTranscationController;
@@ -38,6 +39,7 @@ use App\Http\Controllers\ShowPropertyRentController;
 use App\Http\Controllers\ShowPropertySaleController;
 use App\Http\Middleware\AgentMiddleware;
 use App\Http\Middleware\AuthMiddleware;
+use App\Models\CashProperty;
 use App\Models\NewsComment;
 use App\Models\Notification;
 use App\Models\PropertyRent;
@@ -80,6 +82,7 @@ Route::prefix('news')->group(function(){
 
 //property route
 Route::prefix('properties')->group(function(){
+    Route::post('/sale/{property:id}/sendTrancation',[CashPropertyController::class,'send'])->middleware(AuthMiddleware::class);
     Route::get('/sale',[DisplayPropertiesController::class,'index']);
     Route::get('/rent',[DisplayPropertiesController::class, 'index']);
     Route::get('/{property:id}/sale ',[DisplayPropertiesController::class, 'saleShow']);
@@ -113,6 +116,7 @@ Route::middleware(AuthMiddleware::class)->prefix('profile')->group(function(){
     Route::get('/schedules',[ProfilescheduleController::class,'index']);
     Route::post('/schedules/{schedule:id}/cancel',[ProfilescheduleController::class,'cancel']);
     Route::get('/savedProperties',[ProfileController::class,'savedProperties']);
+    Route::get('/possessed',[ProfileController::class,'possessedProperties']);
 });
 
 //login route
@@ -151,9 +155,12 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::post('propertyRents/{property:id}/makeFeatured',[AgentPropertyRentController::class,'makeFeatured']);
 
 
+
     Route::get('post-ad',[AgentDashboardController::class,'post_ad_index']);
     Route::resource('post-ad-sale',AgentPropertySaleController::class);
     Route::resource('show-ad-sale',ShowPropertySaleController::class);
+    Route::get('/sales/{property:id}/checkList',[ShowPropertySaleController::class, 'transcation']);
+
     Route::get('images-upload/{property:id}/sale',[SalePropertyImageController::class,'index']);
     Route::post('images-upload/{property:id}/sale',[SalePropertyImageController::class,'store']);
     Route::delete('images/{image:id}/sale',[SalePropertyImageController::class,'destory']);
@@ -197,6 +204,12 @@ Route::middleware([AuthMiddleware::class,AgentMiddleware::class])->prefix('admin
     Route::get('/transcation/{transcation:id}/check',[CreditTranscationController::class, 'check']);
     Route::post('/transcation/{trancation:id}/correct',[CreditTranscationController::class, 'correct']);
     Route::post('/transcation/{transcation:id}/wrong',[CreditTranscationController::class,'wrong']);
+
+    //agent check transcation
+    Route::get('/transcation/sale/{transcation:id}/check',[CashPropertyController::class, 'check_sale']);
+    Route::post('/transcation/sale/{trancation:id}/correct',[CashPropertyController::class, 'correct']);
+    Route::post('/transcation/sale/{transcation:id}/wrong',[CashPropertyController::class,'wrong']);
+
 
     // booking list 
     Route::get('/booking',[AgentBookingController::class,'index']);
@@ -274,6 +287,4 @@ Route::post("/contact/mail",[ContactusController::class,'send']);
 
 Route::post("/agent/{agent:id}/enquiry",[ContactusController::class,'send_enquiry'])->middleware(AuthMiddleware::class);
 
-Route::get('/test',function(){
-    return view('test');
-});
+Route::get("/about_us",[HomeController::class,'about_us']);

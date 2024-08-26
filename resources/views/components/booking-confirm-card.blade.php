@@ -1,3 +1,4 @@
+
 <div class=" relative rounded-md hover:shadow-lg border-[1px] border-solid flex flex-col  mt-12 before:content-[''] before:block  before:h-12 before:border-slate-200  before:border before:absolute before:top-[-49px] before:left-20 ">
     <div class="flex gap-5 p-5  ">
         <img src="{{ $booking->property->rentPropertyImage[0]?->image ?? null }}"
